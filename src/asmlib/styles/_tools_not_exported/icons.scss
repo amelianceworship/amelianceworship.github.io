@@ -1,0 +1,8 @@
+$iconsSet: icon--pin, icon--not-pin, icon--arrow-left;
+
+@each $icon in $iconsSet {
+	.#{$icon} {
+		$path: "./assets/svg/icons/";
+		@include useSvgIcon($path, $icon);
+	}
+}

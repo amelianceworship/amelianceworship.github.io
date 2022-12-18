@@ -1,0 +1,25 @@
+.header {
+	// background: var(--color--bg-2);
+	.container {
+		padding-top: var(--gap);
+		//  padding-bottom: var(--col-gap);
+	}
+}
+
+.main {
+	display: flex;
+	// background: var(--color--bg-0);
+	.container {
+		flex-direction: column;
+		// padding-top: var(--gap);
+		// padding-bottom: var(--gap);
+	}
+}
+
+.footer {
+	// background: var(--color--bg-1);
+	.container {
+		//  padding-top: var(--gap);
+		padding-bottom: var(--gap);
+	}
+}
