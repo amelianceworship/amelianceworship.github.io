@@ -40,55 +40,7 @@
 			"inner_end": "~~/"
 		}
 	},
-	"files.exclude": {
-		"**/.git": false,
-		"**/.svn": false,
-		"**/.hg": false,
-		"**/CVS": false,
-		"**/.DS_Store": false,
-		"**/Thumbs.db": false,
-		"node_modules": false,
-		".editorconfig": false,
-		".eslintrc.json": false,
-		".gitignore": false,
-		"package.json": false,
-		".vscode": false,
-		"_legacy": false,
-		"build": false,
-		"public": false,
-		"README.md": false,
-		"tsconfig.json": false,
-		"src/react-app-env.d.ts": false,
-		"src/index.tsx": false,
-		"src/index.scss": false,
-		"src/styles": false,
-		"src/asmlib": false
-	},
-	"explorerExclude.backup": {
-		"**/.git": true,
-		"**/.svn": true,
-		"**/.hg": true,
-		"**/CVS": true,
-		"**/.DS_Store": true,
-		"**/Thumbs.db": true,
-		"node_modules": true,
-		".editorconfig": true,
-		".eslintrc.json": true,
-		".gitignore": true,
-		"package.json": true,
-		".vscode": true,
-		"_legacy": true,
-		"build": true,
-		"public": true,
-		"README.md": true,
-		"tsconfig.json": true,
-		"src/react-app-env.d.ts": true,
-		"src/index.tsx": true,
-		"src/index.scss": true,
-		"src/styles": true,
-		"src/asmlib": false
-	},
-	"cSpell.language": "ru,en,lorem"
+	"cSpell.language": "ua,en,lorem"
 
 
 	// "editor.formatOnSave": true,
