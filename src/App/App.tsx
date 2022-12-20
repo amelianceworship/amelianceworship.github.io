@@ -12,17 +12,16 @@ import { Main } from './pages/Main';
 
 export function App() {
 	return (
-		<Routes>
-			<Route path="/" element={<Layout />}>
-				<Route index element={<Main />} />
-				<Route path="about" element={<About />} />
-				<Route path="songslist" element={<SongsList />} />
-				<Route path="chordlist" element={<ChordsList />} />
-				<Route path="login" element={<LogIn />} />
-				<Route path="login" element={<LogIn />} />
-				<Route path="signup" element={<SignUp />} />
-				<Route path="*" element={<NotFound />} />
-			</Route>
-		</Routes>
+			<Routes>
+				<Route path="/v2/" element={<Layout />}>
+					<Route index element={<Main />} />
+					<Route path="about" element={<About />} />
+					<Route path="songslist" element={<SongsList />} />
+					<Route path="chordlist" element={<ChordsList />} />
+					<Route path="login" element={<LogIn />} />
+					<Route path="signup" element={<SignUp />} />
+					<Route path="*" element={<NotFound />} />
+				</Route>
+			</Routes>
 	);
 }
