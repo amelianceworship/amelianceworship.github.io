@@ -40,9 +40,12 @@
 			"inner_end": "~~/"
 		}
 	},
-	"cSpell.language": "ua,en,lorem"
-
-
+	"cSpell.language": "en,uk,en-US",
+	"cSpell.words": [
+		"amelianceworship"
+	],
 	// "editor.formatOnSave": true,
 	// "editor.defaultFormatter": "esbenp.prettier-vscode"
+
+
 }
