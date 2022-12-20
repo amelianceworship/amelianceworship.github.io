@@ -1,4 +1,4 @@
-import { createHTMLElem } from 'asm-ts-scripts/scripts/createHTMLElem';
+import { createHTMLElem } from 'asm-ts-scripts';
 
 export const renderLoader = (parent$: HTMLElement) => {
 	const fragment$: DocumentFragment = new DocumentFragment();

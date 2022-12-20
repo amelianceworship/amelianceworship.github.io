@@ -1,11 +1,11 @@
+import { removeBlackout } from './removeBlackout';
+import { renderBlackout } from './renderBlackout';
 import { renderFullscreenPopup } from './renderFullscreenPopup';
 import { renderLoader } from './renderLoader';
-import { renderBlackout } from './renderBlackout';
-import { removeBlackout } from './removeBlackout';
 
 export default {
-  renderFullscreenPopup,
-  renderLoader,
-  renderBlackout,
-  removeBlackout,
+	renderFullscreenPopup,
+	renderLoader,
+	renderBlackout,
+	removeBlackout,
 };
