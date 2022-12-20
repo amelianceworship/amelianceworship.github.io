@@ -1,0 +1,24 @@
+.radio-buttons {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
+  &__container {
+    height: 16px;
+    display: flex;
+    column-gap: 16px;
+  }
+
+  &__error {
+    min-height: 18px;
+  }
+}
+.radio-button {
+  &__container {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    cursor: pointer;
+  }
+}
