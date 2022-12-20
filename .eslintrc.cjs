@@ -61,11 +61,6 @@ module.exports = {
 		'@typescript-eslint/space-before-blocks': 'warn',
 		'object-curly-spacing': 'off',
 		'@typescript-eslint/object-curly-spacing': ['warn', 'always'],
-		'@typescript-eslint/naming-convention': ['warn',
-			{ selector: 'interface', format: ['PascalCase'], custom: { regex: '^I[A-Z]', match: true } },
-			{ selector: 'enum', format: ['PascalCase'], custom: { regex: '^E[A-Z]', match: true } },
-			{ selector: 'typeLike', format: ['PascalCase'], custom: { regex: '^T[A-Z]', match: true } },
-		],
 
 		'simple-import-sort/imports': [2, {
 			groups: [
@@ -87,5 +82,11 @@ module.exports = {
 				'state',
 			],
 		}],
+
+		"jsx-a11y/label-has-associated-control": [ "error", {
+			"required": {
+			  "some": [ "nesting", "id"  ]
+			}
+		 }],
 	},
 };
