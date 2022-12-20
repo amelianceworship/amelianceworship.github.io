@@ -1,0 +1,26 @@
+.notfound-page {
+   .container {
+      justify-content: center;
+      align-items: center;
+   }
+   .title {
+      display: flex;
+      &__40 {
+         font-size: 88px;
+      }
+      &__4 {
+         font-size: 88px;
+         transform: rotate(180deg) translateY(-50%);
+         animation: char-animation 1s ease-in-out infinite alternate;
+      }
+   }
+}
+
+@keyframes char-animation {
+   0% {
+      transform: rotate(160deg) translateY(-50%);
+   }
+   100% {
+      transform: rotate(200deg) translateY(-50%);
+   }
+}

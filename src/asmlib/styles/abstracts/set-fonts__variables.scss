@@ -1,0 +1,31 @@
+// >----------------------------------------------------------------<
+// >                             IMPORT                             <
+// >----------------------------------------------------------------<
+@use "../globals/" as *;
+
+// >----------------------------------------------------------------<
+// >                           VARIABLES                            <
+// >----------------------------------------------------------------<
+$font-primary__path: $font-path + $fonts-folder__primary;
+$font-secondary__path: $font-path + $fonts-folder__secondary;
+@if $fonts-folder__tertiary != "null" {
+	$font-tertiary__path: $font-path + $fonts-folder__tertiary;
+}
+
+// ^------------------------ fonts variables ------------------------
+
+$font-family__primary: $font-primary__family-name, system-ui, sans-serif, serif;
+$font-family__secondary: $font-secondary__family-name, system-ui, sans-serif, serif;
+@if $font-tertiary__family-name != "null" {
+	$font-family__tertiary: $font-tertiary__family-name, monospace, system-ui, sans-serif, serif;
+}
+
+$font-weight__black: 900;
+$font-weight__extra-bold: 800;
+$font-weight__bold: 700;
+$font-weight__semi-bold: 600;
+$font-weight__medium: 500;
+$font-weight__regular: 400;
+$font-weight__light: 300;
+$font-weight__extra-light: 200;
+$font-weight__thin: 100;

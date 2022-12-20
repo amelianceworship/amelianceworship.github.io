@@ -1,0 +1,26 @@
+@use "../path.scss" as *;
+
+// path to assets
+@function asset($type, $file) {
+	@return url($asset-project-path + "/" + $type + "/" + $file);
+}
+
+// path to images files
+@function image($file) {
+	@return asset("images", $file);
+}
+
+// path to svg files
+@function svg($file) {
+	@return asset("svg", $file);
+}
+
+// // path to svg files
+// @function getSvgIconsPath($path, $file) {
+// 	@return url($path + $file);
+// }
+
+@function calcRem16($size) {
+	$remSize: calc($size / 16px);
+	@return #{$remSize}rem;
+}

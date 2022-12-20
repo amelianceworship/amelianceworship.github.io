@@ -1,0 +1,18 @@
+@use "../mixins.scss" as *;
+
+// @function useSVGIcons($icons...) {
+//    $iconsSet: $icons;
+//    @each $icon in $iconsSet {
+//       .icon {
+//          @include useSvgIcon($icon + ".svg");
+//       }
+//    }
+// }
+
+// $iconsSet: icon-pin;
+
+// @each $icon in $iconsSet {
+//    .#{$icon} {
+//       @include useSvgIcon($icon + ".svg");
+//    }
+// }
