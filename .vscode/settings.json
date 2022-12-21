@@ -47,6 +47,30 @@
 	// "editor.formatOnSave": true,
 	// "editor.defaultFormatter": "esbenp.prettier-vscode"
 	"files.exclude": {
+		"**/.git": false,
+		"**/.svn": false,
+		"**/.hg": false,
+		"**/CVS": false,
+		"**/.DS_Store": false,
+		"**/Thumbs.db": false,
+		"node_modules": false,
+		"_legacy": false,
+		".editorconfig": false,
+		".eslintignore": false,
+		".eslintrc.cjs": false,
+		".gitignore": false,
+		"package.json": false,
+		"tsconfig.json": false,
+		"vite.config.ts": false,
+		"README.md": false,
+		".vscode": false,
+		"public": false,
+		"index.html": false,
+		"vite-env.d.ts": false,
+		"src/vite-env.d.ts": false,
+		".env.local": false
+	},
+	"explorerExclude.backup": {
 		"**/.git": true,
 		"**/.svn": true,
 		"**/.hg": true,
@@ -64,11 +88,10 @@
 		"vite.config.ts": true,
 		"README.md": true,
 		".vscode": true,
-		"public": true,
+		"public": false,
 		"index.html": true,
 		"vite-env.d.ts": true,
 		"src/vite-env.d.ts": true,
 		".env.local": true
 	},
-	"explorerExclude.backup": {},
 }
