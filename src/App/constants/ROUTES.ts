@@ -1,10 +1,10 @@
 export const ROUTES = {
 	main: '/v2/',
-	about: 'about',
-	songslist: 'songslist',
-	chordlist: 'chordlist',
-	login: 'login',
-	signup: 'signup',
-	chat: 'chat',
-	other: '*',
+	about: '/v2/about',
+	songslist: '/v2/songslist',
+	chordlist: '/v2/chordlist',
+	login: '/v2/login',
+	signup: '/v2/signup',
+	chat: '/v2/chat',
+	other: '/v2/*',
 };
