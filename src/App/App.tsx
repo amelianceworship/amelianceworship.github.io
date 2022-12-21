@@ -23,13 +23,13 @@ export function App() {
 	return (
 		<Provider store={store}>
 			<Routes>
-				<Route path={ROUTES.main} element={<Layout />}>
+				<Route path={ROUTES.base} element={<Layout />}>
 					<Route index element={<Main />} />
 					<Route path={ROUTES.about} element={<About />} />
-					<Route path={ROUTES.songslist} element={<SongsList />} />
-					<Route path={ROUTES.chordlist} element={<ChordsList />} />
-					<Route path={ROUTES.login} element={<LogIn />} />
-					<Route path={ROUTES.signup} element={<SignUp />} />
+					<Route path={ROUTES.songsList} element={<SongsList />} />
+					<Route path={ROUTES.chordsList} element={<ChordsList />} />
+					<Route path={ROUTES.logIn} element={<LogIn />} />
+					<Route path={ROUTES.signUp} element={<SignUp />} />
 					<Route path={ROUTES.chat} element={<Chat />} />
 					<Route path={ROUTES.other} element={<NotFound />} />
 				</Route>

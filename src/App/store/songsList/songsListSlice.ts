@@ -5,7 +5,7 @@ import { TABLE_NAMES } from '~app/constants/TABLE_NAMES';
 import { fetchSongsList } from './actions/fetchSongsList';
 
 interface SongsList {
-	[key: string]: string[];
+	[key: string]: [string, string[]][];
 }
 
 interface SongsListSlice {

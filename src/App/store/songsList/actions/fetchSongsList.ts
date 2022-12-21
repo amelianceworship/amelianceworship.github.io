@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { asm } from '~/asm-ts-scripts/combineListToSortedArray';
 import { api } from '~api/index';
 import { TABLE_NAMES } from '~app/constants/TABLE_NAMES';
 import { sheetId } from '~store/base/sheetId';
@@ -26,17 +27,28 @@ export const fetchSongsList = createAsyncThunk(
 				sheetId, pageTitle: TABLE_NAMES.defer,
 			});
 
+			const listOfGeneral = api.google.sheets.convertors
+				.convertDataFromOneColumnSheet(responseGeneral) as string[];
+			const listOfStudy = api.google.sheets.convertors
+				.convertDataFromOneColumnSheet(responseStudy) as string[];
+			const listOfChristmas = api.google.sheets.convertors
+				.convertDataFromOneColumnSheet(responseChristmas) as string[];
+			const listOfEaster = api.google.sheets.convertors
+				.convertDataFromOneColumnSheet(responseEaster) as string[];
+			const listOfDefer = api.google.sheets.convertors
+				.convertDataFromOneColumnSheet(responseDefer) as string[];
+
 			return {
 				[TABLE_NAMES.general]:
-				api.google.sheets.convertors.convertDataFromOneColumnSheet(responseGeneral),
+				asm.combineListToSortedArray(listOfGeneral),
 				[TABLE_NAMES.study]:
-				api.google.sheets.convertors.convertDataFromOneColumnSheet(responseStudy),
+				asm.combineListToSortedArray(listOfStudy),
 				[TABLE_NAMES.christmas]:
-				api.google.sheets.convertors.convertDataFromOneColumnSheet(responseChristmas),
+				asm.combineListToSortedArray(listOfChristmas),
 				[TABLE_NAMES.easter]:
-				api.google.sheets.convertors.convertDataFromOneColumnSheet(responseEaster),
+				asm.combineListToSortedArray(listOfEaster),
 				[TABLE_NAMES.defer]:
-				api.google.sheets.convertors.convertDataFromOneColumnSheet(responseDefer),
+				asm.combineListToSortedArray(listOfDefer),
 			};
 
 		} catch (error) {
