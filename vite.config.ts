@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig({
 	plugins: [react()],
+	// base: "/v2/",
 	resolve: {
 		alias: {
 			'~assets': path.resolve(__dirname, 'src/assets'),
