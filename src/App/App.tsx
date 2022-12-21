@@ -23,8 +23,8 @@ export function App() {
 	return (
 		<Provider store={store}>
 			<Routes>
-				<Route path={ROUTES.main} element={<Layout />}>
-					<Route index element={<Main />} />
+				<Route element={<Layout />}>
+					<Route path={ROUTES.main} index element={<Main />} />
 					<Route path={ROUTES.about} element={<About />} />
 					<Route path={ROUTES.songslist} element={<SongsList />} />
 					<Route path={ROUTES.chordlist} element={<ChordsList />} />

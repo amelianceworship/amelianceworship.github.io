@@ -3,7 +3,7 @@ export function Main() {
 		<main className="main">
 			<section className="container">
 				<h1 className="h1">
-					Hello
+					MAIN
 				</h1>
 			</section>
 		</main>

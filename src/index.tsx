@@ -11,7 +11,7 @@ const root = createRoot(container);
 
 root.render(
 	<StrictMode>
-		<BrowserRouter basename="/v2">
+		<BrowserRouter basename="/v2/">
 			<App />
 		</BrowserRouter>
 	</StrictMode>,
