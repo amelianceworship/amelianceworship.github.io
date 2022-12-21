@@ -1,5 +1,5 @@
 export const ROUTES = {
-	main: '/',
+	main: '',
 	about: 'about',
 	songslist: 'songslist',
 	chordlist: 'chordlist',
