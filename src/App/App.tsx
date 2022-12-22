@@ -11,11 +11,8 @@ import { SignUp } from '~pages/SignUp';
 import { SongsList } from '~pages/SongsList';
 import { store } from '~store/store';
 
-import { ROUTES } from './constants/ROUTES';
 import { Main } from './pages/Main';
 import { initLocalStorage } from './utils/initLocalStorage';
-
-import '~api/google/firebase/firebaseConfig';
 
 export function App() {
 	initLocalStorage();
@@ -23,15 +20,15 @@ export function App() {
 	return (
 		<Provider store={store}>
 			<Routes>
-				<Route path={ROUTES.base} element={<Layout />}>
+				<Route path="/" element={<Layout />}>
 					<Route index element={<Main />} />
-					<Route path={ROUTES.about} element={<About />} />
-					<Route path={ROUTES.songsList} element={<SongsList />} />
-					<Route path={ROUTES.chordsList} element={<ChordsList />} />
-					<Route path={ROUTES.logIn} element={<LogIn />} />
-					<Route path={ROUTES.signUp} element={<SignUp />} />
-					<Route path={ROUTES.chat} element={<Chat />} />
-					<Route path={ROUTES.other} element={<NotFound />} />
+					<Route path="about" element={<About />} />
+					<Route path="chordslist" element={<ChordsList />} />
+					<Route path="login" element={<LogIn />} />
+					<Route path="signup" element={<SignUp />} />
+					<Route path="chat" element={<Chat />} />
+					<Route path="other" element={<NotFound />} />
+					<Route path="songslist" element={<SongsList />} />
 				</Route>
 			</Routes>
 		</Provider>
