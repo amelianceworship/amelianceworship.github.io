@@ -1,7 +1,6 @@
 import { APP_VERSION } from '~app/constants/APP_VERSION';
 
-import { getClientInfo } from './getClientInfo';
-import { ClientInfo } from './getClientInfo/getClientInfo';
+import { ClientInfo, getClientInfo } from './analytics/getClientInfo';
 
 interface LocalStorageData {
 	clientInfo: ClientInfo;
