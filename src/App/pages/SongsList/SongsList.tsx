@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { getClientInfo } from '~app/utils/getClientInfo';
 import { Dropdown } from '~components/inputs/Dropdown';
+import { Loader } from '~components/Loader';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { fetchSongsList } from '~store/songsList/actions/fetchSongsList';
@@ -28,7 +28,7 @@ export function SongsList() {
 	return (
 		<main className="main songs-list-page">
 			<section className="container">
-				{isLoading && <h1 className="h1">loading...</h1>}
+				{isLoading && <Loader />}
 				{songsList[activeTable] && songsList[activeTable].length > 0
 					&& (
 						<Dropdown
@@ -42,7 +42,7 @@ export function SongsList() {
 						<div className="songs-list">
 							{songsList[activeTable].map((songGroup) => (
 								<div className="songs-list__group songs-group" key={songGroup[0]}>
-									<h4 className="h4 songs-group__title">{songGroup[0]}</h4>
+									<h3 className="h3 songs-group__title">{songGroup[0]}</h3>
 									<div className="songs">
 										{songGroup[1].map((songName) => <p className="p1 songs__item" key={songName}>{songName}</p>)}
 									</div>

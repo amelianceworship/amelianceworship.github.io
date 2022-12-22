@@ -1,0 +1,52 @@
+.modal {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.modal__content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	transform: scale(60%);
+	animation-name: hide-modal;
+	animation-duration: 0.3s;
+	animation-fill-mode: forwards;
+}
+
+.show .modal__content {
+	animation-name: show-modal;
+	animation-duration: 0.3s;
+	animation-fill-mode: forwards;
+	transform: scale(100%);
+	position: relative;
+}
+
+@keyframes show-modal {
+	from {
+		opacity: 0;
+		transform: scale(60%);
+	}
+	to {
+		opacity: 100%;
+		transform: scale(100%);
+	}
+}
+
+@keyframes hide-modal {
+	from {
+		opacity: 100%;
+		transform: scale(100%);
+	}
+	to {
+		opacity: 0;
+		transform: scale(60%);
+	}
+}

@@ -1,0 +1,15 @@
+.header {
+	.container {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+	}
+	.navigation {
+		display: flex;
+		gap: calc(var(--gap) / 1.5);
+		background-color: var(--color--bg-0);
+		.active {
+			font-weight: bold;
+		}
+	}
+}

@@ -14,6 +14,7 @@ export interface StsTokenManager {
 }
 
 export interface User {
+	accessToken: string;
 	apiKey: string;
 	appName: string;
 	createdAt: string;
@@ -33,4 +34,18 @@ export interface TokenResponse {
 	kind: string;
 	localId: string;
 	refreshToken: string;
+}
+
+export interface CreateUserResponse {
+	user: User;
+	providerId?: unknown;
+	_tokenResponse: TokenResponse;
+	operationType: string;
+}
+
+export interface SignInResponse {
+	user: User;
+	providerId?: unknown;
+	_tokenResponse: TokenResponse;
+	operationType: string;
 }
