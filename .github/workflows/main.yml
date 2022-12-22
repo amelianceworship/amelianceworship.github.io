@@ -12,6 +12,9 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  
+env:
+  VITE_BESTSHEET_ANALYTICS_SHEET_ID: af06c164-1f18-4241-8e5b-16441bd147db
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
