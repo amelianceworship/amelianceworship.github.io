@@ -6,6 +6,7 @@ import { ErrorResponse } from '~types/api/google/firebase/ErrorResponse';
 
 import { createUser } from './actions/createUser';
 import { signIn } from './actions/signIn';
+import { signInWithGoogle } from './actions/signInWithGoogle';
 
 interface UserState {
 	isLoading: boolean;
@@ -54,10 +55,9 @@ export const userSlice = createSlice({
 					if ((action.payload as ErrorResponse)?.errorMessage) {
 						state.error = (action.payload as ErrorResponse).errorMessage;
 					} else {
-						state.email = (action.payload as CreateUserResponse)?.user.email;
-						state.id = (action.payload as CreateUserResponse)?.user.uid;
-						// eslint-disable-next-line no-underscore-dangle
-						state.token = (action.payload as CreateUserResponse)?._tokenResponse.idToken;
+						state.email = (action.payload as CreateUserResponse).email;
+						state.id = (action.payload as CreateUserResponse).uid;
+						state.token = (action.payload as CreateUserResponse).accessToken;
 					}
 					state.isLoading = false;
 				},
@@ -80,15 +80,39 @@ export const userSlice = createSlice({
 					if ((action.payload as ErrorResponse)?.errorMessage) {
 						state.error = (action.payload as ErrorResponse).errorMessage;
 					} else {
-						state.email = (action.payload as SignInResponse)?.user.email;
-						state.id = (action.payload as SignInResponse)?.user.uid;
-						// eslint-disable-next-line no-underscore-dangle
-						state.token = (action.payload as SignInResponse)?._tokenResponse.idToken;
+						state.email = (action.payload as SignInResponse).email;
+						state.id = (action.payload as SignInResponse).uid;
+						state.token = (action.payload as SignInResponse).accessToken;
 					}
 					state.isLoading = false;
 				},
 			)
 			.addCase(signIn.rejected, (state, action: PayloadAction<unknown>) => {
+				(state.error as unknown) = action.payload;
+				state.isLoading = false;
+			})
+
+			.addCase(signInWithGoogle.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+				state.email = '';
+				state.token = '';
+				state.id = '';
+			})
+			.addCase(
+				signInWithGoogle.fulfilled,
+				(state, action: PayloadAction<SignInResponse | ErrorResponse | unknown>) => {
+					if ((action.payload as ErrorResponse)?.errorMessage) {
+						state.error = (action.payload as ErrorResponse).errorMessage;
+					} else {
+						state.email = (action.payload as SignInResponse).email;
+						state.id = (action.payload as SignInResponse).uid;
+						state.token = (action.payload as SignInResponse).accessToken;
+					}
+					state.isLoading = false;
+				},
+			)
+			.addCase(signInWithGoogle.rejected, (state, action: PayloadAction<unknown>) => {
 				(state.error as unknown) = action.payload;
 				state.isLoading = false;
 			});
