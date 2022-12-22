@@ -2,7 +2,7 @@ import { getBrowser } from './getBrowser';
 import { getIsMobile } from './getIsMobile';
 
 export interface ClientInfo {
-	time: Date;
+	time: string;
 	timezone: number;
 	language: string;
 	languages: string[];
@@ -21,7 +21,7 @@ export interface ClientInfo {
 
 export function getClientInfo(): ClientInfo {
 	return {
-		time: new Date(),
+		time: new Date().toString(),
 		timezone: (new Date()).getTimezoneOffset() / 60,
 		language: window.navigator.language,
 		languages: [...window.navigator.languages],
