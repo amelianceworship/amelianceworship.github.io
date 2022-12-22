@@ -2,18 +2,19 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import asm from 'asm-ts-scripts';
 
+import { Checkbox } from '~components/form/Checkbox';
 import { EmailInput } from '~components/form/EmailInput';
 import { PasswordInput } from '~components/form/PasswordInput';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
-import { signIn } from '~store/user/actions/signIn';
+import { createUser } from '~store/user/actions/createUser';
 
-export interface FormFields {
+interface FormFields {
 	login: string;
 	email: string;
 	password: string;
  }
 
-export function LogIn() {
+export function SignUp() {
 
 	const dispatch = useTypedDispatch();
 
@@ -25,6 +26,7 @@ export function LogIn() {
 	} = useForm<FormFields>({
 		mode: 'onSubmit',
 		defaultValues: {
+			// login: '',
 			email: '',
 			password: '',
 		},
@@ -46,36 +48,31 @@ export function LogIn() {
 	};
 
 	const onSubmit: SubmitHandler<FormFields> = async ({ login, email, password }: FormFields) => {
-		dispatch(signIn({ email, password }));
+		dispatch(createUser({ email, password }));
 		reset();
 	};
 
 	return (
 		<main className="form-page main">
 			<div className="container">
-				<h2 className="h2">Увійти в обліковий запис</h2>
+				<h2 className="h2">Створення облікового запису</h2>
 				<form
 					className="form"
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					{/* <TextInput register={registers.login} errors={errors}>
-						{'Ім\'я*:'}
-					</TextInput> */}
 					<EmailInput register={registers.email} errors={errors}>
 						Адреса електронної пошти*:
 					</EmailInput>
 					<PasswordInput register={registers.password} errors={errors}>
 						Пароль*:
 					</PasswordInput>
+					<Checkbox register={{}} errors={errors} label="I am a good person" />
 					<div className="form__buttons">
-						<button type="button" className="button secondary" onClick={() => reset()}>
-							Увійти за допомогою Google
-						</button>
 						<input
 							className="button"
 							type="submit"
 							disabled={!isDirty || !isValidFixed}
-							value="Увійти"
+							value="Створити"
 						/>
 					</div>
 				</form>
