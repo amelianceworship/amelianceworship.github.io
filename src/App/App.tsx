@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
@@ -10,12 +11,17 @@ import { NotFound } from '~pages/NotFound';
 import { SignUp } from '~pages/SignUp';
 import { SongsList } from '~pages/SongsList';
 import { store } from '~store/store';
+import { sendAnalyticsData } from '~utils/analytics/sendAnalyticsData';
 
 import { Main } from './pages/Main';
 import { initLocalStorage } from './utils/initLocalStorage';
 
 export function App() {
 	initLocalStorage();
+
+	useEffect(() => {
+		sendAnalyticsData();
+	}, []);
 
 	return (
 		<Provider store={store}>
