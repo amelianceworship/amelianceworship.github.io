@@ -88,5 +88,17 @@ module.exports = {
 			  "some": [ "nesting", "id"  ]
 			}
 		 }],
+
+		 "max-len": [
+			"error",
+			{
+			  "code": 100,
+			  "tabWidth": 3,
+			  "ignoreComments": true,
+			  "ignoreUrls": true,
+			  "ignoreStrings": true,
+			  "ignoreTemplateLiterals": true
+			}
+		 ]
 	},
 };
