@@ -22,7 +22,7 @@ export function Header() {
 		navigate('/');
 	};
 
-	if (pathname === '/songslist') return (<header className="header" />);
+	if (pathname === '/songslist' || pathname === '/songslist/') return (<header className="header" />);
 
 	return (
 		<header className="header">
