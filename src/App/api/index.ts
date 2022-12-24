@@ -1,7 +1,7 @@
 import { google } from './google';
-import { sheetbest } from './sheetbest';
+import { ipify } from './ipify';
 
 export const api = {
 	google,
-	sheetbest,
+	ipify,
 };
