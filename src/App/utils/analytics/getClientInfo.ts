@@ -1,7 +1,10 @@
+import { api } from '~api/index';
+
 import { getBrowser } from './getBrowser';
 import { getIsMobile } from './getIsMobile';
 
 export interface ClientInfo {
+	ip: string;
 	time: string;
 	timezone: number;
 	language: string;
@@ -19,8 +22,10 @@ export interface ClientInfo {
 	viewportHeight: number;
 }
 
+const ip = await api.ipify.fetchIP() as string;
 export function getClientInfo(): ClientInfo {
 	return {
+		ip,
 		time: new Date().toString(),
 		timezone: (new Date()).getTimezoneOffset() / 60,
 		language: window.navigator.language,

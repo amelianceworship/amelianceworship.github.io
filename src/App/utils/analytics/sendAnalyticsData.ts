@@ -4,6 +4,7 @@ import { getClientInfo } from './getClientInfo';
 
 export async function sendAnalyticsData() {
 	const {
+		ip,
 		page,
 		time,
 		language,
@@ -16,9 +17,10 @@ export async function sendAnalyticsData() {
 		viewportWidth,
 	} = getClientInfo();
 
-	await api.sheetbest.addOneLineToTheSheet(
-		import.meta.env.VITE_BESTSHEET_ANALYTICS_SHEET_ID,
-		{
+	await api.google.appsscript.doPost({
+		listName: 'songslist',
+		dataParams: {
+			ip: ip.toString(),
 			page,
 			time,
 			language,
@@ -31,5 +33,5 @@ export async function sendAnalyticsData() {
 			viewportHeight,
 			viewportWidth,
 		},
-	);
+	});
 }
