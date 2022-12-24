@@ -20,7 +20,10 @@ export function App() {
 	initLocalStorage();
 
 	useEffect(() => {
-		sendAnalyticsData();
+		const fetchAnalytics = async () => {
+			await sendAnalyticsData();
+		};
+		fetchAnalytics();
 	}, []);
 
 	return (
