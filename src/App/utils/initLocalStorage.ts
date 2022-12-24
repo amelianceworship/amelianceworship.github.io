@@ -3,7 +3,7 @@ import { APP_VERSION } from '~app/constants/APP_VERSION';
 import { ClientInfo, getClientInfo } from './analytics/getClientInfo';
 
 interface LocalStorageData {
-	clientInfo: ClientInfo;
+	clientInfo: Promise<ClientInfo>;
 	appVersion: string;
 	colorTheme: string;
 	isAppUpdated: boolean;
