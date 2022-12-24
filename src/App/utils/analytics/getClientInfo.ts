@@ -22,8 +22,8 @@ export interface ClientInfo {
 	viewportHeight: number;
 }
 
-const ip = await api.ipify.fetchIP() as string;
-export function getClientInfo(): ClientInfo {
+export async function getClientInfo(): Promise<ClientInfo> {
+	const ip = await api.ipify.fetchIP() as string;
 	return {
 		ip,
 		time: new Date().toString(),

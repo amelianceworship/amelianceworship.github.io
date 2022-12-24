@@ -15,7 +15,7 @@ export async function sendAnalyticsData() {
 		screenWidth,
 		viewportHeight,
 		viewportWidth,
-	} = getClientInfo();
+	} = await getClientInfo();
 
 	await api.google.appsscript.doPost({
 		listName: 'songslist',
