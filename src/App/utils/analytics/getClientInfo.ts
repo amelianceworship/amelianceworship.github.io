@@ -23,9 +23,10 @@ export interface ClientInfo {
 }
 
 export async function getClientInfo(): Promise<ClientInfo> {
-	const ip = await api.ipify.fetchIP() as string;
+	const ip = await api.ipify.fetchIP();
+
 	return {
-		ip,
+		ip: ip.toString(),
 		time: new Date().toString(),
 		timezone: (new Date()).getTimezoneOffset() / 60,
 		language: window.navigator.language,

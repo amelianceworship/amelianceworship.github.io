@@ -20,7 +20,7 @@ export async function sendAnalyticsData() {
 	await api.google.appsscript.doPost({
 		listName: 'songslist',
 		dataParams: {
-			ip: ip.toString(),
+			ip,
 			page,
 			time,
 			language,
