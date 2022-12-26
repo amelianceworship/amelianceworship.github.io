@@ -1,1 +1,2 @@
-export const baseURL = `https://script.google.com/macros/s/${import.meta.env.VITE_GOOGLE_APPSSCRIPT_ID_ANALITYCS}/exec`;
+const scriptId = import.meta.env.VITE_GOOGLE_APPSSCRIPT_REST_API;
+export const baseURL = `https://script.google.com/macros/s/${scriptId}/exec`;

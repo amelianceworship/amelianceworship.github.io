@@ -1,4 +1,5 @@
 import { api } from '~api/index';
+import { GOOGLE_SPREADSHEETS_IDS } from '~constants/GOOGLE_SPREADSHEETS_IDS';
 
 import { getClientInfo } from './getClientInfo';
 
@@ -18,7 +19,7 @@ export async function sendAnalyticsData() {
 	} = await getClientInfo();
 
 	await api.google.appsscript.doPost({
-		listName: 'songslist',
+		spreadsheetId: GOOGLE_SPREADSHEETS_IDS.analytics,
 		dataParams: {
 			ip,
 			page,
