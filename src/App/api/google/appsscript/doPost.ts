@@ -4,7 +4,7 @@ interface DoPost {
 	spreadsheetId: string;
 	neededSheet?: string;
 	dataParams: Record<string, unknown>;
-	action?: string;
+	type?: string;
 }
 
 export interface Response {
@@ -22,7 +22,7 @@ export interface Response {
 		spreadsheetId: string;
 		neededSheet?: string;
 		dataParams: Record<string, unknown>;
-		action?: string;
+		type?: string;
 		found?: string[];
 		headings?: string[];
 		missed?: string[];
@@ -32,13 +32,13 @@ export interface Response {
 }
 
 export async function doPost({
-	spreadsheetId, neededSheet, dataParams, action,
+	spreadsheetId, neededSheet, dataParams, type,
 }: DoPost) {
 	const URLParams = new URLSearchParams();
 	if (spreadsheetId) URLParams.append('spreadsheetId', spreadsheetId);
 	if (neededSheet) URLParams.append('neededSheet', neededSheet);
 	if (dataParams) URLParams.append('dataParams', JSON.stringify(dataParams));
-	if (action) URLParams.append('action', action);
+	if (type) URLParams.append('type', type);
 
 	return fetch(`${baseURL}?${URLParams}`, { method: 'POST' })
 		.then((response) => response.text())

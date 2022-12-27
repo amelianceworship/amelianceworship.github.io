@@ -1,7 +1,7 @@
 import { api } from '~api/index';
 
 import { getBrowser } from './getBrowser';
-import { getIsMobile } from './getIsMobile';
+import { getMobile } from './getMobile';
 
 export interface ClientInfo {
 	ip: string;
@@ -9,7 +9,7 @@ export interface ClientInfo {
 	timezone: number;
 	language: string;
 	languages: string[];
-	mobile: boolean;
+	mobile: string | null;
 	page: string;
 	referrer: string;
 	browser: {
@@ -23,15 +23,22 @@ export interface ClientInfo {
 }
 
 export async function getClientInfo(): Promise<ClientInfo> {
-	const ip = await api.ipify.fetchIP();
+	let ip = '';
+	try {
+		const response = await api.ipify.fetchIP();
+		ip = response.toString();
+	} catch (error) {
+		// eslint-disable-next-line no-console
+		console.error('amelianceworship', 'getClientInfo/ip', error);
+	}
 
 	return {
-		ip: ip.toString(),
+		ip,
 		time: new Date().toString(),
 		timezone: (new Date()).getTimezoneOffset() / 60,
 		language: window.navigator.language,
 		languages: [...window.navigator.languages],
-		mobile: getIsMobile(),
+		mobile: getMobile() || '',
 		page: window.location.pathname,
 		referrer: document.referrer,
 		browser: getBrowser(),
