@@ -4,7 +4,7 @@ interface DoGet {
 	spreadsheetId: string;
 	neededSheet?: string;
 	columns?: string[];
-	action?: string;
+	type?: string;
 }
 
 export interface Response {
@@ -21,7 +21,7 @@ export interface Response {
 	info: {
 		spreadsheetId: string;
 		neededSheet?: string;
-		action?: string;
+		type?: string;
 		found?: string[];
 		headings?: string[];
 		missed?: string[];
@@ -32,13 +32,13 @@ export interface Response {
 }
 
 export async function doGet({
-	spreadsheetId, neededSheet, columns, action,
+	spreadsheetId, neededSheet, columns, type,
 }: DoGet) {
 	const URLParams = new URLSearchParams();
 	if (spreadsheetId) URLParams.append('spreadsheetId', spreadsheetId);
 	if (neededSheet) URLParams.append('neededSheet', neededSheet);
 	if (columns) URLParams.append('columns', JSON.stringify(columns));
-	if (action) URLParams.append('action', action);
+	if (type) URLParams.append('type', type);
 
 	return fetch(`${baseURL}?${URLParams}`)
 		.then((response) => response.text())
