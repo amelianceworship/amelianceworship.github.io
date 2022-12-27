@@ -4,6 +4,8 @@ import { GOOGLE_SPREADSHEETS_IDS } from '~constants/GOOGLE_SPREADSHEETS_IDS';
 import { getClientInfo } from './getClientInfo';
 
 export async function sendAnalyticsData() {
+	const response = await getClientInfo();
+
 	const {
 		ip,
 		page,
@@ -16,7 +18,7 @@ export async function sendAnalyticsData() {
 		screenWidth,
 		viewportHeight,
 		viewportWidth,
-	} = await getClientInfo();
+	} = response;
 
 	await api.google.appsscript.doPost({
 		spreadsheetId: GOOGLE_SPREADSHEETS_IDS.analytics,

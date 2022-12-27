@@ -23,7 +23,14 @@ export interface ClientInfo {
 }
 
 export async function getClientInfo(): Promise<ClientInfo> {
-	const ip = await api.ipify.fetchIP();
+	let ip = '';
+	try {
+		ip = await api.ipify.fetchIP();
+	} catch (error) {
+		ip = 'error';
+		// eslint-disable-next-line no-console
+		console.error('getClientInfo/ip', error);
+	}
 
 	return {
 		ip: ip.toString(),
