@@ -23,17 +23,11 @@ export interface ClientInfo {
 }
 
 export async function getClientInfo(): Promise<ClientInfo> {
-	let ip = '';
-	try {
-		const response = await api.ipify.fetchIP();
-		ip = response.toString();
-	} catch (error) {
-		// eslint-disable-next-line no-console
-		console.error('amelianceworship', 'getClientInfo/ip', error);
-	}
+
+	const ip = await api.ipify.fetchIP();
 
 	return {
-		ip,
+		ip: ip || '',
 		time: new Date().toString(),
 		timezone: (new Date()).getTimezoneOffset() / 60,
 		language: window.navigator.language,
