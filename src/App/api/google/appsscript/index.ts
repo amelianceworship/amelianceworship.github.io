@@ -1,7 +1,9 @@
 import { getAllTitledColumnsData } from './get/titled/getAllTitledColumnsData';
+import { getAllTitledColumnsDataSingle } from './get/titled/getAllTitledColumnsDataSingle';
 import { getTitledColumnsDataByIndexes } from './get/titled/getTitledColumnsDataByIndexes';
 import { getTitledColumnsDataByTitles } from './get/titled/getTitledColumnsDataByTitles';
 import { getAllUntitledColumnsData } from './get/untitled/getAllUntitledColumnsData';
+import { getAllUntitledColumnsDataSingle } from './get/untitled/getAllUntitledColumnsDataSingle';
 import { getUntitledColumnsDataByIndexes } from './get/untitled/getUntitledColumnsDataByIndexes';
 import { postSingleTitledColumnsDataByIndexes } from './post/titled/postSingleTitledColumnsDataByIndexes';
 import { postSingleTitledColumnsDataByTitles } from './post/titled/postSingleTitledColumnsDataByTitles';
@@ -30,4 +32,6 @@ export const appsscript = {
 	postUntitledColumnsDataByIndexes,
 	postTitledUpdate,
 	postUntitledUpdate,
+	getAllTitledColumnsDataSingle,
+	getAllUntitledColumnsDataSingle,
 };

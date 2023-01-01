@@ -17,7 +17,9 @@ export type DataTitledResponse = {
 
 export type GetTypes =
 	| 'TITLED'
+	| 'TITLED_SINGLE'
 	| 'UNTITLED'
+	| 'UNTITLED_SINGLE'
 
 export interface DoGet {
 	spreadsheetId: string;
