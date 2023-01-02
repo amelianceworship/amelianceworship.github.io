@@ -44,7 +44,7 @@ export function SongsList() {
 								<div className="songs-list__group songs-group" key={songGroup[0]}>
 									<h3 className="h3 songs-group__title">{songGroup[0]}</h3>
 									<div className="songs">
-										{songGroup[1].map((songName) => <p className="p1 songs__item" key={songName}>{songName}</p>)}
+										{songGroup[1].map((songName) => <p className="p1 songs__item" id={`song_${songName.position}`} key={songName.position}>{songName.value}</p>)}
 									</div>
 								</div>
 							))}
