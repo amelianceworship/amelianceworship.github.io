@@ -5,7 +5,7 @@ import { TABLE_NAMES } from '~app/constants/TABLE_NAMES';
 import { fetchSongsList } from './actions/fetchSongsList';
 
 interface SongsList {
-	[key: string]: [string, string[]][];
+	[key: string]: [string, { position: string; value: string }[]][];
 }
 
 interface SongsListSlice {
@@ -44,6 +44,8 @@ export const songsListSlice = createSlice({
 				fetchSongsList.fulfilled,
 				(state, action: PayloadAction<SongsList | unknown>) => {
 					if (action.payload && typeof action.payload === 'object') {
+						console.log(action.payload);
+
 						state.songsList = action?.payload as SongsList;
 					}
 					state.isLoading = false;

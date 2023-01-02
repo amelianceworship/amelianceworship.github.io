@@ -6,63 +6,32 @@ import { TABLE_NAMES } from '~app/constants/TABLE_NAMES';
 import { GOOGLE_SPREADSHEETS_IDS } from '~constants/GOOGLE_SPREADSHEETS_IDS';
 import { rejectErrorMessage } from '~store/helpers/rejectErrorMessage';
 
+function prepareData(data: { position: string; value: string }[] | null) {
+	let combinedListOfData;
+	if (data) {
+		const listOfDataSorted = asm.sortArrayLocalCompare(data, 'value');
+		const listOfDataCleaned = asm.removeEmptyValues(listOfDataSorted, 'value');
+		combinedListOfData = asm.groupBy(listOfDataCleaned, 'value');
+	}
+	return combinedListOfData;
+}
+
 export const fetchSongsList = createAsyncThunk(
 	'songsList/fetchSongsList',
 	async (_, thunkAPI) => {
-		try {
-			const responseGeneral = await api.google.sheets.getSheetData({
-				sheetId: GOOGLE_SPREADSHEETS_IDS.songslist,
-				pageTitle: TABLE_NAMES.general,
-			});
-			const responseStudy = await api.google.sheets.getSheetData({
-				sheetId: GOOGLE_SPREADSHEETS_IDS.songslist,
-				pageTitle: TABLE_NAMES.study,
-			});
-			const responseChristmas = await api.google.sheets.getSheetData({
-				sheetId: GOOGLE_SPREADSHEETS_IDS.songslist,
-				pageTitle: TABLE_NAMES.christmas,
-			});
-			const responseEaster = await api.google.sheets.getSheetData({
-				sheetId: GOOGLE_SPREADSHEETS_IDS.songslist,
-				pageTitle: TABLE_NAMES.easter,
-			});
-			const responseDefer = await api.google.sheets.getSheetData({
-				sheetId: GOOGLE_SPREADSHEETS_IDS.songslist,
-				pageTitle: TABLE_NAMES.defer,
-			});
 
-			const listOfGeneral = asm.sortStringArrayLocalCompare(
-				api.google.sheets.convertors
-					.convertDataFromOneColumnSheet(responseGeneral) as string[],
-			);
-			const listOfStudy = asm.sortStringArrayLocalCompare(
-				api.google.sheets.convertors
-					.convertDataFromOneColumnSheet(responseStudy) as string[],
-			);
-			const listOfChristmas = asm.sortStringArrayLocalCompare(
-				api.google.sheets.convertors
-					.convertDataFromOneColumnSheet(responseChristmas) as string[],
-			);
-			const listOfEaster = asm.sortStringArrayLocalCompare(
-				api.google.sheets.convertors
-					.convertDataFromOneColumnSheet(responseEaster) as string[],
-			);
-			const listOfDefer = asm.sortStringArrayLocalCompare(
-				api.google.sheets.convertors
-					.convertDataFromOneColumnSheet(responseDefer) as string[],
-			);
+		try {
+			const response = await api.google.appsscript.getAllTitledColumnsDataSingle({
+				spreadsheetId: GOOGLE_SPREADSHEETS_IDS.songslist,
+				sheetName: 'common',
+			});
 
 			return {
-				[TABLE_NAMES.general]:
-				asm.combineListToSortedArray(listOfGeneral),
-				[TABLE_NAMES.study]:
-				asm.combineListToSortedArray(listOfStudy),
-				[TABLE_NAMES.christmas]:
-				asm.combineListToSortedArray(listOfChristmas),
-				[TABLE_NAMES.easter]:
-				asm.combineListToSortedArray(listOfEaster),
-				[TABLE_NAMES.defer]:
-				asm.combineListToSortedArray(listOfDefer),
+				[TABLE_NAMES.general]: prepareData(response.data.general.values),
+				[TABLE_NAMES.study]: prepareData(response.data.study.values),
+				[TABLE_NAMES.christmas]: prepareData(response.data.christmas.values),
+				[TABLE_NAMES.easter]: prepareData(response.data.easter.values),
+				[TABLE_NAMES.defer]: prepareData(response.data.defer.values),
 			};
 		} catch (error) {
 			return thunkAPI.rejectWithValue(rejectErrorMessage);
