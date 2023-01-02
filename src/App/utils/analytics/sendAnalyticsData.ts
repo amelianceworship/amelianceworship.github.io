@@ -20,9 +20,9 @@ export async function sendAnalyticsData() {
 		viewportWidth,
 	} = response;
 
-	await api.google.appsscript.doPost({
+	await api.google.appsscript.postTitledColumnsDataByTitles({
 		spreadsheetId: GOOGLE_SPREADSHEETS_IDS.analytics,
-		dataParams: {
+		titlesParams: {
 			ip,
 			page,
 			time,
