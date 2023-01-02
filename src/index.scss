@@ -1,6 +1,5 @@
 @use "./asmlib/styles/globals/" as *;
 @use "./asmlib/styles/" as *;
-@use "./snow" as *;
 // @use "./styles/" as *;
 
 // add icons class with styles to project
@@ -19,5 +18,4 @@ html {
 #root {
 	gap: var(--gap);
 	background: var(--color--bg-0);
-	contain: paint;
 }
