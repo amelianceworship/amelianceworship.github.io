@@ -44,8 +44,6 @@ export const songsListSlice = createSlice({
 				fetchSongsList.fulfilled,
 				(state, action: PayloadAction<SongsList | unknown>) => {
 					if (action.payload && typeof action.payload === 'object') {
-						console.log(action.payload);
-
 						state.songsList = action?.payload as SongsList;
 					}
 					state.isLoading = false;
