@@ -15,9 +15,9 @@ export function Snow() {
 		>
 			<Snowfall
 				color="white"
-				snowflakeCount={500}
+				snowflakeCount={200}
 				wind={[0, 0]}
-				speed={[2, 4]}
+				speed={[0.023, 0.025]}
 			/>
 		</div>
 	);
