@@ -8,6 +8,7 @@
 		"deploy": "gh-pages -d dist",
 		"clear-modules:all": "rm -rf node_modules package-lock.json",
 		"dev": "vite",
+		"host": "vite --host",
 		"start": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview"
@@ -20,7 +21,8 @@
 		"react-dom": "^18.2.0",
 		"react-hook-form": "^7.41.0",
 		"react-redux": "^8.0.5",
-		"react-router-dom": "^6.5.0"
+		"react-router-dom": "^6.5.0",
+		"react-snowfall": "^1.2.1"
 	},
 	"devDependencies": {
 		"@types/react": "^18.0.26",

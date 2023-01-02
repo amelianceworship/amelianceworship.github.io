@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
 import { Layout } from '~components/Layout';
+import { Snow } from '~components/Snow';
 import { About } from '~pages/About';
 import { Chat } from '~pages/Chat';
 import { ChordsList } from '~pages/ChordsList';
@@ -40,6 +41,7 @@ export function App() {
 					<Route path="songslist" element={<SongsList />} />
 				</Route>
 			</Routes>
+			<Snow />
 		</Provider>
 	);
 }
