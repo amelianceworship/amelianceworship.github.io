@@ -40,6 +40,7 @@ export function App() {
 					<Route path="songslist" element={<SongsList />} />
 				</Route>
 			</Routes>
+			<div className="snow" />
 		</Provider>
 	);
 }
