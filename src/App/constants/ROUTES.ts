@@ -1,10 +1,13 @@
 export const ROUTES = {
-	main: '/',
+	home: '/',
 	about: '/about',
 	songsList: '/songslist',
 	chordsList: '/chordslist',
 	logIn: '/login',
 	signUp: '/signup',
-	chat: '/chat',
 	other: '/*',
+};
+
+export const PRIVATE_ROUTES = {
+	chat: '/chat',
 };

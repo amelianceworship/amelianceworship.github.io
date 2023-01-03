@@ -61,7 +61,7 @@ export function LogIn() {
 	};
 
 	const handlerModal = () => {
-		console.log('navigate(ROUTES.main)');
+		console.log('navigate(ROUTES.home)');
 		setIsShowModal(false);
 	};
 

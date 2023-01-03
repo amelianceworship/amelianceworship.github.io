@@ -19,7 +19,7 @@ export function Header() {
 
 	const handleLogOut = () => {
 		dispatch(removeUser());
-		navigate('/');
+		navigate(ROUTES.home);
 	};
 
 	if (pathname === '/songslist' || pathname === '/songslist/') return (<header className="header" />);

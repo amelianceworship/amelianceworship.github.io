@@ -14,7 +14,7 @@ import { SongsList } from '~pages/SongsList';
 import { store } from '~store/store';
 import { sendAnalyticsData } from '~utils/analytics/sendAnalyticsData';
 
-import { Main } from './pages/Main';
+import { Home } from './pages/Home';
 import { initLocalStorage } from './utils/initLocalStorage';
 
 export function App() {
@@ -31,7 +31,7 @@ export function App() {
 		<Provider store={store}>
 			<Routes>
 				<Route path="/" element={<Layout />}>
-					<Route index element={<Main />} />
+					<Route index element={<Home />} />
 					<Route path="about" element={<About />} />
 					<Route path="chordslist" element={<ChordsList />} />
 					<Route path="login" element={<LogIn />} />
