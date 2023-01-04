@@ -13,6 +13,18 @@
 		"build": "tsc && vite build",
 		"preview": "vite preview"
 	},
+	"browserslist": {
+		"production": [
+		  ">0.2%",
+		  "not dead",
+		  "not op_mini all"
+		],
+		"development": [
+		  "last 1 chrome version",
+		  "last 1 firefox version",
+		  "last 1 safari version"
+		]
+	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.1",
 		"asm-ts-scripts": "^0.1.101",
@@ -30,6 +42,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.46.1",
 		"@typescript-eslint/parser": "^5.46.1",
 		"@vitejs/plugin-react-swc": "^3.0.0",
+		"autoprefixer": "^10.4.13",
 		"eslint": "^8.30.0",
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-airbnb-typescript": "^17.0.0",
