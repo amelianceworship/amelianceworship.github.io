@@ -1,7 +1,7 @@
 import './Backdrop.scss';
 
 interface IBackdropProps {
-  onClick?: () => void;
+	onClick?: () => void;
 }
 
 export function Backdrop({ onClick }: IBackdropProps) {

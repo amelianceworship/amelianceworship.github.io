@@ -8,9 +8,9 @@ import { Portal } from './Portal';
 import './Modal.scss';
 
 interface IModalProps {
-  children: React.ReactElement;
-  className?: string;
-  onClose: () => void;
+	children: React.ReactElement;
+	className?: string;
+	onClose: () => void;
 }
 
 export function Modal({ children, className, onClose }: IModalProps) {

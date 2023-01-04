@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import './Dropdown.scss';
 
 interface IProps {
-  options: string[];
-  selected?: string;
-  children?: React.ReactNode;
-  testId?: string;
-  disabled?: boolean;
-  onChange?: (key: string) => void;
+	options: string[];
+	selected?: string;
+	children?: React.ReactNode;
+	testId?: string;
+	disabled?: boolean;
+	onChange?: (key: string) => void;
 }
 
 export function Dropdown({

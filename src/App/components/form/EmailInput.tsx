@@ -4,11 +4,11 @@ import { FieldError, FieldValues } from 'react-hook-form';
 import './EmailInput.scss';
 
 interface IProps {
-  register: FieldValues;
-  errors: Record<string, FieldError> | undefined;
-  placeholder?: string;
-  children?: React.ReactNode;
-  testId?: string;
+	register: FieldValues;
+	errors: Record<string, FieldError> | undefined;
+	placeholder?: string;
+	children?: React.ReactNode;
+	testId?: string;
 }
 
 export function EmailInput({
