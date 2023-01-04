@@ -6,7 +6,7 @@
 		width: 10px;
 		height: 10px;
 		background-color: var(--scroll-color--track);
-		@media (max-width: $screen-md) {
+		@include screen-md {
 			& {
 				width: 6px;
 				height: 6px;
@@ -28,7 +28,7 @@
 		width: 8px;
 		height: 8px;
 		background-color: none;
-		@media (max-width: $screen-md) {
+		@include screen-md {
 			& {
 				width: 6px;
 				height: 6px;

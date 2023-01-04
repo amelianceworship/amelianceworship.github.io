@@ -1,3 +1,4 @@
+@use "../globals/" as *;
 @use "button__variables" as *;
 
 .button-icon,
@@ -26,22 +27,18 @@
 		background-color: var(--color__button);
 	}
 
-	@media (hover: hover) {
-		&:hover {
-			color: var(--color__button_hover);
-			background: var(--background__button_hover);
-			transition: color var(--time-1) var(--transition-type-2);
-		}
+	@include hover {
+		color: var(--color__button_hover);
+		background: var(--background__button_hover);
+		transition: color var(--time-1) var(--transition-type-2);
 	}
-	&:active {
+	@include active {
 		color: var(--color__button_active);
 		background: var(--background__button_active);
 		transition: 0s;
 	}
 
-	&:disabled,
-	&.disabled,
-	&[data-is-disabled="true"] {
+	@include disabled {
 		color: var(--color__button_disabled);
 		background: var(--background__button_disabled);
 		opacity: 40%;
@@ -61,18 +58,16 @@
 		background-color: var(--color__button-secondary);
 	}
 
-	@media (hover: hover) {
-		&:hover {
-			color: var(--color__button-secondary_hover);
-			border: 2px solid var(--border__button-secondary_hover);
+	@include hover {
+		color: var(--color__button-secondary_hover);
+		border: 2px solid var(--border__button-secondary_hover);
 
-			& .icon.center,
-			& .icon-sm.center {
-				background-color: var(--border__button-secondary_hover);
-			}
+		& .icon.center,
+		& .icon-sm.center {
+			background-color: var(--border__button-secondary_hover);
 		}
 	}
-	&:active {
+	@include active {
 		color: var(--color__button-secondary_active);
 		border: 2px solid var(--border__button-secondary_active);
 

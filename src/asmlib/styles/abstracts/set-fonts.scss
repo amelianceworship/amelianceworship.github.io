@@ -17,9 +17,9 @@
 // OR
 //
 
-@font-face {
-	@include initFont($font-primary__family-name, $font-primary__path, "Montserrat-Bold.ttf", 700);
-}
+// @font-face {
+// 	@include initFont($font-primary__family-name, $font-primary__path, "Montserrat-Bold.ttf", 700);
+// }
 
 // @font-face {
 // 	@include initFont($font-secondary__family-name, $font-secondary__path, "Montserrat-Black.ttf", 900)
@@ -57,13 +57,13 @@
 	// ^------------------------ typography elements ------------------------
 
 	// font-family, font-size, font-weight, line-height, letter-spacing
-	@include setTypoElem(h1, $font-family__primary, 42px, $font-weight__black, 120%, 0);
+	@include setTypoElem(h1, $font-family__secondary, 64px, $font-weight__bold, 120%, 0);
 
-	@include setTypoElem(h2, $font-family__primary, 24px, $font-weight__black, 120%, 0);
+	@include setTypoElem(h2, $font-family__secondary, 48px, $font-weight__bold, 120%, 0);
 
-	@include setTypoElem(h3, $font-family__secondary, 18px, $font-weight__bold, 120%, 0);
+	@include setTypoElem(h3, $font-family__secondary, 36px, $font-weight__bold, 120%, 0);
 
-	@include setTypoElem(h4, $font-family__secondary, 14px, $font-weight__bold, 120%, 0);
+	@include setTypoElem(h4, $font-family__secondary, 24px, $font-weight__bold, 140%, 0);
 
 	// @include setTypoElem(h5, $font-family__secondary, 12px, $font-weight__bold, 140%, 0);
 
@@ -73,28 +73,41 @@
 
 	// @include setTypoElem(s2, $font-family__secondary, px, $font-weight__bold, 100%, 0);
 
-	@include setTypoElem(p1, $font-family__secondary, 16px, $font-weight__medium, 150%, 0);
+	@include setTypoElem(p1, $font-family__secondary, 18px, $font-weight__medium, 140%, 0);
 
-	@include setTypoElem(p2, $font-family__secondary, 12px, $font-weight__medium, 150%, 0);
+	@include setTypoElem(p2, $font-family__secondary, 14px, $font-weight__medium, 140%, 0);
 
 	// @include setTypoElem(p3, $font-family__secondary, 10px, $font-weight__regular, 140%, 0);
 
 	// @include setTypoElem(ct, $font-family__secondary, px, $font-weight__bold, 100%, 0);
 
-	@include setTypoElem(button, $font-family__secondary, 16px, $font-weight__bold, 150%, 0);
-	@include setTypoElem(button-sm, $font-family__secondary, 12px, $font-weight__bold, 120%, 0);
-	@include setTypoElem(button-icon, $font-family__secondary, 16px, $font-weight__bold, 150%, 0);
-	@include setTypoElem(button-icon-sm, $font-family__secondary, 12px, $font-weight__bold, 120%, 0);
+	@include setTypoElem(button, $font-family__secondary, 18px, $font-weight__bold, 135%, 0);
+	@include setTypoElem(button-sm, $font-family__secondary, 14px, $font-weight__bold, 130%, 0);
+	@include setTypoElem(button-icon, $font-family__secondary, 18px, $font-weight__bold, 135%, 0);
+	@include setTypoElem(button-icon-sm, $font-family__secondary, 14px, $font-weight__bold, 130%, 0);
 	// @include setTypoElem(button-lg, $font-family__secondary, 16px, $font-weight__bold, 100%, 0);
 
 	// @include setTypoElem(ov, $font-family__secondary, px, $font-weight__bold, 100%, 0);
 
-	@include setTypoElem(link, $font-family__secondary, 12px, $font-weight__medium, 150%, 0);
+	@include setTypoElem(link, $font-family__secondary, 18px, $font-weight__medium, 140%, 0);
+	@include setTypoElem(link-sm, $font-family__secondary, 14px, $font-weight__medium, 140%, 0);
 
-	@include setTypoElem(input, $font-family__secondary, 16px, $font-weight__medium, 120%, 0);
+	@include setTypoElem(input, $font-family__secondary, 18px, $font-weight__medium, 140%, 0);
 
-	@media (max-width: $screen-sm) {
-		@include setTypoElem(h1, $font-family__primary, 38px, $font-weight__black, 120%, 0);
+	@include screen-md {
+		@include setTypoElem(h1, $font-family__secondary, 48px, $font-weight__bold, 120%, 0);
+		@include setTypoElem(h2, $font-family__secondary, 36px, $font-weight__bold, 120%, 0);
+		@include setTypoElem(h3, $font-family__secondary, 24px, $font-weight__bold, 120%, 0);
+		@include setTypoElem(h4, $font-family__secondary, 18px, $font-weight__bold, 140%, 0);
+		@include setTypoElem(p1, $font-family__secondary, 16px, $font-weight__medium, 140%, 0);
+		@include setTypoElem(p2, $font-family__secondary, 12px, $font-weight__medium, 140%, 0);
+		@include setTypoElem(button, $font-family__secondary, 16px, $font-weight__bold, 135%, 0);
+		@include setTypoElem(button-sm, $font-family__secondary, 12px, $font-weight__bold, 130%, 0);
+		@include setTypoElem(button-icon, $font-family__secondary, 16px, $font-weight__bold, 135%, 0);
+		@include setTypoElem(button-icon-sm, $font-family__secondary, 12px, $font-weight__bold, 130%, 0);
+		@include setTypoElem(link, $font-family__secondary, 16px, $font-weight__medium, 140%, 0);
+		@include setTypoElem(link-sm, $font-family__secondary, 12px, $font-weight__medium, 140%, 0);
+		@include setTypoElem(input, $font-family__secondary, 16px, $font-weight__medium, 140%, 0);
 	}
 }
 
@@ -122,6 +135,7 @@ $setTypo-elements: (
 	// button-lg,
 	// ov,
 	link,
+	link-sm,
 	input
 );
 

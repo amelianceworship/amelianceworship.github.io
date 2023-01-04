@@ -1,0 +1,7 @@
+@mixin disabled {
+	&:disabled,
+	&.disabled,
+	&[data-is-disabled="true"] {
+		@content;
+	}
+}

@@ -7,32 +7,32 @@
 
 	--container-width: calc(var(--screen--container__width) + (var(--col-outer) * 2));
 
-	@media (max-width: $screen-xx) {
+	@include screen-xx {
 		--gap: var(--screen--gap__xx);
 		--col-gap: var(--screen--col-gap__xx);
 		--col-outer: var(--screen--col-outer__xx);
 	}
-	@media (max-width: $screen-xl) {
+	@include screen-xl {
 		--gap: var(--screen--gap__xl);
 		--col-gap: var(--screen--col-gap__xl);
 		--col-outer: var(--screen--col-outer__xl);
 	}
-	@media (max-width: $screen-lg) {
+	@include screen-lg {
 		--gap: var(--screen--gap__lg);
 		--col-gap: var(--screen--col-gap__lg);
 		--col-outer: var(--screen--col-outer__lg);
 	}
-	@media (max-width: $screen-md) {
+	@include screen-md {
 		--gap: var(--screen--gap__md);
 		--col-gap: var(--screen--col-gap__md);
 		--col-outer: var(--screen--col-outer__md);
 	}
-	@media (max-width: $screen-sm) {
+	@include screen-sm {
 		--gap: var(--screen--gap__sm);
 		--col-gap: var(--screen--col-gap__sm);
 		--col-outer: var(--screen--col-outer__sm);
 	}
-	@media (max-width: $screen-xs) {
+	@include screen-xs {
 		--gap: var(--screen--gap__xs);
 		--col-gap: var(--screen--col-gap__xs);
 		--col-outer: var(--screen--col-outer__xs);

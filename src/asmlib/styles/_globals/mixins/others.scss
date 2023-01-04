@@ -4,11 +4,6 @@
 // >                             MIXINS                             <
 // >----------------------------------------------------------------<
 
-@mixin useSvgIcon($path, $img) {
-	mask-image: url($path + $img + ".svg");
-	-webkit-mask-image: url($path + $img + ".svg");
-}
-
 // !------------------------ TEST↓↓↓↓↓↓ ------------------------
 
 @mixin bgImgSVG($img, $w: auto, $h: auto) {
