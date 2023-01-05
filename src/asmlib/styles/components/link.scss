@@ -14,8 +14,8 @@
 		color: var(--color__link-inverted);
 	}
 	// text-decoration: none;
+	@include animation-hover;
 	@include hover {
-		transition: color var(--time-1) var(--transition-type-2);
 		color: var(--color__link_hover);
 		&.inverted {
 			color: var(--color__link-inverted_hover);

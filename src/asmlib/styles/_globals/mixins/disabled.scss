@@ -3,5 +3,7 @@
 	&.disabled,
 	&[data-is-disabled="true"] {
 		@content;
+		cursor: not-allowed;
+		pointer-events: none;
 	}
 }

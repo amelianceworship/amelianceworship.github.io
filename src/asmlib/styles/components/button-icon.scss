@@ -27,10 +27,10 @@
 		background-color: var(--color__button);
 	}
 
+	@include animation-hover;
 	@include hover {
 		color: var(--color__button_hover);
 		background: var(--background__button_hover);
-		transition: color var(--time-1) var(--transition-type-2);
 	}
 	@include active {
 		color: var(--color__button_active);

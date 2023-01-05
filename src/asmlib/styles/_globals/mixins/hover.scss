@@ -2,6 +2,7 @@
 	@media (hover: hover) {
 		&:hover {
 			@content;
+			cursor: pointer;
 		}
 	}
 }

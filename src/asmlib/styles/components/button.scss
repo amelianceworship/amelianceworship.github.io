@@ -46,8 +46,8 @@
 	@include hover {
 		color: var(--color__button_hover);
 		background-color: var(--background__button_hover);
-		transition: color var(--time-1) var(--transition-type-2);
 	}
+	@include animation-hover;
 	@include active {
 		color: var(--color__button_active);
 		background-color: var(--background__button_active);
