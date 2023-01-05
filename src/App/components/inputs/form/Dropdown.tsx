@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldError, FieldValues } from 'react-hook-form';
 
-import './Dropdown.scss';
+import '../Dropdown.scss';
 
 interface IProps {
 	options: string[];

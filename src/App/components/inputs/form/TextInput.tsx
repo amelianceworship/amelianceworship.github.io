@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldError, FieldValues } from 'react-hook-form';
 
-import './TextInput.scss';
+import '../TextInput.scss';
 
 interface IProps {
 	register: FieldValues;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldError, FieldValues } from 'react-hook-form';
 
-import './EmailInput.scss';
+import '../TextInput.scss';
 
 interface IProps {
 	register: FieldValues;
@@ -11,7 +11,7 @@ interface IProps {
 	testId?: string;
 }
 
-export function EmailInput({
+export function PasswordInput({
 	register, errors, children, placeholder, testId,
 }: IProps) {
 	return (
@@ -19,7 +19,7 @@ export function EmailInput({
 			<span className="h3 text-input__label">{children}</span>
 			<label className="text-input__container">
 				<input
-					type="email"
+					type="password"
 					className="text-input__input input text"
 					{...register}
 					placeholder={placeholder}
