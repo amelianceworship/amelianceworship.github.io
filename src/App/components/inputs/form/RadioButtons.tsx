@@ -1,7 +1,9 @@
 import React from 'react';
 import { FieldError, FieldValues } from 'react-hook-form';
 
-import './RadioButtons.scss';
+import asm from 'asm-ts-scripts';
+
+import s from './RadioButtons.module.scss';
 
 interface IProps {
 	register: FieldValues;
@@ -16,25 +18,25 @@ export function RadioButtons({
 	register, errors, labels, children, testId,
 }: IProps) {
 	return (
-		<div className="radio-buttons">
-			<span className="h3 radio-buttons__title">{children}</span>
-			<div className="radio-buttons__container">
+		<div className={s.RadioButtons}>
+			<span className="h3">{children}</span>
+			<div className={s.radioButtonContainer}>
 				{labels.map((value) => (
 					<div key={`${value}`} className="radio-button">
-						<label className="radio-button__container">
+						<label className={s.container}>
 							<input
 								type="radio"
-								className="radio-button__input"
+								// className="radio-button__input" // TODO: check is need
 								{...register}
 								value={value.toString()}
 								data-testid={testId}
 							/>
-							<span className="p1 radio-button__label">{value}</span>
+							<span className="p1">{value}</span>
 						</label>
 					</div>
 				))}
 			</div>
-			<p className="p2 radio-buttons__error input-error">
+			<p className={asm.joinClasses(s.error, 'p2 input-error')}>
 				{(errors && errors[register.name] && errors[register.name].message) || ''}
 			</p>
 		</div>

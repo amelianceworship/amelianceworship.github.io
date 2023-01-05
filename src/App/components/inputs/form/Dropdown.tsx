@@ -1,7 +1,9 @@
 import React from 'react';
 import { FieldError, FieldValues } from 'react-hook-form';
 
-import '../Dropdown.scss';
+import asm from 'asm-ts-scripts';
+
+import s from '../Dropdown.module.scss';
 
 interface IProps {
 	options: string[];
@@ -16,10 +18,14 @@ export function Dropdown({
 	options, register, errors, children, testId,
 }: IProps) {
 	return (
-		<div className="dropdown">
-			<span className="h3 dropdown__label">{children}</span>
-			<label className="dropdown__container">
-				<select className="dropdown__input input dropdown" {...register} data-testid={testId}>
+		<div className={s.Dropdown}>
+			<span className="h3">{children}</span>
+			<label>
+				<select
+					className={asm.joinClasses(s.input, 'input input dropdown')}
+					{...register}
+					data-testid={testId}
+				>
 					<option className="dropdown__option"> </option>
 					{options.map((optionValue) => (
 						<option className="dropdown__option" key={optionValue} value={optionValue}>
@@ -28,7 +34,7 @@ export function Dropdown({
 					))}
 				</select>
 			</label>
-			<p className="p2 dropdown__error input-error">
+			<p className={asm.joinClasses(s.input, 'p2 input-error')}>
 				{(errors && errors[register.name] && errors[register.name].message) || ''}
 			</p>
 		</div>

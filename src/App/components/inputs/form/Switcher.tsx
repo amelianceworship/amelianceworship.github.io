@@ -1,7 +1,9 @@
 import React from 'react';
 import { FieldError, FieldValues } from 'react-hook-form';
 
-import './Switcher.scss';
+import asm from 'asm-ts-scripts';
+
+import s from './Switcher.module.scss';
 
 interface IProps {
 	register: FieldValues;
@@ -16,14 +18,14 @@ export function Switcher({
 	register, errors, label, children, testId,
 }: IProps) {
 	return (
-		<div className="switcher">
-			<span className="h3 switcher__label">{children}</span>
-			<label className="switcher__container">
-				<input type="checkbox" className="switcher__checkbox" {...register} data-testid={testId} />
-				<div className="switcher__element" />
-				<span className="p1 switcher__label">{label}</span>
+		<div className={s.Switcher}>
+			<span className="h3">{children}</span>
+			<label className={s.container}>
+				<input type="checkbox" className={s.switcherCheckbox} {...register} data-testid={testId} />
+				<div className={s.element} />
+				<span className="p1">{label}</span>
 			</label>
-			<p className="p2 switcher__error input-error">
+			<p className={asm.joinClasses(s.error, 'p2 input-error')}>
 				{(errors && errors[register.name] && errors[register.name].message) || ''}
 			</p>
 		</div>

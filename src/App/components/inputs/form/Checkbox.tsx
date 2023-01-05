@@ -1,7 +1,9 @@
 import React from 'react';
 import { FieldError, FieldValues } from 'react-hook-form';
 
-import './Checkbox.scss';
+import asm from 'asm-ts-scripts';
+
+import s from './Checkbox.module.scss';
 
 interface IProps {
 	register: FieldValues;
@@ -16,9 +18,9 @@ export function Checkbox({
 	register, errors, label, children, testId,
 }: IProps) {
 	return (
-		<div className="checkbox">
-			<span className="h3 checkbox__title">{children}</span>
-			<label className="checkbox__container">
+		<div className={s.Checkbox}>
+			<span className="h3">{children}</span>
+			<label className={s.container}>
 				<input
 					type="checkbox"
 					className="checkbox__input"
@@ -27,7 +29,7 @@ export function Checkbox({
 				/>
 				<span className="p1 checkbox__label">{label}</span>
 			</label>
-			<p className="p2 checkbox__error input-error">
+			<p className={asm.joinClasses(s.error, 'p2 input-error')}>
 				{(errors && errors[register.name] && errors[register.name].message) || ''}
 			</p>
 		</div>

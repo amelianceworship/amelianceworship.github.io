@@ -1,7 +1,9 @@
 import React from 'react';
 import { FieldError, FieldValues } from 'react-hook-form';
 
-import './DateInput.scss';
+import asm from 'asm-ts-scripts';
+
+import s from './DateInput.module.scss';
 
 interface IProps {
 	register: FieldValues;
@@ -14,17 +16,17 @@ export function DateInput({
 	register, errors, children, testId,
 }: IProps) {
 	return (
-		<div className="date-input">
-			<span className="h3 date-input__label">{children}</span>
-			<label className="date-input__container">
+		<div className={s.DateInput}>
+			<span className="h3">{children}</span>
+			<label>
 				<input
 					type="date"
-					className="date-input__input input date"
+					className={asm.joinClasses(s.input, 'input date')}
 					{...register}
 					data-testid={testId}
 				/>
 			</label>
-			<p className="p2 date-input__error input-error">
+			<p className={asm.joinClasses(s.error, 'p2 input-error')}>
 				{(errors && errors[register.name] && errors[register.name].message) || ''}
 			</p>
 		</div>

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { FieldError, FieldValues } from 'react-hook-form';
 
-import './FileImgUpload.scss';
+import asm from 'asm-ts-scripts';
+
+import s from './FileImgUpload.module.scss';
 
 interface IProps {
 	register: FieldValues;
@@ -33,20 +35,20 @@ export function FileImgUpload({
 	}, [files]);
 
 	return (
-		<div className="file-img-upload">
-			<span className="h3 file-img-upload__title">{children}</span>
-			<label className="p1 file-img-upload__container">
+		<div className={s.FileImgUpload}>
+			<span className="h3">{children}</span>
+			<label className={asm.joinClasses(s.container, 'p1')}>
 				<input
 					type="file"
-					className="file-img-upload__input"
+					// className="file-img-upload__input" // TODO: check is need
 					{...register}
 					placeholder={placeholder}
 					accept={accept || ''}
 					data-testid={testId}
 				/>
-				{image && <img className="file-img-upload__img-preview" src={image} alt={image} />}
+				{image && <img className={s.imgPreview} src={image} alt={image} />}
 			</label>
-			<p className="p2 file-img-upload__error input-error">
+			<p className={asm.joinClasses(s.error, 'p2 input-error')}>
 				{(errors && errors[register.name] && errors[register.name].message) || ''}
 			</p>
 		</div>
