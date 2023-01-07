@@ -1,12 +1,12 @@
-@use "./asmlib/styles/globals/" as *;
-@use "./asmlib/styles/" as *;
+@use "~/asmlib/styles/globals/" as *;
+@use "~/asmlib/styles/" as *;
 // @use "./styles/" as *;
 
 // add icons class with styles to project
 $iconsSet: icon--pin, icon--not-pin, icon--arrow-left;
 @each $icon in $iconsSet {
 	.#{$icon} {
-		$path: "./assets/svg/icons/";
+		$path: "~/assets/svg/icons/";
 		@include useSvgIcon($path, $icon);
 	}
 }
@@ -17,5 +17,6 @@ html {
 
 #root {
 	gap: var(--gap);
-	background: var(--color--bg-0);
+	background: var(--color--b1-0);
+	background-attachment: fixed;
 }
