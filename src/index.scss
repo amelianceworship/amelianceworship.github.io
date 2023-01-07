@@ -3,10 +3,10 @@
 // @use "./styles/" as *;
 
 // add icons class with styles to project
-$iconsSet: icon--pin, icon--not-pin, icon--arrow-left;
+$iconsSet: icon--moon, icon--sun, icon--image, icon--paperclip, icon--more-vertical;
 @each $icon in $iconsSet {
 	.#{$icon} {
-		$path: "~/assets/svg/icons/";
+		$path: "./assets/svg/";
 		@include useSvgIcon($path, $icon);
 	}
 }
