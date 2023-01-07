@@ -37,7 +37,7 @@ export function Header() {
 			<section className={asm.joinClasses(s.container, 'container')}>
 				<Link className={asm.joinClasses(s.logo, 'h4')} to="/">
 					AW
-					<span className="h5">orship</span>
+					{isAuth && <span className="h5">orship</span>}
 				</Link>
 				{(isAuth || !(pathname === '/songslist' || pathname === '/songslist/'))
 					? (
