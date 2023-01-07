@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 
+import asm from 'asm-ts-scripts';
+
 import { Dropdown } from '~components/inputs/Dropdown';
 import { Loader } from '~components/Loader';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { fetchSongsList } from '~store/songsList/actions/fetchSongsList';
 
-import './SongsList.scss';
+import s from './SongsList.module.scss';
 
 export function SongsList() {
 	const {
@@ -26,8 +28,8 @@ export function SongsList() {
 	};
 
 	return (
-		<main className="main songs-list-page">
-			<section className="container">
+		<main className={asm.joinClasses(s.SongsList, 'main')}>
+			<section className={asm.joinClasses(s.container, 'container')}>
 				{isLoading && <Loader />}
 				{songsList[activeTable] && songsList[activeTable].length > 0
 					&& (
@@ -39,11 +41,11 @@ export function SongsList() {
 					)}
 				{ songsList[activeTable] && songsList[activeTable].length > 0
 					&& (
-						<div className="songs-list">
+						<div className={s.songsList}>
 							{songsList[activeTable].map((songGroup) => (
-								<div className="songs-list__group songs-group" key={songGroup[0]}>
-									<h3 className="h3 songs-group__title">{songGroup[0]}</h3>
-									<div className="songs">
+								<div className={s.songsGroup} key={songGroup[0]}>
+									<h3 className={asm.joinClasses(s.songsGroupSymbol, 'h3')}>{songGroup[0]}</h3>
+									<div className={s.songs}>
 										{songGroup[1].map((songName) => <p className="p1 songs__item" id={`song_${songName.position}`} key={songName.position}>{songName.value}</p>)}
 									</div>
 								</div>

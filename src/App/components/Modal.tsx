@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import asm from 'asm-ts-scripts';
 
 import { Backdrop } from './Backdrop';
+import s from './Modal.module.scss';
 import { Portal } from './Portal';
-
-import './Modal.scss';
 
 interface IModalProps {
 	children: React.ReactElement;
@@ -31,13 +30,14 @@ export function Modal({ children, className, onClose }: IModalProps) {
 		document.body.style.overflow = 'hidden';
 	}, []);
 
-	const modalClass = asm.joinClasses('modal', className, show);
-
 	return (
 		<Portal>
-			<div className={modalClass} onAnimationEnd={handleAnimationend}>
+			<div
+				className={asm.joinClasses(s.Modal, className, show)}
+				onAnimationEnd={handleAnimationend}
+			>
 				<Backdrop onClick={backdropClickHandler} />
-				<div className="modal__content">{children}</div>
+				<div className={s.content}>{children}</div>
 			</div>
 		</Portal>
 	);

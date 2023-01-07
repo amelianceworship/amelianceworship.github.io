@@ -1,18 +1,22 @@
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import {
+	Link, NavLink, useLocation, useNavigate,
+} from 'react-router-dom';
 
-import { ROUTES } from '~app/constants/ROUTES';
+import asm from 'asm-ts-scripts';
+
+import { PRIVATE_ROUTES, ROUTES } from '~app/constants/ROUTES';
 import { useAuth } from '~hooks/useAuth';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { userSlice } from '~store/user/userSlice';
 
-import './Header.scss';
+import s from './Header.module.scss';
 
 export function Header() {
 
 	const { pathname } = useLocation();
+	const navigate = useNavigate();
 
 	const { isAuth } = useAuth();
-	const navigate = useNavigate();
 
 	const dispatch = useTypedDispatch();
 	const { removeUser } = userSlice.actions;
@@ -22,48 +26,45 @@ export function Header() {
 		navigate(ROUTES.home);
 	};
 
-	if (pathname === '/songslist' || pathname === '/songslist/') return (<header className="header" />);
+	const handleLogIn = () => {
+		navigate(ROUTES.logIn);
+	};
+
+	const linkClass = ({ isActive }: Record<string, boolean>) => (isActive ? asm.joinClasses(s.active, 'link') : 'link');
 
 	return (
 		<header className="header">
-			<section className="container">
-				<h3 className="h3">
+			<section className={asm.joinClasses(s.container, 'container')}>
+				<Link className={asm.joinClasses(s.logo, 'h4')} to="/">
 					AW
-				</h3>
-				<nav className="navigation">
-					<NavLink className="p1" end to={ROUTES.main}>
-						Головна
-					</NavLink>
-					<NavLink className="p1" to={ROUTES.songsList}>
-						Список пісень
-					</NavLink>
-					{isAuth
-						? (
-							<button type="button" className="p1" onClick={handleLogOut}>
-								Вийти
-							</button>
-						)
-						: (
-							<NavLink className="p1" to={ROUTES.logIn}>
-								Увійти
+					<span className="h5">orship</span>
+				</Link>
+				{(isAuth || !(pathname === '/songslist' || pathname === '/songslist/'))
+					? (
+						<nav className={asm.joinClasses(s.navigation)}>
+							<NavLink className={linkClass} end to={PRIVATE_ROUTES.chat}>
+								Чат
 							</NavLink>
-						)}
-
-				</nav>
+							<NavLink className={linkClass} end to={ROUTES.home}>
+								Головна
+							</NavLink>
+							<NavLink className={linkClass} to={ROUTES.songsList}>
+								Список пісень
+							</NavLink>
+							{isAuth
+								? (
+									<button type="button" className="button secondary" onClick={handleLogOut}>
+										Вийти
+									</button>
+								)
+								: (
+									<button type="button" className="button primary" onClick={handleLogIn}>
+										Увійти
+									</button>
+								)}
+						</nav>
+					) : null}
 			</section>
 		</header>
 	);
 }
-
-// {isAuth
-// 	? (
-// 		<>
-// 			<button type="button" className="p1" onClick={handleLogOut}>
-// 				Вийти
-// 			</button>
-// 			<NavLink className="p1" to={`/${ROUTES.logIn}`}>
-// 				Вхід
-// 			</NavLink>
-// 		</>
-// 	)
-// 	: null}

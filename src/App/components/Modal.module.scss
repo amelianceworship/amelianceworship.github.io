@@ -10,7 +10,7 @@
 	align-items: center;
 }
 
-.modal__content {
+.content {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -21,7 +21,7 @@
 	animation-fill-mode: forwards;
 }
 
-.show .modal__content {
+:global(.show) .content {
 	animation-name: show-modal;
 	animation-duration: 0.3s;
 	animation-fill-mode: forwards;

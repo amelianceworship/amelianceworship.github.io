@@ -1,4 +1,4 @@
-import './Backdrop.scss';
+import s from './Backdrop.module.scss';
 
 interface IBackdropProps {
 	onClick?: () => void;
@@ -6,5 +6,5 @@ interface IBackdropProps {
 
 export function Backdrop({ onClick }: IBackdropProps) {
 	// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-	return <div className="backdrop" onClick={onClick} />;
+	return <div className={s.backdrop} onClick={onClick} />;
 }

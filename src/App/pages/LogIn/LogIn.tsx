@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { EmailInput } from '~components/form/EmailInput';
-import { PasswordInput } from '~components/form/PasswordInput';
+import asm from 'asm-ts-scripts';
+
+import { EmailInput } from '~components/inputs/form/EmailInput';
+import { PasswordInput } from '~components/inputs/form/PasswordInput';
 import { Modal } from '~components/Modal';
 import { ROUTES } from '~constants/ROUTES';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
@@ -11,6 +13,7 @@ import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { signIn } from '~store/user/actions/signIn';
 import { signInWithGoogle } from '~store/user/actions/signInWithGoogle';
 
+import s from './LogIn.module.scss';
 import { LogInModal } from './LogInModal';
 
 interface FormFields {
@@ -52,7 +55,7 @@ export function LogIn() {
 	};
 
 	const onSubmit: SubmitHandler<FormFields> = async ({ email, password }: FormFields) => {
-		// dispatch(signIn({ email, password }));
+		dispatch(signIn({ email, password }));
 		// reset();
 	};
 
@@ -66,9 +69,9 @@ export function LogIn() {
 	};
 
 	return (
-		<main className="form-page main">
-			<div className="container">
-				<h2 className="h2">Увійти в обліковий запис</h2>
+		<main className="login-page main">
+			<div className={asm.joinClasses(s.container, 'container col-8')}>
+				<h3 className="h3">Увійти в обліковий запис</h3>
 				<form
 					className="form"
 					onSubmit={handleSubmit(onSubmit)}

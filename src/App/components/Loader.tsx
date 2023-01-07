@@ -1,14 +1,15 @@
-import { Backdrop } from './Backdrop';
-import { Portal } from './Portal';
+import asm from 'asm-ts-scripts';
 
-import './Loader.scss';
+import { Backdrop } from './Backdrop';
+import s from './Loader.module.scss';
+import { Portal } from './Portal';
 
 export function Loader() {
 	return (
 		<Portal>
-			<div className="loader-container show">
+			<div className={asm.joinClasses(s.Loader, 'show')}>
 				<Backdrop />
-				<div className="loader">
+				<div className={s.loaderElements}>
 					<div />
 					<div />
 					<div />
