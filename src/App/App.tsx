@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Layout } from '~components/Layout';
 import { Snow } from '~components/Snow';
 import { About } from '~pages/About';
-import { Chat } from '~pages/Chat';
+import { ChatPage } from '~pages/ChatPage';
 import { ChordsList } from '~pages/ChordsList';
 import { LogIn } from '~pages/LogIn';
 import { NotFound } from '~pages/NotFound';
@@ -32,13 +32,13 @@ export function App() {
 			<Routes>
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Home />} />
-					<Route path="about" element={<About />} />
-					<Route path="chordslist" element={<ChordsList />} />
 					<Route path="login" element={<LogIn />} />
 					<Route path="signup" element={<SignUp />} />
-					<Route path="chat" element={<Chat />} />
-					<Route path="other" element={<NotFound />} />
 					<Route path="songslist" element={<SongsList />} />
+					<Route path="chat" element={<ChatPage />} />
+					<Route path="about" element={<About />} />
+					<Route path="chordslist" element={<ChordsList />} />
+					<Route path="*" element={<NotFound />} />
 				</Route>
 			</Routes>
 			<Snow />

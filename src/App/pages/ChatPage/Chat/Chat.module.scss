@@ -1,0 +1,8 @@
+.Chat {
+	display: flex;
+	flex-direction: column;
+	width: 75%;
+	background-color: var(--color--b1-2);
+	border-radius: 0 16px 16px 0;
+	contain: paint;
+}
