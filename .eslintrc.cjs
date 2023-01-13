@@ -48,7 +48,6 @@ module.exports = {
 			},
 		],
 		'react/require-default-props': ['off'],
-		'padded-blocks': ['off'],
 
 		// typescript rules
 		'@typescript-eslint/member-delimiter-style': 2,
