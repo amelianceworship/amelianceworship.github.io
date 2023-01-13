@@ -1,14 +1,15 @@
-import React from 'react';
+import asm from 'asm-ts-scripts';
 
-interface IButton {
-  children: string;
-  callback: () => void;
-  buttonClass?: 'button' | 'button-sm' | 'button-icon' | 'button-icon-sm';
-  iconPosition?: 'left' | 'right';
-  icon?: string | undefined;
-  disabled?: boolean;
-  type?: 'primary' | 'secondary';
-  id?: string;
+interface Button {
+	children: string;
+	callback: () => void;
+	isButtonIcon?: boolean;
+	size?: 'normal' | 'small';
+	iconPosition?: 'left' | 'right';
+	icon?: string | undefined;
+	disabled?: boolean;
+	type?: 'primary' | 'secondary';
+	id?: string;
 }
 
 export function Button({
@@ -17,14 +18,24 @@ export function Button({
 	iconPosition,
 	icon,
 	id,
-	buttonClass = 'button',
+	isButtonIcon,
+	size,
 	type = 'primary',
 	disabled = false,
-}: IButton) {
-	let iconClassName = '';
-	if (buttonClass === 'button-icon' || buttonClass === 'button-icon-sm') {
-		iconClassName = `icon center ${icon}`;
+}: Button) {
+	let buttonClass;
+	if (size === 'small') {
+		if (isButtonIcon && icon) {
+			buttonClass = 'button-icon-sm';
+		} else {
+			buttonClass = 'button-sm';
+		}
+	} else if (isButtonIcon && icon) {
+		buttonClass = 'button-icon';
+	} else {
+		buttonClass = 'button';
 	}
+
 	const buttonClassAndType = `${buttonClass} ${type}`;
 
 	return (
@@ -35,11 +46,11 @@ export function Button({
 			onClick={callback}
 			disabled={disabled}
 		>
-			{iconClassName.length === 0 && icon && iconPosition === 'left' && (
+			{!isButtonIcon && icon && iconPosition === 'left' && (
 				<span className={`icon left ${icon}`} />
 			)}
-			{icon ? <span className={iconClassName} /> : <span className="label">{children}</span>}
-			{iconClassName.length === 0 && icon && iconPosition === 'right' && (
+			{isButtonIcon ? <span className={`icon center ${icon}`} /> : <span className="label">{children}</span>}
+			{!isButtonIcon && icon && iconPosition === 'right' && (
 				<span className={`icon right ${icon}`} />
 			)}
 		</button>

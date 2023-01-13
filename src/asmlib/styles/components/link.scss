@@ -3,11 +3,11 @@
 
 .link {
 	color: var(--color__link);
-	text-decoration: none;
+	text-decoration: underline;
+	text-underline-offset: 2px;
 
-	&.underlined {
-		text-decoration: underline;
-		text-underline-offset: 2px;
+	&.no-underline {
+		text-decoration: none;
 	}
 
 	&.inverted {
