@@ -23,7 +23,6 @@ export interface ClientInfo {
 }
 
 export async function getClientInfo(): Promise<ClientInfo> {
-
 	const ip = await api.ipify.fetchIP();
 
 	return {
