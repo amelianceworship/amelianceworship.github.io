@@ -1,3 +1,6 @@
+import { appError } from '~helpers/appError';
+import { appLog } from '~helpers/appLog';
+
 import { DoGet, Response } from '../types/types';
 import { baseURL } from './baseURL';
 
@@ -18,14 +21,14 @@ export async function doGet({
 		.then((data: Response) => {
 			if (data.status !== 'success') {
 				// eslint-disable-next-line no-console
-				console.log('status:', data.status);
+				appLog('doGet', 'status:', data.status);
 				// eslint-disable-next-line no-console
-				console.log('info:', data.info);
+				appLog('doGet', 'info:', data.info);
 				// eslint-disable-next-line no-console
-				console.log('error:', data.error);
+				appLog('doGet', 'error:', data.error);
 			}
 			return data;
 		})
 		// eslint-disable-next-line no-console
-		.catch((error) => console.log('setData', error));
+		.catch((error) => appError('doGet', error));
 }

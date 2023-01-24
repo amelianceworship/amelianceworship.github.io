@@ -1,5 +1,5 @@
 import { doPost } from '../../base/doPost';
-import { DataTitledResponse } from '../../types/types';
+import type { DataTitledResponse } from '../../types/types';
 
 export interface PostSingleTitledColumnsDataByTitles {
 	spreadsheetId: string;
