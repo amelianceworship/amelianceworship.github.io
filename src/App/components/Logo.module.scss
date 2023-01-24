@@ -1,0 +1,11 @@
+.Logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--color--f1-1);
+	width: 108px;
+	height: 28px;
+	&.short {
+		width: 45px;
+	}
+}
