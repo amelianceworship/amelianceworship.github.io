@@ -1,14 +1,18 @@
 .FileImgUpload {
-	width: 300px;
-	display: flex;
+	display: inline-flex;
 	flex-direction: column;
 	row-gap: 8px;
 }
 
 .container {
-	height: 24px;
 	display: flex;
 	align-items: center;
+	cursor: pointer;
+	gap: 8px;
+}
+
+.input {
+	display: none;
 }
 
 .error {
