@@ -1,3 +1,5 @@
+import { appError } from '~helpers/appError';
+
 import { BASE_GOOGLE_SHEET_URL } from './consts';
 
 interface IGetSheetData {
@@ -26,8 +28,7 @@ export async function getSheetData({
 
 		return data;
 	} catch (error) {
-		// eslint-disable-next-line no-console
-		console.log(error);
+		appError('getSheetData', error);
 	}
 	return null;
 }
