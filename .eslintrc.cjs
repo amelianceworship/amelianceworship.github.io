@@ -88,7 +88,5 @@ module.exports = {
 			  "ignoreTemplateLiterals": true,
 			}
 		],
-
-		"no-restricted-imports": ["error",{ "patterns": ["../"] }],
 	},
 };
