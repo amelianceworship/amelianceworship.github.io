@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldError, FieldValues } from 'react-hook-form';
+import type { FieldError, FieldValues } from 'react-hook-form';
 
 import asm from 'asm-ts-scripts';
 

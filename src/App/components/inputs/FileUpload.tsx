@@ -1,8 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { FieldError, FieldValues } from 'react-hook-form';
-
-import asm from 'asm-ts-scripts';
-
 import { Icon } from '~components/Icon';
 
 import s from './FileUpload.module.scss';

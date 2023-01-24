@@ -16,7 +16,6 @@ interface IProps {
 export function TextInput({
 	value, children, placeholder, testId, onChange, onKeyDown,
 }: IProps) {
-
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (onChange) onChange(event);
 	};

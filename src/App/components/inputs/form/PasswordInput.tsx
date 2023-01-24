@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldError, FieldValues } from 'react-hook-form';
+import type { FieldError, FieldValues } from 'react-hook-form';
 
 import asm from 'asm-ts-scripts';
 
@@ -18,7 +18,7 @@ export function PasswordInput({
 }: IProps) {
 	return (
 		<div className={s.PasswordInput}>
-			<span className="h3">{children}</span>
+			<span className="h5">{children}</span>
 			<label>
 				<input
 					type="password"
