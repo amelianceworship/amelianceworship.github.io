@@ -1,4 +1,4 @@
-import { User } from './commonAuth';
+import type { User } from './commonAuth';
 
 export interface SignInWithGoogle {
 	email: string;
