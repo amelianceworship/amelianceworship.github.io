@@ -19,6 +19,7 @@
 	column-gap: 16px;
 	flex-wrap: wrap;
 	justify-content: center;
+	user-select: none;
 }
 
 .songsGroup {
@@ -31,6 +32,7 @@
 		background-color: var(--color--b1-0);
 		padding: calc(var(--gap) / 2) 0;
 		z-index: 1;
+		user-select: none;
 	}
 }
 
