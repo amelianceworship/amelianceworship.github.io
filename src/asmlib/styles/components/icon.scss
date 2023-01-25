@@ -24,7 +24,7 @@
 		background-color: var(--icon-inverted__color);
 	}
 
-	&.click {
+	&.clickable {
 		cursor: pointer;
 		&:disabled,
 		&.disabled,
