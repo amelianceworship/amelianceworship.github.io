@@ -1,9 +1,11 @@
 @use "~/asmlib/styles/globals/" as *;
 @use "~/asmlib/styles/" as *;
-// @use "./styles/" as *;
 
 // add icons class with styles to project
-$iconsSet: icon--moon, icon--sun, icon--image, icon--paperclip, icon--more-vertical;
+$iconsSet: aw-logo-short, aw-logo, icon--moon, icon--sun, icon--image, icon--paperclip, icon--more-vertical, icon--plus,
+	icon--camera, icon--menu, icon--list, icon--check-square, icon--chevron-up, icon--copy, icon--check,
+	icon--check-circle, icon--x, icon--x-circle, icon--info, icon--alert-triangle, icon--alert-circle;
+
 @each $icon in $iconsSet {
 	.#{$icon} {
 		$path: "./assets/svg/";
@@ -12,11 +14,35 @@ $iconsSet: icon--moon, icon--sun, icon--image, icon--paperclip, icon--more-verti
 }
 
 html {
-	scroll-padding-top: 32px;
+	scroll-padding-top: 0px;
+}
+
+body {
+	background: var(--color--b1-gradient-0);
+	background-attachment: fixed;
+	// background-color: red;
+	position: relative;
+	&:has(.songsList) {
+		background: var(--color--b1-0);
+	}
 }
 
 #root {
 	gap: var(--gap);
-	background: var(--color--b1-0);
-	background-attachment: fixed;
 }
+
+// body {
+// 	background: linear-gradient(to right, #a1b7ff 0%, #9ff1ff 50%, #a1b7ff 100%);
+// 	background-size: 10000px 100%;
+// 	animation: background 15s linear infinite;
+// }
+
+// @keyframes background {
+// 	0% {
+// 		background-position-x: 0;
+// 	}
+
+// 	100% {
+// 		background-position-x: 10000px;
+// 	}
+// }
