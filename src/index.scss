@@ -20,7 +20,6 @@ html {
 body {
 	background: var(--color--b1-gradient-0);
 	background-attachment: fixed;
-	// background-color: red;
 	position: relative;
 	&:has(.songsList) {
 		background: var(--color--b1-0);
@@ -30,19 +29,3 @@ body {
 #root {
 	gap: var(--gap);
 }
-
-// body {
-// 	background: linear-gradient(to right, #a1b7ff 0%, #9ff1ff 50%, #a1b7ff 100%);
-// 	background-size: 10000px 100%;
-// 	animation: background 15s linear infinite;
-// }
-
-// @keyframes background {
-// 	0% {
-// 		background-position-x: 0;
-// 	}
-
-// 	100% {
-// 		background-position-x: 10000px;
-// 	}
-// }
