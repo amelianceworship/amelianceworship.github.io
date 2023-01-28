@@ -14,8 +14,8 @@ interface Button {
 	onClick?: () => void;
 	icon?: string;
 	iconPosition?: 'left' | 'right';
-	isDisabled?: boolean;
-	isButtonIcon?: boolean;
+	disabled?: boolean;
+	buttonIcon?: boolean;
 	size?: 'normal' | 'small';
 	isSubmit?: boolean;
 	type?: 'primary' | 'secondary';
@@ -31,7 +31,7 @@ interface ModalProps {
 	secondButton?: Button;
 	backdrop?: {
 		onClick?: { (): void } | null;
-		isDisabled?: boolean;
+		disabled?: boolean;
 	};
 	onClose?: () => void;
 	isButtons?: boolean;
@@ -85,7 +85,8 @@ export function Modal({
 		document.body.style.overflow = 'hidden';
 	}, []);
 
-	const sizeClass = (size === 'medium' && s.medium) || (size === 'large' && s.large);
+	const sizeClass =	(size === 'medium' && s.medium)
+	|| (size === 'large' && s.large);
 
 	return (
 		<Portal>
@@ -93,7 +94,7 @@ export function Modal({
 				className={asm.joinClasses(s.Modal, className, show)}
 				onAnimationEnd={handleAnimationend}
 			>
-				<Backdrop onClick={backdropClickHandler} disabled={backdrop?.isDisabled} />
+				<Backdrop onClick={backdropClickHandler} disabled={backdrop?.disabled} />
 				<div className={asm.joinClasses(sizeClass, s.content)}>
 					{(heading || type) && (
 						// <div className={type && asm.joinClasses(s.heading, type)}>
@@ -119,10 +120,10 @@ export function Modal({
 									iconPosition={secondButton?.iconPosition}
 									type={secondButton?.type || 'secondary'}
 									onClick={() => secondButtonHandler()}
-									isButtonIcon={secondButton?.isButtonIcon}
+									buttonIcon={secondButton?.buttonIcon}
 									form={secondButton?.form}
 									isSubmit={secondButton?.isSubmit}
-									disabled={secondButton?.isDisabled}
+									disabled={secondButton?.disabled}
 								>
 									{secondButton?.text || 'Відміна'}
 								</Button>
@@ -133,10 +134,10 @@ export function Modal({
 								icon={mainButton?.icon}
 								iconPosition={mainButton?.iconPosition}
 								onClick={() => mainButtonHandler()}
-								isButtonIcon={mainButton?.isButtonIcon}
+								buttonIcon={mainButton?.buttonIcon}
 								form={mainButton?.form}
 								isSubmit={mainButton?.isSubmit}
-								disabled={mainButton?.isDisabled}
+								disabled={mainButton?.disabled}
 							>
 								{mainButton?.text || 'Ок'}
 							</Button>

@@ -27,7 +27,7 @@
 	gap: 24px;
 	max-width: 90vw;
 	max-height: 90vh;
-	box-shadow: 0 8px var(--gap) rgba(0, 0, 0, 0.1);
+	@extend %box-shadow--default;
 
 	.heading {
 		display: flex;

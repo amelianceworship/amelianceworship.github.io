@@ -8,19 +8,18 @@ interface Props {
 	char?: string;
 	color?: string;
 	size?: 'normal' | 'small';
-	isClickable?: boolean;
 	onClick?: () => void;
 	icon?: string;
 }
 
 export function Avatar({
-	src, alt, char, color, size = 'normal', isClickable = false, onClick, icon,
+	src, alt, char, color, size = 'normal', onClick, icon,
 }: Props) {
 	const smallClass = size === 'small' && s.small;
 
 	return (
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-		<div className={isClickable ? 'click' : ''} onClick={onClick}>
+		<div className={onClick ? 'clickable' : ''} onClick={onClick}>
 			{(!src && icon) && (
 				<div
 					className={asm.joinClasses(s.charContainer, smallClass)}

@@ -21,7 +21,7 @@
 	background-color: var(--color--b1-2);
 	padding: 16px 0;
 	border-radius: 16px;
-	box-shadow: 0 16px var(--gap) rgba(0, 0, 0, 0.1);
+	@extend %box-shadow--default;
 	@include screen-md {
 		gap: 4px;
 	}
