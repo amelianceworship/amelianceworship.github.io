@@ -41,4 +41,13 @@
 	flex-direction: column;
 	gap: calc(var(--gap) / 4);
 	contain: layout;
+	.songItem {
+		display: flex;
+		justify-content: space-between;
+		gap: 16px;
+	}
+	.copyIcon {
+		opacity: 20%;
+		cursor: pointer;
+	}
 }
