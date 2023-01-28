@@ -1,7 +1,7 @@
 interface Button {
-	children: string;
+	children?: string;
 	onClick?: () => void;
-	isButtonIcon?: boolean;
+	buttonIcon?: boolean;
 	size?: 'normal' | 'small';
 	iconPosition?: 'left' | 'right';
 	icon?: string | undefined;
@@ -18,7 +18,7 @@ export function Button({
 	iconPosition,
 	icon,
 	id,
-	isButtonIcon,
+	buttonIcon,
 	size,
 	type = 'primary',
 	disabled = false,
@@ -27,12 +27,12 @@ export function Button({
 }: Button) {
 	let buttonClass;
 	if (size === 'small') {
-		if (isButtonIcon && icon) {
+		if (buttonIcon && icon) {
 			buttonClass = 'button-icon-sm';
 		} else {
 			buttonClass = 'button-sm';
 		}
-	} else if (isButtonIcon && icon) {
+	} else if (buttonIcon && icon) {
 		buttonClass = 'button-icon';
 	} else {
 		buttonClass = 'button';
@@ -49,11 +49,11 @@ export function Button({
 			disabled={disabled}
 			form={form}
 		>
-			{!isButtonIcon && icon && iconPosition === 'left' && (
+			{!buttonIcon && icon && iconPosition === 'left' && (
 				<span className={`icon left ${icon}`} />
 			)}
-			{isButtonIcon ? <span className={`icon center ${icon}`} /> : <span className="label">{children}</span>}
-			{!isButtonIcon && icon && iconPosition === 'right' && (
+			{buttonIcon ? <span className={`icon center ${icon}`} /> : <span className="label">{children}</span>}
+			{!buttonIcon && icon && iconPosition === 'right' && (
 				<span className={`icon right ${icon}`} />
 			)}
 		</button>
