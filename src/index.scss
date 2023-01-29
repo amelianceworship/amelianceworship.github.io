@@ -8,7 +8,7 @@ $iconsSet: aw-logo-short, aw-logo, icon--moon, icon--sun, icon--image, icon--pap
 
 @each $icon in $iconsSet {
 	.#{$icon} {
-		$path: "./assets/svg/";
+		$path: "~assets/svg/";
 		@include useSvgIcon($path, $icon);
 	}
 }
