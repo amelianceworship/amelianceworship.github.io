@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import { auth } from '~api/google/firebase/firebase';
-import { useNoStartTransitions } from '~hooks/useNoStartTransitions';
 import { useViewportHeight } from '~hooks/useViewportHeight';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { userSlice } from '~store/user/userSlice';
