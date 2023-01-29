@@ -8,7 +8,6 @@ import { StartScreen } from '~components/StartScreen';
 import { ROUTES } from '~constants/ROUTES';
 import { useAuth } from '~hooks/useAuth';
 import { About } from '~pages/About';
-import { ChatPage } from '~pages/ChatPage';
 import { ChordsList } from '~pages/ChordsList';
 import { LogIn } from '~pages/LogIn';
 import { NotFound } from '~pages/NotFound';
@@ -39,7 +38,6 @@ export function App() {
 								<Route path="login" element={(<LogIn />)} />
 								<Route path="signup" element={(<SignUp />)} />
 								<Route path="songslist" element={<SongsList />} />
-								<Route path="chat" element={(<ProtectedRoute><ChatPage /></ProtectedRoute>)} />
 								<Route path="about" element={<About />} />
 								<Route path="chordslist" element={<ChordsList />} />
 								<Route path="*" element={<NotFound />} />
