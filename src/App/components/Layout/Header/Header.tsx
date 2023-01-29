@@ -46,11 +46,11 @@ export function Header() {
 		<header>
 			<section className={asm.joinClasses(s.container, 'container')}>
 				<Logo />
-				<div className={asm.joinClasses(s.controls, 'disabled')}>
+				<div className={s.controls} style={{ display: 'none' }}>
 					{!isScreenMD && !(isLogIn || isSingUp) && <NavigationDesktop />}
 					{isScreenMD && !(isLogIn || isSingUp) && <NavigationMobile />}
 					{isAuth
-						? !(isLogIn || isSingUp) && <Avatar src={photoURL} alt={displayName} char={displayName[0] || email[0]} size="small" onClick={handleLogOut} isClickable />
+						? !(isLogIn || isSingUp) && <Avatar src={photoURL} alt={displayName} char={displayName[0] || email[0]} size="small" onClick={handleLogOut} />
 						: !(isLogIn || isSingUp)
 							&& (
 								<Button onClick={handleLogIn}>
