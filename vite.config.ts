@@ -4,12 +4,15 @@ import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig({
 	plugins: [react()],
+	// build: {
+	// 	target: 'esnext'
+	// },
 	css: {
 		devSourcemap: true
 	},
 	resolve: {
 		alias: {
-			'~assets': path.resolve(__dirname, 'src/assets'),
+			'~assets': path.resolve(__dirname, 'public/assets'),
 			'~api': path.resolve(__dirname, 'src/App/api'),
 			'~components': path.resolve(__dirname, 'src/App/components'),
 			'~constants': path.resolve(__dirname, 'src/App/constants'),
