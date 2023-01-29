@@ -50,8 +50,8 @@ export function FileImgUpload({
 					accept={accept || ''}
 					data-testid={testId}
 				/>
-				{!image ? <Avatar icon="icon--camera" isClickable />
-					: <Avatar src={image} alt={image} isClickable /> }
+				{!image ? <Avatar icon="icon--camera" />
+					: <Avatar src={image} alt={image} /> }
 				{label}
 			</label>
 			<p className={asm.joinClasses(s.error, 'p2 input-error')}>

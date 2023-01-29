@@ -12,7 +12,7 @@ export function FileUpload({
 	return (
 		<div>
 			<label htmlFor="file">
-				<Icon icon={icon} isClickable />
+				<Icon icon={icon} />
 				<input
 					type="file"
 					className={s.input}
