@@ -10,7 +10,7 @@ export function SignUpErrorModal({ onClose }: SignUpErrorModal) {
 			onClose={onClose}
 			type="error"
 			size="medium"
-			heading="Невірні дані!"
+			title="Невірні дані!"
 		>
 			<>
 				<p className="p1 center">

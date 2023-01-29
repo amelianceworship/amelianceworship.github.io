@@ -24,7 +24,8 @@ interface Button {
 
 interface ModalProps {
 	type?: 'alert' | 'info' | 'success' | 'error' | 'warn';
-	heading?: string;
+	title?: string;
+	noTitle?: boolean;
 	children: React.ReactElement;
 	className?: string;
 	mainButton?: Button;
@@ -40,8 +41,9 @@ interface ModalProps {
 
 export function Modal({
 	type,
-	heading,
+	title,
 	children,
+	noTitle,
 	className,
 	mainButton,
 	secondButton,
@@ -81,6 +83,20 @@ export function Modal({
 		if (!secondButton?.form) closeModal();
 	};
 
+	const typeClass = null
+	|| (type === 'alert' && s.alert)
+	|| (type === 'info' && s.info)
+	|| (type === 'success' && s.success)
+	|| (type === 'error' && s.error)
+	|| (type === 'warn' && s.warn);
+
+	const modalTitle = title
+	|| ((type === 'alert' && 'Повідомлення!')
+	|| (type === 'info' && 'Інформація!')
+	|| (type === 'success' && 'Успіх!')
+	|| (type === 'error' && 'Помилка')
+	|| (type === 'warn' && 'Попередження!'));
+
 	useEffect(() => {
 		document.body.style.overflow = 'hidden';
 	}, []);
@@ -96,18 +112,11 @@ export function Modal({
 			>
 				<Backdrop onClick={backdropClickHandler} disabled={backdrop?.disabled} />
 				<div className={asm.joinClasses(sizeClass, s.content)}>
-					{(heading || type) && (
-						// <div className={type && asm.joinClasses(s.heading, type)}>
-						<h4 className={asm.joinClasses(type && s.heading, type && type, 'h4')}>
-							{!heading && type === 'alert' && 'СПОВІЩЕННЯ!'}
-							{!heading && type === 'error' && 'ПОМИЛКА!'}
-							{!heading && type === 'warn' && 'УВАГА!'}
-							{!heading && type === 'info' && 'ІНФОРМАЦІЯ!'}
-							{!heading && type === 'success' && 'УСПІХ!'}
-							{heading && heading}
+					<div className={type && asm.joinClasses(s.title, typeClass, type)}>
+						<h4 className={asm.joinClasses('h4')}>
+							{!noTitle && modalTitle}
 						</h4>
-						// </div>
-					)}
+					</div>
 					<div className={s.body}>
 						{children}
 					</div>

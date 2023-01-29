@@ -29,7 +29,7 @@
 	max-height: 90vh;
 	@extend %box-shadow--default;
 
-	.heading {
+	.title {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -37,8 +37,20 @@
 		padding: 4px;
 		border-radius: 8px;
 		width: 100%;
-		&:global(.alert) {
-			color: white;
+		&.success {
+			@extend %success;
+		}
+
+		&.info {
+			@extend %info;
+		}
+
+		&.error {
+			@extend %error;
+		}
+
+		&.warn {
+			@extend %warn;
 		}
 	}
 
