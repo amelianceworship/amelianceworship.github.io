@@ -57,7 +57,7 @@ export function NavigationMobile() {
 				</MenuItem>
 			</Menu>
 			<div>
-				<Icon icon="icon--menu" onclick={handelIconMenuClick} clickable />
+				<Icon icon="icon--menu" onClick={handelIconMenuClick} />
 			</div>
 		</nav>
 	);
