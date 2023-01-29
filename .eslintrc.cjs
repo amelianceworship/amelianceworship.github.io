@@ -10,6 +10,7 @@ module.exports = {
 		'plugin:react/recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:react/jsx-runtime',
+		'./.eslintrc-typescript.cjs',
 	],
 	overrides: [
 	],
@@ -48,19 +49,6 @@ module.exports = {
 			},
 		],
 		'react/require-default-props': ['off'],
-		'padded-blocks': ['off'],
-
-		// typescript rules
-		'@typescript-eslint/member-delimiter-style': 2,
-		'@typescript-eslint/type-annotation-spacing': 'warn',
-		'space-infix-ops': 'off',
-		'@typescript-eslint/space-infix-ops': 'warn',
-		'no-shadow': 'off',
-		'@typescript-eslint/no-shadow': [2],
-		'space-before-blocks': 'off',
-		'@typescript-eslint/space-before-blocks': 'warn',
-		'object-curly-spacing': 'off',
-		'@typescript-eslint/object-curly-spacing': ['warn', 'always'],
 
 		'simple-import-sort/imports': [2, {
 			groups: [
@@ -87,9 +75,9 @@ module.exports = {
 			"required": {
 			  "some": [ "nesting", "id"  ]
 			}
-		 }],
+		}],
 
-		 "max-len": [
+		"max-len": [
 			"error",
 			{
 			  "code": 100,
@@ -97,8 +85,8 @@ module.exports = {
 			  "ignoreComments": true,
 			  "ignoreUrls": true,
 			  "ignoreStrings": true,
-			  "ignoreTemplateLiterals": true
+			  "ignoreTemplateLiterals": true,
 			}
-		 ]
+		],
 	},
 };

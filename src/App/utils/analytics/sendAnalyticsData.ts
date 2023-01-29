@@ -21,7 +21,7 @@ export async function sendAnalyticsData() {
 	} = response;
 
 	await api.google.appsscript.postTitledColumnsDataByTitles({
-		spreadsheetId: GOOGLE_SPREADSHEETS_IDS.analytics,
+		spreadsheetId: GOOGLE_SPREADSHEETS_IDS.ANALYTICS,
 		titlesParams: {
 			ip,
 			page,

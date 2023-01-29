@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 
 interface PortalProps {
-  children: React.ReactElement;
-  className?: string;
-  elementType?: string;
+	children: React.ReactElement;
+	className?: string;
+	elementType?: string;
 }
 
 export function Portal({ children, className = 'root-portal', elementType = 'div' }: PortalProps) {

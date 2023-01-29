@@ -1,7 +1,13 @@
+import { returnError } from '~api/google/firebase/helpers/returnError';
+
+const filePath = 'src/App/api/ipify/fetchIP.ts';
+
 export async function fetchIP() {
-	return fetch('https://api.ipify.org?format=json')
-		.then((response) => response.json())
-		.then((data) => data.ip)
-		// eslint-disable-next-line no-console
-		.catch((error) => console.error('amelianceworship', 'fetchIP:', error));
+	try {
+		const response = await fetch('https://api.ipify.org?format=json');
+		const data = await response.json();
+		return { ip: data.ip, status: 'success' };
+	} catch (error) {
+		return returnError(filePath, error);
+	}
 }

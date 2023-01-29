@@ -1,5 +1,5 @@
 import { doGet } from '../../base/doGet';
-import { DataTitledResponse } from '../../types/types';
+import type { DataTitledResponse } from '../../types/types';
 
 export interface GetAllTitledColumnsDataSingle {
 	spreadsheetId: string;

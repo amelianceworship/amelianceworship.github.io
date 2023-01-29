@@ -1,6 +1,7 @@
 import { APP_VERSION } from '~app/constants/APP_VERSION';
 
-import { ClientInfo, getClientInfo } from './analytics/getClientInfo';
+import type { ClientInfo } from './analytics/getClientInfo';
+import { getClientInfo } from './analytics/getClientInfo';
 
 interface LocalStorageData {
 	clientInfo: Promise<ClientInfo>;
@@ -10,7 +11,6 @@ interface LocalStorageData {
 }
 
 export function initLocalStorage() {
-
 	const localStorageData: LocalStorageData = {
 		clientInfo: getClientInfo(),
 		appVersion: APP_VERSION,
@@ -37,5 +37,4 @@ export function initLocalStorage() {
 	} else {
 		localStorage.setItem('amelianceworship', JSON.stringify(localStorageData));
 	}
-
 }

@@ -1,12 +1,14 @@
-import './NotFound.scss';
+import asm from 'asm-ts-scripts';
+
+import s from './NotFound.module.scss';
 
 export function NotFound() {
 	return (
-		<main className="notfound-page main">
-			<section className="container">
-				<div className="title">
-					<h1 className="h1 title__40">40</h1>
-					<h1 className="h1 title__4">4</h1>
+		<main className="main">
+			<section className={asm.joinClasses(s.container, 'container')}>
+				<div className={s.title}>
+					<h1 className={asm.joinClasses(s.title40, 'h1')}>40</h1>
+					<h1 className={asm.joinClasses(s.title4, 'h1')}>4</h1>
 				</div>
 			</section>
 		</main>

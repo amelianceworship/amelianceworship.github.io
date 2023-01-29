@@ -1,18 +1,10 @@
 import Snowfall from 'react-snowfall';
 
+import s from './Snow.module.scss';
+
 export function Snow() {
 	return (
-		<div style={{
-			width: '100vw',
-			height: '100vh',
-			position: 'fixed',
-			top: 0,
-			left: 0,
-			pointerEvents: 'none',
-			opacity: '60%',
-			filter: 'blur(1px)',
-		}}
-		>
+		<div className={s.Snow}>
 			<Snowfall
 				color="white"
 				snowflakeCount={200}

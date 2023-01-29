@@ -1,0 +1,10 @@
+.NavigationDesktop {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+:global(.link).active {
+	font-weight: bold;
+	cursor: default;
+}

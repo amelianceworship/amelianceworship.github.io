@@ -1,10 +1,20 @@
-import './Backdrop.scss';
+import asm from 'asm-ts-scripts';
+
+import s from './Backdrop.module.scss';
 
 interface IBackdropProps {
-  onClick?: () => void;
+	onClick?: () => void;
+	disabled?: boolean;
 }
 
-export function Backdrop({ onClick }: IBackdropProps) {
-	// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-	return <div className="backdrop" onClick={onClick} />;
+export function Backdrop({ onClick, disabled }: IBackdropProps) {
+	return (
+		<button
+			type="button"
+			className={asm.joinClasses(s.Backdrop, disabled && s.disabled)}
+			onClick={onClick}
+		>
+			{}
+		</button>
+	);
 }

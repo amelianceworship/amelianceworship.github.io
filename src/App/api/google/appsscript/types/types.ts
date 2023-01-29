@@ -8,18 +8,16 @@ export type DataTitledValues = {
 	value: string;
 }[] | null;
 
-export type DataTitledResponse = {
-	[key: string]: {
-		colNumber: number;
-		values: DataTitledValues | null;
-	};
-};
+export type DataTitledResponse = Record<string, {
+	colNumber: number;
+	values: DataTitledValues | null;
+}>;
 
 export type GetTypes =
 	| 'TITLED'
 	| 'TITLED_SINGLE'
 	| 'UNTITLED'
-	| 'UNTITLED_SINGLE'
+	| 'UNTITLED_SINGLE';
 
 export interface DoGet {
 	spreadsheetId: string;
@@ -37,7 +35,7 @@ export type PostTypes =
 	| 'UNTITLED'
 	| 'UNTITLED_SINGLE'
 	| 'UNTITLED_ONE_ROW'
-	| 'UNTITLED_UPDATE'
+	| 'UNTITLED_UPDATE';
 
 export interface DoPost {
 	spreadsheetId: string;

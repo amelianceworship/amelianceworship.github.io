@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 
-import './Dropdown.scss';
+import asm from 'asm-ts-scripts';
+
+import s from './Dropdown.module.scss';
 
 interface IProps {
-  options: string[];
-  selected?: string;
-  children?: React.ReactNode;
-  testId?: string;
-  disabled?: boolean;
-  onChange?: (key: string) => void;
+	options: string[];
+	selected?: string;
+	children?: React.ReactNode;
+	testId?: string;
+	disabled?: boolean;
+	onChange?: (key: string) => void;
 }
 
 export function Dropdown({
@@ -23,18 +25,18 @@ export function Dropdown({
 	};
 
 	return (
-		<div className="dropdown">
-			<span className="h3 dropdown__label">{children}</span>
-			<label className="dropdown__container">
+		<div className={s.Dropdown}>
+			<span className="h3">{children}</span>
+			<label>
 				<select
-					className="dropdown__input input dropdown"
+					className={asm.joinClasses(s.input, 'input input dropdown')}
 					value={selectedValue}
 					onChange={handleOnChange}
 					disabled={disabled}
 					data-testid={testId}
 				>
 					{options.map((optionValue) => (
-						<option className="dropdown__option" key={optionValue} value={optionValue}>
+						<option key={optionValue} value={optionValue}>
 							{optionValue}
 						</option>
 					))}

@@ -1,24 +1,24 @@
 const toggleTheme = () => {
-  document.body.classList.add('no-transition');
+	document.body.classList.add('no-transition');
 
-  const currentTheme$ = document.documentElement.getAttribute('data-theme');
+	const currentTheme$ = document.documentElement.getAttribute('data-theme');
 
-  let targetTheme = 'light';
-  if (currentTheme$ === 'light') targetTheme = 'dark';
-  document.documentElement.setAttribute('data-theme', targetTheme);
+	let targetTheme = 'light';
+	if (currentTheme$ === 'light') targetTheme = 'dark';
+	document.documentElement.setAttribute('data-theme', targetTheme);
 
-  setTimeout(() => document.body.classList.remove('no-transition'), 0);
+	setTimeout(() => document.body.classList.remove('no-transition'), 0);
 
-  localStorage.setItem('theme', targetTheme);
+	localStorage.setItem('theme', targetTheme);
 };
 
-export function addChangeThemeListener<TYPE extends HTMLElement>(
-  element: TYPE,
-  defaultTheme: 'light' | 'dark'
+export function addChangeThemeListener<T extends HTMLElement>(
+	element: T,
+	defaultTheme: 'light' | 'dark',
 ) {
-  const storedTheme = localStorage.getItem('theme') || defaultTheme;
+	const storedTheme = localStorage.getItem('theme') || defaultTheme;
 
-  if (storedTheme) document.documentElement.setAttribute('data-theme', storedTheme);
+	if (storedTheme) document.documentElement.setAttribute('data-theme', storedTheme);
 
-  element.addEventListener('click', toggleTheme);
+	element.addEventListener('click', toggleTheme);
 }

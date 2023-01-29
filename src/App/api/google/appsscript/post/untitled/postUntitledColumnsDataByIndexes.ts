@@ -1,5 +1,5 @@
 import { doPost } from '../../base/doPost';
-import { DataUntitledResponse } from '../../types/types';
+import type { DataUntitledResponse } from '../../types/types';
 
 export interface PostUntitledColumnsDataByIndexes {
 	spreadsheetId: string;

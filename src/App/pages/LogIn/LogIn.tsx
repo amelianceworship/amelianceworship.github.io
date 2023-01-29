@@ -1,34 +1,39 @@
-import { useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { EmailInput } from '~components/form/EmailInput';
-import { PasswordInput } from '~components/form/PasswordInput';
-import { Modal } from '~components/Modal';
+import asm from 'asm-ts-scripts';
+
+import { Button } from '~components/inputs/Button';
+import { EmailInput } from '~components/inputs/form/EmailInput';
+import { PasswordInput } from '~components/inputs/form/PasswordInput';
+import { LoaderOverlay } from '~components/LoaderOverlay';
 import { ROUTES } from '~constants/ROUTES';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { signIn } from '~store/user/actions/signIn';
 import { signInWithGoogle } from '~store/user/actions/signInWithGoogle';
+import { userSlice } from '~store/user/userSlice';
 
-import { LogInModal } from './LogInModal';
+import s from './LogIn.module.scss';
+import { LogInErrorModal } from './LogInErrorModal';
+import { LogInSuccessModal } from './LogInSuccessModal';
 
 interface FormFields {
 	email: string;
 	password: string;
- }
+}
 
 export function LogIn() {
-	const [isShowModal, setIsShowModal] = useState(false);
 	const navigate = useNavigate();
 
 	const dispatch = useTypedDispatch();
-	const { error, isLoading, id } = useTypedSelector((state) => state.userReducer);
+	const { error, isLoading, uid } = useTypedSelector((state) => state.userReducer);
+	const { actions } = userSlice;
 
 	const {
 		register,
 		handleSubmit,
-		reset,
 		formState: { errors },
 	} = useForm<FormFields>({
 		mode: 'onSubmit',
@@ -52,25 +57,28 @@ export function LogIn() {
 	};
 
 	const onSubmit: SubmitHandler<FormFields> = async ({ email, password }: FormFields) => {
-		// dispatch(signIn({ email, password }));
-		// reset();
+		dispatch(signIn({ email, password }));
 	};
 
 	const handleSignInWithGoogle = () => {
 		dispatch(signInWithGoogle());
 	};
 
-	const handlerModal = () => {
-		console.log('navigate(ROUTES.main)');
-		setIsShowModal(false);
+	const handlerSuccessModal = () => {
+		navigate(ROUTES.HOME);
+	};
+
+	const handlerErrorModal = () => {
+		dispatch(actions.resetError());
 	};
 
 	return (
-		<main className="form-page main">
-			<div className="container">
-				<h2 className="h2">Увійти в обліковий запис</h2>
+		<main className="login-page main">
+			<div className={asm.joinClasses(s.container, 'container')}>
+				{isLoading && <LoaderOverlay />}
+				<h3 className="h3">Вхід</h3>
 				<form
-					className="form"
+					className={s.form}
 					onSubmit={handleSubmit(onSubmit)}
 				>
 					<EmailInput register={registers.email} errors={errors}>
@@ -79,29 +87,23 @@ export function LogIn() {
 					<PasswordInput register={registers.password} errors={errors}>
 						Пароль*:
 					</PasswordInput>
-					<div className="form__buttons">
-						<input
-							className="button"
-							type="submit"
-							value="Увійти за допомогою електронної пошти"
-						/>
-						<button type="button" className="button secondary" onClick={handleSignInWithGoogle}>
+					<div className={s.buttons}>
+						<Button type="primary" isSubmit>
+							Увійти
+						</Button>
+						<Button type="secondary" onClick={handleSignInWithGoogle}>
 							Увійти за допомогою Google
-						</button>
+						</Button>
 						<p className="p1">
-							Немає аккаунту?
+							Немає акаунту?
 							{' '}
-							<Link className="link" to={ROUTES.signUp}>Створити обліковий запис</Link>
+							<Link className="link" to={ROUTES.SIGNUP}>Створити обліковий запис</Link>
 						</p>
-						<button type="button" className="button secondary" onClick={() => setIsShowModal((prev) => !prev)}>
-							modal
-						</button>
 					</div>
 				</form>
 			</div>
-			{isShowModal && (
-				<LogInModal title="Error" message="Hello" onClose={handlerModal} />
-			)}
+			{(uid && !isLoading) ? <LogInSuccessModal onClose={handlerSuccessModal} /> : null}
+			{(error && !isLoading) ? <LogInErrorModal onClose={handlerErrorModal} /> : null}
 		</main>
 	);
 }

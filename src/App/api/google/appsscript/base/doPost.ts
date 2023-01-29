@@ -1,4 +1,7 @@
-import { DoPost, Response } from '../types/types';
+import { appError } from '~helpers/appError';
+import { appLog } from '~helpers/appLog';
+
+import type { DoPost, Response } from '../types/types';
 import { baseURL } from './baseURL';
 
 export async function doPost({
@@ -21,14 +24,14 @@ export async function doPost({
 		.then((data: Response) => {
 			if (data.status !== 'success') {
 				// eslint-disable-next-line no-console
-				console.log(data.status);
+				appLog('doPost', data.status);
 				// eslint-disable-next-line no-console
-				console.log(data.info);
+				appLog('doPost', data.info);
 				// eslint-disable-next-line no-console
-				console.log(data.error);
+				appLog('doPost', data.error);
 			}
 			return data;
 		})
 		// eslint-disable-next-line no-console
-		.catch((error) => console.log('setData', error));
+		.catch((error) => appError('doPost', error));
 }

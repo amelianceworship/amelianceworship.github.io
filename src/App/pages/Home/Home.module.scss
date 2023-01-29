@@ -1,0 +1,15 @@
+@use "~/asmlib/styles/globals/" as *;
+
+.Home {
+	.container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		gap: 16px;
+		& > * {
+			text-align: center;
+		}
+	}
+}

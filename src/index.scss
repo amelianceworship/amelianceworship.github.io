@@ -1,21 +1,31 @@
-@use "./asmlib/styles/globals/" as *;
-@use "./asmlib/styles/" as *;
-// @use "./styles/" as *;
+@use "~/asmlib/styles/globals/" as *;
+@use "~/asmlib/styles/" as *;
 
 // add icons class with styles to project
-$iconsSet: icon--pin, icon--not-pin, icon--arrow-left;
+$iconsSet: aw-logo-short, aw-logo, icon--moon, icon--sun, icon--image, icon--paperclip, icon--more-vertical, icon--plus,
+	icon--camera, icon--menu, icon--list, icon--check-square, icon--chevron-up, icon--copy, icon--check,
+	icon--check-circle, icon--x, icon--x-circle, icon--info, icon--alert-triangle, icon--alert-circle;
+
 @each $icon in $iconsSet {
 	.#{$icon} {
-		$path: "./assets/svg/icons/";
+		$path: "./assets/svg/";
 		@include useSvgIcon($path, $icon);
 	}
 }
 
 html {
-	scroll-padding-top: 32px;
+	scroll-padding-top: 0px;
+}
+
+body {
+	background: var(--color--b1-gradient-0);
+	background-attachment: fixed;
+	position: relative;
+	&:has(.songsList) {
+		background: var(--color--b1-0);
+	}
 }
 
 #root {
 	gap: var(--gap);
-	background: var(--color--bg-0);
 }

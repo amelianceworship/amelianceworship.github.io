@@ -1,0 +1,9 @@
+@use "~/asmlib/styles/globals/" as *;
+
+.Icon {
+	@include disabled {
+		opacity: 60%;
+		cursor: not-allowed;
+		pointer-events: none;
+	}
+}

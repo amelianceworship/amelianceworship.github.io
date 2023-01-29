@@ -1,9 +1,11 @@
-import { createUser } from './createUser';
-import { signIn } from './signIn';
-import { signInWithGoogle } from './signInWithGoogle';
+import { auth } from './auth';
+import { database } from './database';
+import { helpers } from './helpers';
+import { storage } from './storage';
 
 export const firebase = {
-	createUser,
-	signIn,
-	signInWithGoogle,
+	auth,
+	database,
+	helpers,
+	storage,
 };

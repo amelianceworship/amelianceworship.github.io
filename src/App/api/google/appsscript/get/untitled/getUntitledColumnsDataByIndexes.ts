@@ -1,5 +1,5 @@
 import { doGet } from '../../base/doGet';
-import { DataUntitledResponse } from '../../types/types';
+import type { DataUntitledResponse } from '../../types/types';
 
 export interface GetUntitledColumnsDataByIndexes {
 	spreadsheetId: string;
