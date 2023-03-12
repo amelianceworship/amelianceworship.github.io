@@ -1,0 +1,62 @@
+@use "typography-fonts__root" as *;
+@use "typography-fonts__mixins" as *;
+@use "typography-fonts__variables" as *;
+
+// >----------------------------------------------------------------<
+// >                           INIT-FONTS                           <
+// >----------------------------------------------------------------<
+
+//! use fontsource: https://fontsource.org/fonts/montserrat
+//! npm i @fontsource/montserrat
+// OR
+// @include initFontFontFace($font__name_secondary, $font__path_secondary, "Montserrat-Bold.ttf", 700);
+// @include initFontFontFace($font__name_secondary, $font__path_secondary, "Montserrat-Black.ttf", 900)
+// @include initFontFontFace($font__name_secondary, $font__path_secondary, "Montserrat-ExtraBold.ttf", 800)
+// @include initFontFontFace($font__name_secondary, $font__path_secondary, "Montserrat-Bold.ttf", 700);
+// @include initFontFontFace($font__name_secondary, $font__path_secondary, "Montserrat-SemiBold.ttf", 600)
+// @include initFontFontFace($font__name_secondary, $font__path_secondary, "Montserrat-Medium.ttf", 500);
+// @include initFontFontFace($font__name_secondary, $font__path_secondary, "Montserrat-Regular.ttf", 400);
+// @include initFontFontFace($font__name_secondary, $font__path_secondary, "Montserrat-Light.ttf", 300);
+// @include initFontFontFace($font__name_secondary, $font__path_secondary, "Montserrat-ExtraLight.ttf", 200)
+// @include initFontFontFace($font__name_secondary, $font__path_secondary, "Montserrat-Thin.ttf", 100)
+// OR
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+// >----------------------------------------------------------------<
+// >            SET FONTS CSS VARIABLE STYLES TO CLASSES            <
+// >----------------------------------------------------------------<
+
+$setTypo-elements: (
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p1,
+	p2,
+	subtitle1,
+	subtitle2,
+	caption,
+	overline,
+	button,
+	button-sm,
+	button-icon,
+	button-icon-sm,
+	link,
+	link-sm,
+	input
+);
+
+@each $item in $setTypo-elements {
+	.#{$item} {
+		@include setFont(
+			var(--typography__font-family_ + $item),
+			var(--typography__font-size_ + $item),
+			var(--typography__font-weight_ + $item),
+			var(--typography__line-height_ + $item),
+			var(--typography__letter-spacing_ + $item),
+			var(--typography__font-style_ + $item)
+		);
+	}
+} ;

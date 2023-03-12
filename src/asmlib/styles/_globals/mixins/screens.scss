@@ -35,3 +35,9 @@
 		@content;
 	}
 }
+
+@mixin screen-ss {
+	@media screen and (max-width: $screen-ss) {
+		@content;
+	}
+}

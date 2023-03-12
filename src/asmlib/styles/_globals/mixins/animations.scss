@@ -1,8 +1,8 @@
 @use "./hover" as *;
 
 @mixin animation-hover {
-	transition: background-color var(--time-1) ease-in-out;
+	transition: background-color var(--time-1) ease-in-out, color var(--time-1) ease-in-out;
 	@include hover {
-		transition: background-color var(--time-1) ease-in-out;
+		transition: background-color var(--time-1) ease-in-out, color var(--time-1) ease-in-out;
 	}
 }
