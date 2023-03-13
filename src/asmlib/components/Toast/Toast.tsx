@@ -2,7 +2,6 @@ import { forwardRef, useEffect, useState } from 'react';
 
 import asm from 'asm-ts-scripts';
 
-import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { AlertCircleIcon } from '../icons/AlertCircleIcon';
 import { AlertTriangleIcon } from '../icons/AlertTriangleIcon';
