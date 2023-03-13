@@ -55,7 +55,7 @@ export const AccordionItem = forwardRef<ComponentElementType, AccordionItem>(({
 			{...rest}
 		>
 			<Block className={asm.join(s.heading, s.clickable)} onClick={onToggle}>
-				<ChevronDownIcon />
+				<ChevronDownIcon size={iconSize} />
 				{
 					typeof heading === 'string'
 						? <Typography component={headingComponent || 'h3'}>{heading}</Typography>
