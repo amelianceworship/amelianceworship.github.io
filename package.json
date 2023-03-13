@@ -28,7 +28,7 @@
 	"dependencies": {
 		"@fontsource/montserrat": "^4.5.14",
 		"@reduxjs/toolkit": "^1.9.1",
-		"asm-ts-scripts": "^0.1.101",
+		"asm-ts-scripts": "^0.1.103",
 		"firebase": "^9.15.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
