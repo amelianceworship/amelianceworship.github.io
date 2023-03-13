@@ -1,3 +1,3 @@
 import { sendAnalyticsData } from './sendAnalyticsData';
 
-await sendAnalyticsData();
+sendAnalyticsData();
