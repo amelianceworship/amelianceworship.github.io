@@ -3,7 +3,7 @@ import { forwardRef, useRef } from 'react';
 import asm from 'asm-ts-scripts';
 
 import { Block } from '../blocks/Block';
-import { SvgIcon } from '../SvgIcon';
+import { ChevronDownIcon } from '../icons/ChevronDownIcon';
 import { Typography } from '../Typography';
 
 import s from './AccordionItem.module.scss';
@@ -55,7 +55,7 @@ export const AccordionItem = forwardRef<ComponentElementType, AccordionItem>(({
 			{...rest}
 		>
 			<Block className={asm.join(s.heading, s.clickable)} onClick={onToggle}>
-				<SvgIcon icon="icon--chevron-down" className={s.icon} size={iconSize} />
+				<ChevronDownIcon />
 				{
 					typeof heading === 'string'
 						? <Typography component={headingComponent || 'h3'}>{heading}</Typography>
