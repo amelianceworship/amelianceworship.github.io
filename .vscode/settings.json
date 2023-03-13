@@ -42,7 +42,16 @@
 	},
 	"cSpell.language": "en,uk,en-US",
 	"cSpell.words": [
-		"amelianceworship"
+		"amelianceworship",
+		"appsscript",
+		"asmlib",
+		"chordslist",
+		"Firestore",
+		"ipify",
+		"sheetbest",
+		"signup",
+		"songslist",
+		"testid"
 	],
 	// "editor.formatOnSave": true,
 	// "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -53,22 +62,26 @@
 		"**/CVS": false,
 		"**/.DS_Store": false,
 		"**/Thumbs.db": false,
-		"node_modules": false,
+		"**/*.git": false,
 		"_legacy": false,
+		"node_modules": false,
+		"dist": false,
+		".vscode": false,
+		"public": false,
 		".editorconfig": false,
+		".env.local": false,
 		".eslintignore": false,
+		".eslintrc-typescript.cjs": false,
 		".eslintrc.cjs": false,
 		".gitignore": false,
 		"package.json": false,
+		"postcss.config.cjs": false,
 		"tsconfig.json": false,
 		"vite.config.ts": false,
-		"README.md": false,
-		".vscode": false,
-		"public": false,
 		"index.html": false,
+		"README.md": false,
 		"vite-env.d.ts": false,
-		"src/vite-env.d.ts": false,
-		".env.local": false
+		"src/vite-env.d.ts": false
 	},
 	"explorerExclude.backup": {
 		"**/.git": true,
@@ -77,21 +90,28 @@
 		"**/CVS": true,
 		"**/.DS_Store": true,
 		"**/Thumbs.db": true,
-		"node_modules": true,
+		"**/*.git": true,
 		"_legacy": true,
+		"node_modules": true,
+		"dist": true,
+		".vscode": true,
+		"public": false,
 		".editorconfig": true,
+		".env.local": true,
 		".eslintignore": true,
+		".eslintrc-typescript.cjs": true,
 		".eslintrc.cjs": true,
 		".gitignore": true,
 		"package.json": true,
+		"postcss.config.cjs": true,
 		"tsconfig.json": true,
 		"vite.config.ts": true,
-		"README.md": true,
-		".vscode": true,
-		"public": false,
 		"index.html": true,
+		"README.md": true,
 		"vite-env.d.ts": true,
-		"src/vite-env.d.ts": true,
+		"src/vite-env.d.ts": true
+	},
+
 	"multiCommand.commands": [
 		{
 		  "command": "multiCommand.consoleLog",
@@ -126,4 +146,11 @@
 		  ]
 		},
 	],
+
+	"css.lint.validProperties": ["composes"],
+	"scss.lint.validProperties": ["composes"],
+	// "typescript.referencesCodeLens.enabled": true,
+	// "typescript.referencesCodeLens.showOnAllFunctions": true,
+	// "javascript.referencesCodeLens.enabled": true,
+	// "javascript.referencesCodeLens.showOnAllFunctions": true
 }
