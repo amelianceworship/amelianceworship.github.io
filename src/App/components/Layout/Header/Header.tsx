@@ -43,23 +43,27 @@ export function Header() {
 
 	const isLogIn = isMatchPath(pathname, 'login');
 	const isSingUp = isMatchPath(pathname, 'signup');
+	const isSongsList = isMatchPath(pathname, 'songslist');
 
 	return (
 		<Block component="header" className={s.Header}>
 			<Grid container component="section" className={s.container}>
 				<Logo />
-				<Block className={s.controls}>
-					{isScreenMD && !(isLogIn || isSingUp) && <NavigationDesktop />}
-					{!isScreenMD && !(isLogIn || isSingUp) && <NavigationMobile />}
-					{isAuth
-						? !(isLogIn || isSingUp) && <Avatar src={photoURL} alt={displayName} char={displayName[0] || email[0]} size="small" onClick={handleLogOut} />
-						: !(isLogIn || isSingUp)
+				{!isSongsList
+				&& (
+					<Block className={s.controls}>
+						{isScreenMD && !(isLogIn || isSingUp) && <NavigationDesktop />}
+						{!isScreenMD && !(isLogIn || isSingUp) && <NavigationMobile />}
+						{isAuth
+							? !(isLogIn || isSingUp) && <Avatar src={photoURL} alt={displayName} char={displayName[0] || email[0]} size="small" onClick={handleLogOut} />
+							: !(isLogIn || isSingUp)
 					&& (
 						<Button size="small" onClick={handleLogIn}>
 							Увійти
 						</Button>
 					)}
-				</Block>
+					</Block>
+				)				}
 			</Grid>
 		</Block>
 	);
