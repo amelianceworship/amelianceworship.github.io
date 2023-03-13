@@ -1,7 +1,7 @@
 import { appError } from '~helpers/appError';
 import { appLog } from '~helpers/appLog';
 
-import { DoGet, Response } from '../types/types';
+import type { DoGet, Response } from '../types/types';
 import { baseURL } from './baseURL';
 
 export async function doGet({
