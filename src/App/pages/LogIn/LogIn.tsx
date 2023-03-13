@@ -2,12 +2,7 @@ import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
-import asm from 'asm-ts-scripts';
-
-import { Button } from '~components/inputs/Button';
-import { EmailInput } from '~components/inputs/form/EmailInput';
-import { PasswordInput } from '~components/inputs/form/PasswordInput';
-import { LoaderOverlay } from '~components/LoaderOverlay';
+import { GoogleColorIcon } from '~components/SVG/GoogleColorIcon';
 import { ROUTES } from '~constants/ROUTES';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
@@ -15,9 +10,19 @@ import { signIn } from '~store/user/actions/signIn';
 import { signInWithGoogle } from '~store/user/actions/signInWithGoogle';
 import { userSlice } from '~store/user/userSlice';
 
-import s from './LogIn.module.scss';
+import { Block } from '~/asmlib/components/blocks/Block';
+import { Main } from '~/asmlib/components/blocks/Main';
+import { Button } from '~/asmlib/components/Button';
+import { Form } from '~/asmlib/components/Form';
+import { Grid } from '~/asmlib/components/Grid';
+import { EmailInput, PasswordInput } from '~/asmlib/components/Inputs';
+import { LinkLabel } from '~/asmlib/components/Link';
+import { Typography } from '~/asmlib/components/Typography';
+
 import { LogInErrorModal } from './LogInErrorModal';
 import { LogInSuccessModal } from './LogInSuccessModal';
+
+import s from './LogIn.module.scss';
 
 interface FormFields {
 	email: string;
@@ -73,11 +78,11 @@ export function LogIn() {
 	};
 
 	return (
-		<main className="login-page main">
-			<div className={asm.joinClasses(s.container, 'container')}>
-				{isLoading && <LoaderOverlay />}
-				<h3 className="h3">Вхід</h3>
-				<form
+		<Main>
+			<Grid container className={s.container}>
+				{/* {isLoading && <LoaderOverlay />} */}
+				<Typography component="h4">Вхід</Typography>
+				<Form
 					className={s.form}
 					onSubmit={handleSubmit(onSubmit)}
 				>
@@ -87,23 +92,24 @@ export function LogIn() {
 					<PasswordInput register={registers.password} errors={errors}>
 						Пароль*:
 					</PasswordInput>
-					<div className={s.buttons}>
-						<Button type="primary" isSubmit>
+					<Block className={s.buttons}>
+						<Button type="primary" submit>
 							Увійти
 						</Button>
 						<Button type="secondary" onClick={handleSignInWithGoogle}>
-							Увійти за допомогою Google
+							<GoogleColorIcon />
+							Увійти через Google
 						</Button>
-						<p className="p1">
+						<Typography component="p1">
 							Немає акаунту?
 							{' '}
-							<Link className="link" to={ROUTES.SIGNUP}>Створити обліковий запис</Link>
-						</p>
-					</div>
-				</form>
-			</div>
+							<Link to={ROUTES.SIGNUP}><LinkLabel>Створити</LinkLabel></Link>
+						</Typography>
+					</Block>
+				</Form>
+			</Grid>
 			{(uid && !isLoading) ? <LogInSuccessModal onClose={handlerSuccessModal} /> : null}
 			{(error && !isLoading) ? <LogInErrorModal onClose={handlerErrorModal} /> : null}
-		</main>
+		</Main>
 	);
 }

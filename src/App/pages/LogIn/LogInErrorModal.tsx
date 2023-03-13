@@ -1,4 +1,4 @@
-import { Modal } from '~components/Modal';
+import { Modal } from '~/asmlib/components/Modal';
 
 interface LogInErrorModal {
 	onClose: () => void;

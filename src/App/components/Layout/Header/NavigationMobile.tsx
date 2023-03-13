@@ -4,18 +4,18 @@ import { NavLink } from 'react-router-dom';
 import asm from 'asm-ts-scripts';
 
 import { PRIVATE_ROUTES, ROUTES } from '~app/constants/ROUTES';
-import { Icon } from '~components/Icon';
-import { Menu } from '~components/Menu';
-import { MenuItem } from '~components/MenuItem';
+
+import { Nav } from '~/asmlib/components/blocks/Nav';
+import { Button } from '~/asmlib/components/Button';
+import { MenuIcon } from '~/asmlib/components/icons/MenuIcon';
+import { Menu, MenuContainer, MenuItem } from '~/asmlib/components/Menu';
 
 import s from './NavigationMobile.module.scss';
 
 export function NavigationMobile() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null);
 
-	const handelIconMenuClick = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorElement(event.currentTarget);
+	const handelIconMenuClick = () => {
 		setIsMenuOpen(true);
 	};
 
@@ -23,42 +23,38 @@ export function NavigationMobile() {
 		setIsMenuOpen(false);
 	};
 
-	const linkClass = ({ isActive }: Record<string, boolean>) => (isActive ? asm.joinClasses(s.active, 'link no-underline') : 'link no-underline');
+	const linkClass = ({ isActive }: Record<string, boolean>) => (isActive ? asm.join(s.active, 'link no-underline') : 'link no-underline');
 
 	return (
-		<nav className={s.NavigationMobile}>
-			<Menu
-				isOpen={isMenuOpen}
-				onClick={handelMenuClose}
-				anchorElement={anchorElement}
-				anchorOrigin={{
-					horizontal: 'right',
-					vertical: 'bottom',
-				}}
-				menuOrigin={{
-					horizontal: 'right',
-					vertical: 'top',
-				}}
-			>
-				<MenuItem>
-					<NavLink className={linkClass} end to={ROUTES.HOME}>
-						Головна
-					</NavLink>
-				</MenuItem>
-				<MenuItem>
-					<NavLink className={linkClass} to={ROUTES.SONGS_LIST}>
-						Список пісень
-					</NavLink>
-				</MenuItem>
-				<MenuItem>
-					<NavLink className={linkClass} end to={PRIVATE_ROUTES.CHAT}>
-						Чат
-					</NavLink>
-				</MenuItem>
-			</Menu>
-			<div>
-				<Icon icon="icon--menu" onClick={handelIconMenuClick} />
-			</div>
-		</nav>
+		<Nav className={s.NavigationMobile}>
+			<MenuContainer>
+				<Menu
+					isOpen={isMenuOpen}
+					onClick={handelMenuClose}
+					anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+					menuOrigin={{ horizontal: 'right', vertical: 'top' }}
+					preventItemClickClose
+				>
+					<MenuItem>
+						<NavLink className={linkClass} end to={ROUTES.HOME}>
+							Головна
+						</NavLink>
+					</MenuItem>
+					<MenuItem>
+						<NavLink className={linkClass} to={ROUTES.SONGS_LIST}>
+							Список пісень
+						</NavLink>
+					</MenuItem>
+					<MenuItem>
+						<NavLink className={linkClass} end to={PRIVATE_ROUTES.CHAT}>
+							Чат
+						</NavLink>
+					</MenuItem>
+				</Menu>
+				<Button type="text" onClick={handelIconMenuClick}>
+					<MenuIcon />
+				</Button>
+			</MenuContainer>
+		</Nav>
 	);
 }
