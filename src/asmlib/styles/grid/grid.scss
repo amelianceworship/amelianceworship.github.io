@@ -24,22 +24,16 @@
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
-	column-gap: var(--gap);
+	column-gap: var(--col-gap);
 	justify-content: center;
 	box-sizing: border-box;
 
 	$setCol-elements: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 
 	@each $item in $setCol-elements {
-		.#{col- + $item} {
-			width: calc((100% - (11 * var(--gap))) / 12 * $item + (($item - 1) * var(--gap)));
-		}
-	}
-
-	@each $item in $setCol-elements {
 		@include screen-xx {
 			.#{col-xx- + $item} {
-				width: calc((100% - (11 * var(--gap))) / 12 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (11 * var(--col-gap))) / 12 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}
@@ -47,7 +41,7 @@
 	@each $item in $setCol-elements {
 		@include screen-xl {
 			.#{col-xl- + $item} {
-				width: calc((100% - (11 * var(--gap))) / 12 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (11 * var(--col-gap))) / 12 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}
@@ -55,7 +49,7 @@
 	@each $item in $setCol-elements {
 		@include screen-lg {
 			.#{col-lg- + $item} {
-				width: calc((100% - (11 * var(--gap))) / 12 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (11 * var(--col-gap))) / 12 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}
@@ -63,7 +57,7 @@
 	@each $item in $setCol-elements {
 		@include screen-md {
 			.#{col-md- + $item} {
-				width: calc((100% - (11 * var(--gap))) / 12 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (11 * var(--col-gap))) / 12 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}
@@ -71,7 +65,7 @@
 	@each $item in $setCol-elements {
 		@include screen-sm {
 			.#{col-sm- + $item} {
-				width: calc((100% - (11 * var(--gap))) / 12 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (11 * var(--col-gap))) / 12 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}
@@ -79,7 +73,15 @@
 	@each $item in $setCol-elements {
 		@include screen-xs {
 			.#{col-xs- + $item} {
-				width: calc((100% - (11 * var(--gap))) / 12 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (11 * var(--col-gap))) / 12 * $item + (($item - 1) * var(--col-gap)));
+			}
+		}
+	}
+
+	@each $item in $setCol-elements {
+		@include screen-ss {
+			.#{col-ss- + $item} {
+				width: calc((100% - (11 * var(--col-gap))) / 12 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}
@@ -87,15 +89,9 @@
 	$setCol10-elements: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
 	@each $item in $setCol10-elements {
-		.#{col10- + $item} {
-			width: calc((100% - (9 * var(--gap))) / 10 * $item + (($item - 1) * var(--gap)));
-		}
-	}
-
-	@each $item in $setCol10-elements {
 		@include screen-xx {
 			.#{col10-xx- + $item} {
-				width: calc((100% - (9 * var(--gap))) / 10 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (9 * var(--col-gap))) / 10 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}
@@ -103,7 +99,7 @@
 	@each $item in $setCol10-elements {
 		@include screen-xl {
 			.#{col10-xl- + $item} {
-				width: calc((100% - (9 * var(--gap))) / 10 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (9 * var(--col-gap))) / 10 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}
@@ -111,7 +107,7 @@
 	@each $item in $setCol10-elements {
 		@include screen-lg {
 			.#{col10-lg- + $item} {
-				width: calc((100% - (9 * var(--gap))) / 10 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (9 * var(--col-gap))) / 10 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}
@@ -119,7 +115,7 @@
 	@each $item in $setCol10-elements {
 		@include screen-md {
 			.#{col10-md- + $item} {
-				width: calc((100% - (9 * var(--gap))) / 10 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (9 * var(--col-gap))) / 10 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}
@@ -127,7 +123,7 @@
 	@each $item in $setCol10-elements {
 		@include screen-sm {
 			.#{col10-sm- + $item} {
-				width: calc((100% - (9 * var(--gap))) / 10 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (9 * var(--col-gap))) / 10 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}
@@ -135,7 +131,15 @@
 	@each $item in $setCol10-elements {
 		@include screen-xs {
 			.#{col10-xs- + $item} {
-				width: calc((100% - (9 * var(--gap))) / 10 * $item + (($item - 1) * var(--gap)));
+				width: calc((100% - (9 * var(--col-gap))) / 10 * $item + (($item - 1) * var(--col-gap)));
+			}
+		}
+	}
+
+	@each $item in $setCol10-elements {
+		@include screen-ss {
+			.#{col10-ss- + $item} {
+				width: calc((100% - (9 * var(--col-gap))) / 10 * $item + (($item - 1) * var(--col-gap)));
 			}
 		}
 	}

@@ -1,9 +1,12 @@
+import { Main } from '~/asmlib/components/blocks/Main';
+import { Typography } from '~/asmlib/components/Typography';
+
 export function ChordsList() {
 	return (
-		<main className="chord-list-page main">
-			<h1 className="h1">
+		<Main>
+			<Typography component="h1">
 				ChordsList
-			</h1>
-		</main>
+			</Typography>
+		</Main>
 	);
 }

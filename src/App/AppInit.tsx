@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { onAuthStateChanged } from 'firebase/auth';
@@ -7,7 +7,8 @@ import { auth } from '~api/google/firebase/firebase';
 import { useViewportHeight } from '~hooks/useViewportHeight';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { userSlice } from '~store/user/userSlice';
-import { sendAnalyticsData } from '~utils/analytics/sendAnalyticsData';
+
+import { useInitTheme } from '~/asmlib/hooks/useInitTheme';
 
 interface AppInit {
 	children: React.ReactElement;
@@ -17,6 +18,9 @@ interface AppInit {
 export function AppInit({ children, onIsInitChange }: AppInit) {
 	useViewportHeight();
 
+	// *----- set or init theme -----
+	const initTheme = useInitTheme('light');
+
 	const dispatch = useTypedDispatch();
 	const { actions } = userSlice;
 
@@ -25,6 +29,10 @@ export function AppInit({ children, onIsInitChange }: AppInit) {
 
 	const [startLocation] = useState(location);
 	// initLocalStorage();
+
+	useLayoutEffect(() => {
+		document.body.classList.add('scroll');
+	}, []);
 
 	useEffect(() => {
 		const initFetch = async () => {
@@ -44,7 +52,6 @@ export function AppInit({ children, onIsInitChange }: AppInit) {
 					init = false;
 				}
 			});
-			await sendAnalyticsData();
 		};
 		initFetch();
 	// eslint-disable-next-line react-hooks/exhaustive-deps

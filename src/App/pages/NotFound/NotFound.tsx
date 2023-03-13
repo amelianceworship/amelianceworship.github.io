@@ -1,16 +1,27 @@
-import asm from 'asm-ts-scripts';
+import { Block } from '~/asmlib/components/blocks/Block';
+import { Grid } from '~/asmlib/components/Grid';
+import { Typography } from '~/asmlib/components/Typography';
 
 import s from './NotFound.module.scss';
 
 export function NotFound() {
 	return (
-		<main className="main">
-			<section className={asm.joinClasses(s.container, 'container')}>
-				<div className={s.title}>
-					<h1 className={asm.joinClasses(s.title40, 'h1')}>40</h1>
-					<h1 className={asm.joinClasses(s.title4, 'h1')}>4</h1>
-				</div>
-			</section>
-		</main>
+		<Block component="main">
+			<Grid container component="section" className={s.container}>
+				<Block className={s.title}>
+					<Typography component="p1" display="h1" className={s.title40}>40</Typography>
+					<Typography component="p1" display="h1" className={s.title4}>4</Typography>
+				</Block>
+				<Block className={s.description}>
+					<Typography component="p2">
+						Вибачте, сторінки не існує
+						<br />
+						або функціонал ще в процесі розробки
+						<br />
+						¯\_(ツ)_/¯
+					</Typography>
+				</Block>
+			</Grid>
+		</Block>
 	);
 }

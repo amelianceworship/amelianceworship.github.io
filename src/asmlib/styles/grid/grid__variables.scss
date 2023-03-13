@@ -1,7 +1,7 @@
 @use "../globals/" as *;
 
 :root {
-	--gap: var(--screen--gap); // 24
+	--gap: var(--screen--gap);
 	--col-gap: var(--screen--col-gap);
 	--col-outer: var(--screen--col-outer);
 
@@ -52,5 +52,10 @@
 		--gap: var(--screen--gap__xs);
 		--col-gap: var(--screen--col-gap__xs);
 		--col-outer: var(--screen--col-outer__xs);
+	}
+	@include screen-ss {
+		--gap: var(--screen--gap__ss);
+		--col-gap: var(--screen--col-gap__ss);
+		--col-outer: var(--screen--col-outer__ss);
 	}
 }

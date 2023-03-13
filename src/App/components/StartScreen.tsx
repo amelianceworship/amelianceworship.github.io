@@ -1,10 +1,13 @@
+import { Block } from '~/asmlib/components/blocks/Block';
+
 import { Logo } from './Logo';
+
 import s from './StartScreen.module.scss';
 
 export function StartScreen() {
 	return (
-		<div className={s.StartScreen}>
+		<Block className={s.StartScreen}>
 			<Logo type="short" />
-		</div>
+		</Block>
 	);
 }

@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
 
-import asm from 'asm-ts-scripts';
-
 import { useAuth } from '~hooks/useAuth';
 
-import s from './Logo.module.scss';
+import { AWLogo } from './SVG/AWLogo';
+import { AWLogoShort } from './SVG/AWLogoShort';
 
 interface Logo {
 	type?: 'normal' | 'short';
@@ -13,11 +12,10 @@ interface Logo {
 export function Logo({ type }: Logo) {
 	const { isAuth } = useAuth();
 	return (
-		<div>
-			{type === 'short' && <Link className={asm.joinClasses(s.Logo, s.short, 'aw-logo-short')} to="/" />}
-			{type === 'normal' && <Link className={asm.joinClasses(s.Logo, 'aw-logo')} to="/" />}
-			{!type && !isAuth && <Link className={asm.joinClasses(s.Logo, s.short, 'aw-logo-short')} to="/" />}
-			{!type && isAuth && <Link className={asm.joinClasses(s.Logo, 'aw-logo')} to="/" />}
-		</div>
+		<Link to="/" style={{ color: 'var(--color--f1-0)' }}>
+			{type === 'short' && <AWLogoShort />}
+			{type === 'normal' && <AWLogo />}
+			{!type && (isAuth ? <AWLogo /> : <AWLogoShort />)}
+		</Link>
 	);
 }

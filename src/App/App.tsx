@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Provider } from 'react-redux';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { Layout } from '~components/Layout';
-import { Snow } from '~components/Snow';
+// import { Snow } from '~components/Snow';
 import { StartScreen } from '~components/StartScreen';
-import { ROUTES } from '~constants/ROUTES';
-import { useAuth } from '~hooks/useAuth';
+// import { ROUTES } from '~constants/ROUTES';
+// import { useAuth } from '~hooks/useAuth';
 import { About } from '~pages/About';
 import { ChordsList } from '~pages/ChordsList';
 import { LogIn } from '~pages/LogIn';
@@ -18,11 +18,11 @@ import { store } from '~store/store';
 import { AppInit } from './AppInit';
 import { Home } from './pages/Home';
 
-function ProtectedRoute({ children }: { children: React.ReactElement }) {
-	const { isAuth } = useAuth();
-	if (!isAuth) return <Navigate to={ROUTES.LOGIN} />;
-	return children;
-}
+// function ProtectedRoute({ children }: { children: React.ReactElement }) {
+// 	const { isAuth } = useAuth();
+// 	if (!isAuth) return <Navigate to={ROUTES.LOGIN} />;
+// 	return children;
+// }
 
 export function App() {
 	const [isInit, setIsInit] = useState(true);
@@ -40,12 +40,13 @@ export function App() {
 								<Route path="songslist" element={<SongsList />} />
 								<Route path="about" element={<About />} />
 								<Route path="chordslist" element={<ChordsList />} />
+								{/* <Route path="chat" element={<ProtectedRoute></ChatPage><ProtectedRoute />} /> */}
 								<Route path="*" element={<NotFound />} />
 							</Route>
 						</Routes>
 					)}
 			</AppInit>
-			<Snow />
+			{/* <Snow /> */}
 		</Provider>
 	);
 }

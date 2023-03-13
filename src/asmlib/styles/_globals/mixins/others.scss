@@ -29,12 +29,12 @@
 	mask-repeat: no-repeat;
 	-webkit-mask-image: url($img);
 	mask-image: url($img);
-	&.inverted {
+	&.inversion {
 		background-color: var(--color--f2-1);
 	}
 	&:hover {
 		background-color: var(--color--f1-2);
-		&.inverted {
+		&.inversion {
 			background-color: var(--color--f2-2);
 		}
 	}

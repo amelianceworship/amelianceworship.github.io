@@ -57,7 +57,12 @@ module.exports = {
 				['^@?\\w'],
 				['@/(.*)'],
 				['^~'],
+				['^~/asmlib'],
 				['^[./]'],
+				['^~assets'],
+				['@.+.(sc|sa|c)ss$'],
+				['.(sc|sa|c)ss$'],
+				['.module.(sc|sa|c)ss$'],
 			],
 		}],
 

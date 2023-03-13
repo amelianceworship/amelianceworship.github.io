@@ -4,22 +4,29 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import asm from 'asm-ts-scripts';
 
-import { Button } from '~components/inputs/Button';
-import { Checkbox } from '~components/inputs/form/Checkbox';
-import { EmailInput } from '~components/inputs/form/EmailInput';
-import { FileImgUpload } from '~components/inputs/form/FileImgUpload';
-import { PasswordInput } from '~components/inputs/form/PasswordInput';
-import { TextInput } from '~components/inputs/form/TextInput';
-import { LoaderOverlay } from '~components/LoaderOverlay';
+import { GoogleColorIcon } from '~components/SVG/GoogleColorIcon';
 import { ROUTES } from '~constants/ROUTES';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { createUser } from '~store/user/actions/createUser';
+import { signInWithGoogle } from '~store/user/actions/signInWithGoogle';
 import { userSlice } from '~store/user/userSlice';
 
-import s from './SignUp.module.scss';
+import { Block } from '~/asmlib/components/blocks/Block';
+import { Main } from '~/asmlib/components/blocks/Main';
+import { Button } from '~/asmlib/components/Button';
+import { Form } from '~/asmlib/components/Form';
+import { Grid } from '~/asmlib/components/Grid';
+import {
+	Checkbox, EmailInput, FileImgUpload, PasswordInput, TextInput,
+} from '~/asmlib/components/Inputs';
+import { LinkLabel } from '~/asmlib/components/Link';
+import { Typography } from '~/asmlib/components/Typography';
+
 import { SignUpErrorModal } from './SignUpErrorModal';
 import { SignUpSuccessModal } from './SignUpSuccessModal';
+
+import s from './SignUp.module.scss';
 
 interface FormFields {
 	userName: string;
@@ -83,6 +90,10 @@ export function SignUp() {
 		}));
 	};
 
+	const handleSignInWithGoogle = () => {
+		dispatch(signInWithGoogle());
+	};
+
 	const handlerSuccessModal = () => {
 		reset();
 		navigate(ROUTES.HOME);
@@ -93,11 +104,11 @@ export function SignUp() {
 	};
 
 	return (
-		<main className="main">
-			<div className={asm.joinClasses(s.container, 'container')}>
-				{isLoading && <LoaderOverlay />}
-				<h2 className="h4">Реєстрація</h2>
-				<form
+		<Main>
+			<Grid container className={s.container}>
+				{/* {isLoading && <LoaderOverlay />} */}
+				<Typography component="h4">Реєстрація</Typography>
+				<Form
 					className={s.form}
 					onSubmit={handleSubmit(onSubmit)}
 				>
@@ -106,7 +117,6 @@ export function SignUp() {
 						register={registers.profileImage}
 						errors={errors}
 						accept=".jpg, .jpeg, .png"
-						testId="profile-image"
 						label="Оберіть зображення"
 					>
 						Зображення профілю*:
@@ -121,23 +131,27 @@ export function SignUp() {
 						Пароль*:
 					</PasswordInput>
 					<Checkbox register={{}} errors={errors} label="Я хочу поставити галочку" />
-					<div className={s.buttons}>
+					<Block className={s.buttons}>
 						<Button
-							isSubmit
+							submit
 							disabled={!isDirty || !isValidFixed}
 						>
 							Створити
 						</Button>
-						<p className="p1">
+						<Button type="secondary" onClick={handleSignInWithGoogle}>
+							<GoogleColorIcon />
+							Увійти через Google
+						</Button>
+						<Typography component="p1">
 							Вже є акаунт?
 							{' '}
-							<Link className="link" to={ROUTES.LOGIN}>Увійти</Link>
-						</p>
-					</div>
-				</form>
-			</div>
+							<Link className="link" to={ROUTES.LOGIN}><LinkLabel>Увійти</LinkLabel></Link>
+						</Typography>
+					</Block>
+				</Form>
+			</Grid>
 			{(uid && !isLoading) ? <SignUpSuccessModal onClose={handlerSuccessModal} /> : null}
 			{(error && !isLoading) ? <SignUpErrorModal onClose={handlerErrorModal} /> : null}
-		</main>
+		</Main>
 	);
 }

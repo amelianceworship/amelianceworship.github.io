@@ -1,10 +1,14 @@
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import asm from 'asm-ts-scripts';
 
-import { PRIVATE_ROUTES } from '~constants/ROUTES';
+import { PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
 import { isMatchPath } from '~helpers/isMatchPath';
 import { useAuth } from '~hooks/useAuth';
+
+import { Block } from '~/asmlib/components/blocks/Block';
+import { Grid } from '~/asmlib/components/Grid';
+import { LinkLabel } from '~/asmlib/components/Link/LinkLabel';
 
 import s from './Footer.module.scss';
 
@@ -16,15 +20,17 @@ export function Footer() {
 	const isSingUp = isMatchPath(pathname, 'signup');
 
 	return (
-		<footer>
-			<section className={asm.joinClasses(s.container, 'container')}>
+		<Block component="footer">
+			<Grid container className={asm.join(s.container)}>
 				{!(isLogIn || isSingUp) && (isAuth && pathname !== PRIVATE_ROUTES.CHAT)
 					&& (
-						<a href="/" target="_blank" className="link">
-							2023 01 19
-						</a>
+						<NavLink to={ROUTES.HOME}>
+							<LinkLabel>
+								2023 03 12
+							</LinkLabel>
+						</NavLink>
 					)}
-			</section>
-		</footer>
+			</Grid>
+		</Block>
 	);
 }

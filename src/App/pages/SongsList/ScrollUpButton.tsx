@@ -1,14 +1,16 @@
-import { Button } from '~components/inputs/Button';
-import { StickyButton } from '~components/StickyButton';
+import { StickyButton } from '~/asmlib/components/_REFACTOR/StickyButton';
+import { Button } from '~/asmlib/components/Button/Button';
+import { ChevronUpIcon } from '~/asmlib/components/icons/ChevronUpIcon';
 
 export function ScrollUpButton() {
 	return (
 		<StickyButton popup inverseDirection hideOnScreensCount={1}>
 			<Button
-				icon="icon--chevron-up"
+				size="small"
 				onClick={() => document.body.scrollIntoView()}
-				buttonIcon
-			/>
+			>
+				<ChevronUpIcon size="small" />
+			</Button>
 		</StickyButton>
 	);
 }

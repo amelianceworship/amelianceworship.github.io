@@ -3,11 +3,12 @@ import asm from 'asm-ts-scripts';
 
 import { api } from '~api/index';
 import { TABLE_NAMES } from '~app/constants/TABLE_NAMES';
-import { GOOGLE_SPREADSHEETS_IDS } from '~constants/GOOGLE_SPREADSHEETS_IDS';
 import { rejectError } from '~store/helpers/rejectError';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 
 // TODO: add export types to library
+
+const GOOGLE_SONGSLIST_TABLE_ID = import.meta.env.VITE_GOOGLE_SONGSLIST_TABLE_ID;
 
 type ObjItem = Record<string, string | number>;
 type GroupOfObj = [string, ObjItem[]];
@@ -34,7 +35,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 	async (_, thunkAPI) => {
 		try {
 			const response = await api.google.appsscript.getAllTitledColumnsDataSingle({
-				spreadsheetId: GOOGLE_SPREADSHEETS_IDS.SONGSLIST,
+				spreadsheetId: GOOGLE_SONGSLIST_TABLE_ID,
 				sheetName: 'common',
 			});
 

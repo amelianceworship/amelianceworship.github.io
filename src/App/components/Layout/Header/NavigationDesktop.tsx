@@ -4,13 +4,15 @@ import asm from 'asm-ts-scripts';
 
 import { PRIVATE_ROUTES, ROUTES } from '~app/constants/ROUTES';
 
+import { Nav } from '~/asmlib/components/blocks/Nav';
+
 import s from './NavigationDesktop.module.scss';
 
 export function NavigationDesktop() {
-	const linkClass = ({ isActive }: Record<string, boolean>) => (isActive ? asm.joinClasses(s.active, 'link no-underline') : 'link no-underline');
+	const linkClass = ({ isActive }: Record<string, boolean>) => (isActive ? asm.join(s.active, 'link no-underline') : 'link no-underline');
 
 	return (
-		<nav className={s.NavigationDesktop}>
+		<Nav className={s.NavigationDesktop}>
 			<NavLink className={linkClass} end to={ROUTES.HOME}>
 				Головна
 			</NavLink>
@@ -20,6 +22,6 @@ export function NavigationDesktop() {
 			<NavLink className={linkClass} end to={PRIVATE_ROUTES.CHAT}>
 				Чат
 			</NavLink>
-		</nav>
+		</Nav>
 	);
 }

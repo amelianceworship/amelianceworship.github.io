@@ -1,11 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import asm from 'asm-ts-scripts';
-
 import { api } from '~api/index';
 import { ROUTES } from '~app/constants/ROUTES';
-import { Avatar } from '~components/Avatar';
-import { Button } from '~components/inputs/Button';
 import { Logo } from '~components/Logo';
 import { isMatchPath } from '~helpers/isMatchPath';
 import { useAuth } from '~hooks/useAuth';
@@ -14,9 +10,15 @@ import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { userSlice } from '~store/user/userSlice';
 
-import s from './Header.module.scss';
+import { Avatar } from '~/asmlib/components/Avatar';
+import { Block } from '~/asmlib/components/blocks/Block';
+import { Button } from '~/asmlib/components/Button';
+import { Grid } from '~/asmlib/components/Grid';
+
 import { NavigationDesktop } from './NavigationDesktop';
 import { NavigationMobile } from './NavigationMobile';
+
+import s from './Header.module.scss';
 
 export function Header() {
 	const { isScreenMD } = useScreenQuery();
@@ -41,24 +43,28 @@ export function Header() {
 
 	const isLogIn = isMatchPath(pathname, 'login');
 	const isSingUp = isMatchPath(pathname, 'signup');
+	const isSongsList = isMatchPath(pathname, 'songslist');
 
 	return (
-		<header>
-			<section className={asm.joinClasses(s.container, 'container')}>
+		<Block component="header" className={s.Header}>
+			<Grid container component="section" className={s.container}>
 				<Logo />
-				<div className={s.controls} style={{ display: 'none' }}>
-					{!isScreenMD && !(isLogIn || isSingUp) && <NavigationDesktop />}
-					{isScreenMD && !(isLogIn || isSingUp) && <NavigationMobile />}
-					{isAuth
-						? !(isLogIn || isSingUp) && <Avatar src={photoURL} alt={displayName} char={displayName[0] || email[0]} size="small" onClick={handleLogOut} />
-						: !(isLogIn || isSingUp)
-							&& (
-								<Button onClick={handleLogIn}>
-									Увійти
-								</Button>
-							)}
-				</div>
-			</section>
-		</header>
+				{!isSongsList
+				&& (
+					<Block className={s.controls}>
+						{isScreenMD && !(isLogIn || isSingUp) && <NavigationDesktop />}
+						{!isScreenMD && !(isLogIn || isSingUp) && <NavigationMobile />}
+						{isAuth
+							? !(isLogIn || isSingUp) && <Avatar src={photoURL} alt={displayName} char={displayName[0] || email[0]} size="small" onClick={handleLogOut} />
+							: !(isLogIn || isSingUp)
+					&& (
+						<Button size="small" onClick={handleLogIn}>
+							Увійти
+						</Button>
+					)}
+					</Block>
+				)				}
+			</Grid>
+		</Block>
 	);
 }

@@ -1,18 +1,16 @@
 import * as path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import eslint from 'vite-plugin-eslint';
 
 export default defineConfig({
-	plugins: [react()],
-	// build: {
-	// 	target: 'esnext'
-	// },
+	plugins: [react(), eslint()],
 	css: {
 		devSourcemap: true
 	},
 	resolve: {
 		alias: {
-			'~assets': path.resolve(__dirname, 'public/assets'),
+			'~assets': path.resolve(__dirname, 'src/assets'),
 			'~api': path.resolve(__dirname, 'src/App/api'),
 			'~components': path.resolve(__dirname, 'src/App/components'),
 			'~constants': path.resolve(__dirname, 'src/App/constants'),

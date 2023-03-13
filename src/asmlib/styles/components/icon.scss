@@ -19,9 +19,9 @@
 	-webkit-mask-size: contain;
 	mask-size: contain;
 
-	&.inverted {
-		color: var(--icon-inverted__color);
-		background-color: var(--icon-inverted__color);
+	&.inversion {
+		color: var(--icon-inversion__color);
+		background-color: var(--icon-inversion__color);
 	}
 
 	&.clickable {

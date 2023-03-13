@@ -2,16 +2,25 @@ import { useEffect, useState } from 'react';
 
 import asm from 'asm-ts-scripts';
 
-import { Icon } from '~components/Icon';
-import { Dropdown } from '~components/inputs/Dropdown';
-import { LoaderOverlay } from '~components/LoaderOverlay';
-import { ToastList } from '~components/ToastList/ToastList';
 import { ROUTES } from '~constants/ROUTES';
+import { writeTextToClipboard } from '~helpers/writeTextToClipboard';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { fetchSongsList } from '~store/songsList/actions/fetchSongsList';
 
+import { Dropdown } from '~/asmlib/components/_REFACTOR/inputs/Dropdown';
+import { LoaderOverlay } from '~/asmlib/components/_REFACTOR/LoaderOverlay';
+import { Block } from '~/asmlib/components/blocks/Block';
+import { Button } from '~/asmlib/components/Button';
+import { Grid } from '~/asmlib/components/Grid';
+import { CopyIcon } from '~/asmlib/components/icons/CopyIcon';
+import { Link } from '~/asmlib/components/Link';
+import { List, ListItem } from '~/asmlib/components/List';
+import { ToastList } from '~/asmlib/components/Toast';
+import { Typography } from '~/asmlib/components/Typography';
+
 import { ScrollUpButton } from './ScrollUpButton';
+
 import s from './SongsList.module.scss';
 
 export function SongsList() {
@@ -53,24 +62,23 @@ export function SongsList() {
 	const handleSongNameClick = async (event: React.MouseEvent<HTMLElement>) => {
 		const text = event.currentTarget?.previousElementSibling?.textContent;
 
-		if (text) {
-			try {
-				await navigator.clipboard.writeText(text);
+		if (text && typeof text === 'string') {
+			const result = await writeTextToClipboard(text);
+			if (result.status === 'success') {
 				setToast((prev) => ({
 					title: 'Скопійовано в буфер:',
 					message: `${text}`,
 					id: (+prev.id + 1).toString(),
 				}));
-				setIsShowToast(true);
-			} catch (error) {
+			} else {
 				setToast((prev) => ({
 					title: '',
 					message: 'Сталася невідома помилка! Напишіть, будь ласка, мені в телеграм=)',
 					type: 'error',
 					id: (+prev.id + 1).toString(),
 				}));
-				setIsShowToast(true);
 			}
+			setIsShowToast(true);
 		}
 	};
 
@@ -79,8 +87,8 @@ export function SongsList() {
 	};
 
 	return (
-		<main className={asm.joinClasses(s.SongsList, 'main', 'songsList')}>
-			<section className={asm.joinClasses(s.container, 'container')}>
+		<Block component="main" className={asm.join(s.SongsList, 'songsList')}>
+			<Grid component="section" container className={s.container}>
 				{isShowToast && (
 					<ToastList
 						onClearList={handleClearToastList}
@@ -98,46 +106,47 @@ export function SongsList() {
 				{ songsTableNames && (
 					<Dropdown
 						selected={songsTableNames[0]}
-						onChange={handleTableNameChange}
+						onDropdownChange={handleTableNameChange}
 						options={songsTableNames}
 					/>
 				)}
 				{ songsList[activeTable] &&	(
-					<nav className={s.listNavigation}>
+					<Block component="nav" className={s.listNavigation}>
 						{songsList[activeTable]?.map((songGroup) => (
-							<a href={`${ROUTES.SONGS_LIST}#${songGroup[0]}`} className="link" key={songGroup[0]}>{songGroup[0]}</a>
+							<Link href={`${ROUTES.SONGS_LIST}#${songGroup[0]}`} className="link" key={songGroup[0]}>{songGroup[0]}</Link>
 						))}
-					</nav>
+					</Block>
 				)}
 				{ songsList[activeTable] && (
-					<div className={s.songsList}>
+					<Block className={s.songsList}>
 						{songsList[activeTable]?.map((songGroup) => (
-							<div className={s.songsGroup} key={songGroup[0]}>
-								<h3 className={asm.joinClasses(s.songsGroupSymbol, 'h3')} id={songGroup[0]}>{songGroup[0]}</h3>
-								<ul className={s.songs}>
+							<Block className={s.songsGroup} key={songGroup[0]}>
+								<Typography component="h3" className={asm.join(s.songsGroupSymbol)} id={songGroup[0]}>{songGroup[0]}</Typography>
+								<List className={s.songs}>
 									{songGroup[1].map((songName) => (
 										// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-										<li
+										<ListItem
 											className={s.songItem}
 											key={songName.position}
 										>
-											<p
-												className="p1"
+											<Typography
+												component="p1"
 												id={`song_${songName.position}`}
 											>
 												{songName.value}
-											</p>
-											<Icon className={s.copyIcon} onClick={handleSongNameClick} icon="icon--copy" />
-										</li>
-
+											</Typography>
+											<Button size="custom" type="text" className={s.copyIcon} onClick={handleSongNameClick}>
+												<CopyIcon size="small" />
+											</Button>
+										</ListItem>
 									))}
-								</ul>
-							</div>
+								</List>
+							</Block>
 						))}
-					</div>
+					</Block>
 				)}
 				<ScrollUpButton />
-			</section>
-		</main>
+			</Grid>
+		</Block>
 	);
 }

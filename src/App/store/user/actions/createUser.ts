@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import asm from 'asm-ts-scripts';
 
 import { api } from '~api/index';
-import { getCurrentDateInMs } from '~helpers/getCurrentDateInMs';
 import { rejectError } from '~store/helpers/rejectError';
 import { returnActionError } from '~store/helpers/returnActionError';
 import type { CreateUser } from '~types/api/google/firebase/auth/createUser';
@@ -26,7 +26,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 
 			// *----- upload user image -----
 			const responseURL = photo ? await api.google.firebase.storage.uploadFile({
-				refName: `users/${response.user.uid}/profile/profileImage-${response.user.uid}-${getCurrentDateInMs()}`,
+				refName: `users/${response.user.uid}/profile/profileImage-${response.user.uid}-${asm.getCurrentDateInMs()}`,
 				file: photo,
 			}) : null;
 			const downloadURL = (responseURL && 'downloadURL' in responseURL) ? responseURL.downloadURL || '' : '';
