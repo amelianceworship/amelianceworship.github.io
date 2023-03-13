@@ -7,7 +7,6 @@ import { auth } from '~api/google/firebase/firebase';
 import { useViewportHeight } from '~hooks/useViewportHeight';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { userSlice } from '~store/user/userSlice';
-import { sendAnalyticsData } from '~utils/analytics/sendAnalyticsData';
 
 import { useInitTheme } from '~/asmlib/hooks/useInitTheme';
 
@@ -53,7 +52,6 @@ export function AppInit({ children, onIsInitChange }: AppInit) {
 					init = false;
 				}
 			});
-			// await sendAnalyticsData();
 		};
 		initFetch();
 	// eslint-disable-next-line react-hooks/exhaustive-deps

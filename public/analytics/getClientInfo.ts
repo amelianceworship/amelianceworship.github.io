@@ -1,5 +1,4 @@
-import { api } from '~api/index';
-
+import { analyticsApi } from './analyticsApi';
 import { getBrowser } from './getBrowser';
 import { getMobile } from './getMobile';
 
@@ -23,7 +22,7 @@ export interface ClientInfo {
 }
 
 export async function getClientInfo(): Promise<ClientInfo> {
-	const ipResponse = await api.ipify.fetchIP();
+	const ipResponse = await analyticsApi.ipify.fetchIP();
 
 	return {
 		ip: ipResponse.status === 'success' ? ipResponse.ip : '',
