@@ -1,7 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
 
-import asm from 'asm-ts-scripts';
-
 import { PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
 import { isMatchPath } from '~helpers/isMatchPath';
 import { useAuth } from '~hooks/useAuth';
@@ -20,8 +18,8 @@ export function Footer() {
 	const isSingUp = isMatchPath(pathname, 'signup');
 
 	return (
-		<Block component="footer">
-			<Grid container className={asm.join(s.container)}>
+		<Block component="footer" className={s.Footer}>
+			<Grid container className={s.container}>
 				{!(isLogIn || isSingUp) && (isAuth && pathname !== PRIVATE_ROUTES.CHAT)
 					&& (
 						<NavLink to={ROUTES.HOME}>
