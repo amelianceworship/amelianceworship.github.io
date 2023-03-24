@@ -10,10 +10,10 @@ import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { userSlice } from '~store/user/userSlice';
 
-import { Avatar } from '~/asmlib/components/Avatar';
-import { Block } from '~/asmlib/components/blocks/Block';
-import { Button } from '~/asmlib/components/Button';
-import { Grid } from '~/asmlib/components/Grid';
+import { Avatar } from '~/ameliance-ui/components/Avatar';
+import { Block } from '~/ameliance-ui/components/blocks/Block';
+import { Button } from '~/ameliance-ui/components/Button';
+import { Grid } from '~/ameliance-ui/components/Grid';
 
 import { NavigationDesktop } from './NavigationDesktop';
 import { NavigationMobile } from './NavigationMobile';

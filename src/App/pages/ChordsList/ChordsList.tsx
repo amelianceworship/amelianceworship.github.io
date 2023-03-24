@@ -1,5 +1,5 @@
-import { Main } from '~/asmlib/components/blocks/Main';
-import { Typography } from '~/asmlib/components/Typography';
+import { Main } from '~/ameliance-ui/components/blocks/Main';
+import { Typography } from '~/ameliance-ui/components/Typography';
 
 export function ChordsList() {
 	return (

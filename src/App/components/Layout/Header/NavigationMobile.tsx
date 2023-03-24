@@ -5,10 +5,10 @@ import asm from 'asm-ts-scripts';
 
 import { PRIVATE_ROUTES, ROUTES } from '~app/constants/ROUTES';
 
-import { Nav } from '~/asmlib/components/blocks/Nav';
-import { Button } from '~/asmlib/components/Button';
-import { MenuIcon } from '~/asmlib/components/icons/MenuIcon';
-import { Menu, MenuContainer, MenuItem } from '~/asmlib/components/Menu';
+import { Nav } from '~/ameliance-ui/components/blocks/Nav';
+import { Button } from '~/ameliance-ui/components/Button';
+import { MenuIcon } from '~/ameliance-ui/components/icons/MenuIcon';
+import { Menu, MenuContainer, MenuItem } from '~/ameliance-ui/components/Menu';
 
 import s from './NavigationMobile.module.scss';
 

@@ -8,7 +8,7 @@ import { useViewportHeight } from '~hooks/useViewportHeight';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { userSlice } from '~store/user/userSlice';
 
-import { useInitTheme } from '~/asmlib/hooks/useInitTheme';
+import { useInitTheme } from '~/ameliance-ui/hooks/useInitTheme';
 
 interface AppInit {
 	children: React.ReactElement;

@@ -1,6 +1,6 @@
-import { Block } from '~/asmlib/components/blocks/Block';
-import { Grid } from '~/asmlib/components/Grid';
-import { Typography } from '~/asmlib/components/Typography';
+import { Block } from '~/ameliance-ui/components/blocks/Block';
+import { Grid } from '~/ameliance-ui/components/Grid';
+import { Typography } from '~/ameliance-ui/components/Typography';
 
 import s from './NotFound.module.scss';
 

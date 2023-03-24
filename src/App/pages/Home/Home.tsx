@@ -1,7 +1,7 @@
-import { Block } from '~/asmlib/components/blocks/Block';
-import { ButtonLink } from '~/asmlib/components/Button';
-import { Grid } from '~/asmlib/components/Grid/Grid';
-import { Typography } from '~/asmlib/components/Typography';
+import { Block } from '~/ameliance-ui/components/blocks/Block';
+import { ButtonLink } from '~/ameliance-ui/components/Button';
+import { Grid } from '~/ameliance-ui/components/Grid/Grid';
+import { Typography } from '~/ameliance-ui/components/Typography';
 
 import s from './Home.module.scss';
 

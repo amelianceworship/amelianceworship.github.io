@@ -6,9 +6,9 @@ import { PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
 import { isMatchPath } from '~helpers/isMatchPath';
 import { useAuth } from '~hooks/useAuth';
 
-import { Block } from '~/asmlib/components/blocks/Block';
-import { Grid } from '~/asmlib/components/Grid';
-import { LinkLabel } from '~/asmlib/components/Link/LinkLabel';
+import { Block } from '~/ameliance-ui/components/blocks/Block';
+import { Grid } from '~/ameliance-ui/components/Grid';
+import { LinkLabel } from '~/ameliance-ui/components/Link/LinkLabel';
 
 import s from './Footer.module.scss';
 

@@ -4,7 +4,7 @@ import asm from 'asm-ts-scripts';
 
 import { PRIVATE_ROUTES, ROUTES } from '~app/constants/ROUTES';
 
-import { Nav } from '~/asmlib/components/blocks/Nav';
+import { Nav } from '~/ameliance-ui/components/blocks/Nav';
 
 import s from './NavigationDesktop.module.scss';
 

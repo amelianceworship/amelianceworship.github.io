@@ -12,16 +12,16 @@ import { createUser } from '~store/user/actions/createUser';
 import { signInWithGoogle } from '~store/user/actions/signInWithGoogle';
 import { userSlice } from '~store/user/userSlice';
 
-import { Block } from '~/asmlib/components/blocks/Block';
-import { Main } from '~/asmlib/components/blocks/Main';
-import { Button } from '~/asmlib/components/Button';
-import { Form } from '~/asmlib/components/Form';
-import { Grid } from '~/asmlib/components/Grid';
+import { Block } from '~/ameliance-ui/components/blocks/Block';
+import { Main } from '~/ameliance-ui/components/blocks/Main';
+import { Button } from '~/ameliance-ui/components/Button';
+import { Form } from '~/ameliance-ui/components/Form';
+import { Grid } from '~/ameliance-ui/components/Grid';
 import {
 	Checkbox, EmailInput, FileImgUpload, PasswordInput, TextInput,
-} from '~/asmlib/components/Inputs';
-import { LinkLabel } from '~/asmlib/components/Link';
-import { Typography } from '~/asmlib/components/Typography';
+} from '~/ameliance-ui/components/Inputs';
+import { LinkLabel } from '~/ameliance-ui/components/Link';
+import { Typography } from '~/ameliance-ui/components/Typography';
 
 import { SignUpErrorModal } from './SignUpErrorModal';
 import { SignUpSuccessModal } from './SignUpSuccessModal';

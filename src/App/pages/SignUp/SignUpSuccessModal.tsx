@@ -1,4 +1,4 @@
-import { Modal } from '~/asmlib/components/Modal';
+import { Modal } from '~/ameliance-ui/components/Modal';
 
 interface SignUpSuccessModal {
 	onClose: () => void;

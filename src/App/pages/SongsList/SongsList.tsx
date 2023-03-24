@@ -8,16 +8,16 @@ import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { fetchSongsList } from '~store/songsList/actions/fetchSongsList';
 
-import { Dropdown } from '~/asmlib/components/_REFACTOR/inputs/Dropdown';
-import { LoaderOverlay } from '~/asmlib/components/_REFACTOR/LoaderOverlay';
-import { Block } from '~/asmlib/components/blocks/Block';
-import { Button } from '~/asmlib/components/Button';
-import { Grid } from '~/asmlib/components/Grid';
-import { CopyIcon } from '~/asmlib/components/icons/CopyIcon';
-import { Link } from '~/asmlib/components/Link';
-import { List, ListItem } from '~/asmlib/components/List';
-import { ToastList } from '~/asmlib/components/Toast';
-import { Typography } from '~/asmlib/components/Typography';
+import { LoaderOverlay } from '~/ameliance-ui/components/_LAB/LoaderOverlay';
+import { Block } from '~/ameliance-ui/components/blocks/Block';
+import { Button } from '~/ameliance-ui/components/Button';
+import { Grid } from '~/ameliance-ui/components/Grid';
+import { CopyIcon } from '~/ameliance-ui/components/icons/CopyIcon';
+import { Dropdown } from '~/ameliance-ui/components/Inputs/Dropdown';
+import { Link } from '~/ameliance-ui/components/Link';
+import { List, ListItem } from '~/ameliance-ui/components/List';
+import { ToastList } from '~/ameliance-ui/components/Toast';
+import { Typography } from '~/ameliance-ui/components/Typography';
 
 import { ScrollUpButton } from './ScrollUpButton';
 
