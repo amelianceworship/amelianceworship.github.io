@@ -57,7 +57,7 @@ module.exports = {
 				['^@?\\w'],
 				['@/(.*)'],
 				['^~'],
-				['^~/asmlib'],
+				['^~/ameliance-ui'],
 				['^[./]'],
 				['^~assets'],
 				['@.+.(sc|sa|c)ss$'],
@@ -76,21 +76,21 @@ module.exports = {
 			],
 		}],
 
-		"jsx-a11y/label-has-associated-control": [ "error", {
-			"required": {
-			  "some": [ "nesting", "id"  ]
+		'jsx-a11y/label-has-associated-control': [ 'error', {
+			required: {
+			  some: [ 'nesting', 'id'  ]
 			}
 		}],
 
-		"max-len": [
-			"error",
+		'max-len': [
+			'error',
 			{
-			  "code": 100,
-			  "tabWidth": 3,
-			  "ignoreComments": true,
-			  "ignoreUrls": true,
-			  "ignoreStrings": true,
-			  "ignoreTemplateLiterals": true,
+				code: 100,
+				tabWidth: 3,
+				ignoreComments: true,
+				ignoreUrls: true,
+				ignoreStrings: true,
+				ignoreTemplateLiterals: true,
 			}
 		],
 	},
