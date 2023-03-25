@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Provider } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import {
+	createBrowserRouter, createRoutesFromElements, Route, RouterProvider,
+} from 'react-router-dom';
 
 import { Layout } from '~components/Layout';
 // import { Snow } from '~components/Snow';
@@ -24,6 +26,19 @@ import { Home } from './pages/Home';
 // 	return children;
 // }
 
+const router = createBrowserRouter(createRoutesFromElements(
+	<Route path="/" element={<Layout />}>
+		<Route index element={<Home />} />
+		<Route path="login" element={(<LogIn />)} />
+		<Route path="signup" element={(<SignUp />)} />
+		<Route path="songslist" element={<SongsList />} />
+		<Route path="about" element={<About />} />
+		<Route path="chordslist" element={<ChordsList />} />
+		{/* <Route path="chat" element={<ProtectedRoute></ChatPage><ProtectedRoute />} /> */}
+		<Route path="*" element={<NotFound />} />
+	</Route>,
+));
+
 export function App() {
 	const [isInit, setIsInit] = useState(true);
 
@@ -32,18 +47,7 @@ export function App() {
 			<AppInit onIsInitChange={setIsInit}>
 				{isInit ? <StartScreen />
 					: (
-						<Routes>
-							<Route path="/" element={<Layout />}>
-								<Route index element={<Home />} />
-								<Route path="login" element={(<LogIn />)} />
-								<Route path="signup" element={(<SignUp />)} />
-								<Route path="songslist" element={<SongsList />} />
-								<Route path="about" element={<About />} />
-								<Route path="chordslist" element={<ChordsList />} />
-								{/* <Route path="chat" element={<ProtectedRoute></ChatPage><ProtectedRoute />} /> */}
-								<Route path="*" element={<NotFound />} />
-							</Route>
-						</Routes>
+						<RouterProvider router={router} />
 					)}
 			</AppInit>
 			{/* <Snow /> */}
