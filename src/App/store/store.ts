@@ -14,15 +14,15 @@ import storage from 'redux-persist/lib/storage';
 import { APP } from '~constants/APP';
 
 import { appSlice } from './app/appSlice';
-import { chatSlice } from './chat/chatSlice';
+// import { chatSlice } from './chat/chatSlice';
 import { songsListSlice } from './songsList/songsListSlice';
 import { userSlice } from './user/userSlice';
 
 const rootReducers = combineReducers({
+	appReducer: appSlice.reducer,
+	// chatReducer: chatSlice.reducer,
 	songsListReducer: songsListSlice.reducer,
 	userReducer: userSlice.reducer,
-	appReducer: appSlice.reducer,
-	chatReducer: chatSlice.reducer,
 });
 
 const persistConfig = {
