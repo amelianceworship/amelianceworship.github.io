@@ -49,7 +49,6 @@ export function ToastList({
 	const [isInit, setIsInit] = useState(true);
 
 	const [toastList, setList] = useState<ToastList[]>([]);
-	console.log('toastList: ', toastList);
 
 	const removeToast = (toastId: string) => {
 		setList((prev) => prev.filter((toast) => toast.id !== toastId));

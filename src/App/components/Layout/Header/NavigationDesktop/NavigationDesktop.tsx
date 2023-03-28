@@ -1,7 +1,5 @@
 import { NavLink } from 'react-router-dom';
 
-import asm from 'asm-ts-scripts';
-
 import { PRIVATE_ROUTES, ROUTES } from '~app/constants/ROUTES';
 
 import { Nav } from '~/ameliance-ui/components/blocks/Nav';

@@ -1,11 +1,9 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import type { Location } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { onAuthStateChanged } from 'firebase/auth';
 
 import { auth } from '~api/google/firebase/firebase';
-import { ROUTES } from '~constants/ROUTES';
 import { useViewportHeight } from '~hooks/useViewportHeight';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
@@ -19,9 +17,8 @@ export function useAppInit() {
 	useViewportHeight();
 
 	const { theme } = useTypedSelector((state) => state.appReducer);
-	console.log('theme: ', theme);
+
 	// *----- set or init theme -----
-	// const initTheme = useInitTheme('light');
 	useInitTheme(theme);
 
 	const dispatch = useTypedDispatch();
@@ -29,7 +26,6 @@ export function useAppInit() {
 
 	const navigate = useNavigate();
 	const location = useLocation();
-	console.log('location: ', location);
 	const [startLocation, setStartLocation] = useState('');
 
 	// initLocalStorage();

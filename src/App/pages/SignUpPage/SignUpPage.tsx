@@ -18,7 +18,7 @@ import { Button } from '~/ameliance-ui/components/Button';
 import { Form } from '~/ameliance-ui/components/Form';
 import { Grid } from '~/ameliance-ui/components/Grid';
 import {
-	Checkbox, EmailInput, FileImgUpload, PasswordInput, TextInput,
+	EmailInput, FileImgUpload, PasswordInput, TextInput,
 } from '~/ameliance-ui/components/Inputs';
 import { LinkLabel } from '~/ameliance-ui/components/Link';
 import { Typography } from '~/ameliance-ui/components/Typography';
