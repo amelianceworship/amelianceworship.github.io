@@ -14,5 +14,5 @@ export function useInitTheme(localStorageState?: string) {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return theme;
+	return { theme };
 }

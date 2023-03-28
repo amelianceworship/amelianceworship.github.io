@@ -4,6 +4,8 @@ import asm from 'asm-ts-scripts';
 
 import { Component } from '../_LAB/Component';
 
+import s from './Typography.module.scss';
+
 type ComponentElementType = HTMLHeadingElement | HTMLParagraphElement;
 
 export interface TypographyProps extends ReactHTMLElementAttributes<ComponentElementType> {
@@ -23,8 +25,14 @@ export const Typography = forwardRef<ComponentElementType, TypographyProps>(({
 	...rest
 }, ref) => {
 	const componentTag = component || 'p';
+	const displayClass = display ? s[display] : null;
+	const componentClass = component ? s[component] : s.p1;
 
-	const attributes = { className: asm.join(className, display || component), ref, ...rest };
+	const attributes = {
+		className: asm.join(className, displayClass || componentClass),
+		ref,
+		...rest,
+	};
 
 	const tagType = tag[componentTag as keyof typeof tag] || 'p';
 

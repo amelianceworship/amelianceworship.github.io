@@ -1,6 +1,6 @@
-@use "typography-fonts__root" as *;
-@use "typography-fonts__mixins" as *;
-@use "typography-fonts__variables" as *;
+@use "typographyFonts.root" as *;
+@use "typographyFonts.mixins" as *;
+@use "typographyFonts.variables" as *;
 
 $setTypo-elements: (
 	h1,

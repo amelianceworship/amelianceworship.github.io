@@ -29,7 +29,7 @@
 	max-height: 90vh;
 	@extend %box-shadow--default;
 
-	.title {
+	.titleContainer {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -81,6 +81,33 @@
 		animation-fill-mode: forwards;
 		transform: scale(100%);
 		position: relative;
+	}
+}
+
+.title {
+	color: var(--color--f2-1);
+}
+.success {
+	.title {
+		color: var(--color--f2-1);
+	}
+}
+
+.info {
+	.title {
+		color: var(--color--f2-1);
+	}
+}
+
+.error {
+	.title {
+		color: var(--color--f2-1);
+	}
+}
+
+.warn {
+	.title {
+		color: var(--color--f2-1);
 	}
 }
 

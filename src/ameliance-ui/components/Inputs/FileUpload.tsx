@@ -15,7 +15,6 @@ export const FileUpload = forwardRef<ComponentElementType, FileUploadProps>(({
 	className,
 	...rest
 }, ref) => (
-
 	<div>
 		<label htmlFor="file">
 			{children}

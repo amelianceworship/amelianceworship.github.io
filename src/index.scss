@@ -8,9 +8,6 @@ body {
 	background: var(--color--bg-1-gradient);
 	background-attachment: fixed;
 	position: relative;
-	&:has(.songsList) {
-		background: var(--color--b1-0);
-	}
 }
 
 #root {

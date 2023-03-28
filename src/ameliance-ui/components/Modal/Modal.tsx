@@ -113,8 +113,8 @@ export const Modal = forwardRef<ComponentElementType, ModalProps>(({
 			>
 				<Backdrop onClick={backdropClickHandler} disabled={backdrop?.disabled} show={show === 'show'} />
 				<div className={asm.join(sizeClass, s.content)}>
-					<div className={type && asm.join(s.title, typeClass, type)}>
-						<Typography component="h4">
+					<div className={type && asm.join(s.titleContainer, typeClass, type)}>
+						<Typography component="h4" className={s.title}>
 							{!noTitle && modalTitle}
 						</Typography>
 					</div>

@@ -7,7 +7,8 @@ import asm from 'asm-ts-scripts';
 
 import { Typography } from '../Typography';
 
-import s from './TextInput.module.scss';
+import typography from '../Typography/Typography.module.scss';
+import cs from './commonStyle.module.scss';
 
 type ComponentElementType = HTMLInputElement;
 
@@ -23,21 +24,25 @@ export const TextInput = forwardRef<ComponentElementType, TextInputProps>(({
 	children,
 	...rest
 }, ref) => (
-	<div className={s.TextInput}>
+	<div className={cs.container}>
 		<Typography component="h5">{children}</Typography>
-		<label>
-			<input
-				type="text"
-				className={asm.join(s.input, 'input text')}
-				placeholder={placeholder}
-				ref={ref}
-				{...register}
-				{...rest}
-			/>
-		</label>
-		<Typography component="p2" className={asm.join(s.error, 'input-error')}>
-			{(errors && errors[register?.name] && errors[register?.name].message) || ''}
-		</Typography>
+		<div className={cs.inputBlockContainer}>
+			<label>
+				<input
+					type="text"
+					className={asm.join(cs.input, typography.input)}
+					placeholder={placeholder}
+					ref={ref}
+					{...register}
+					{...rest}
+				/>
+			</label>
+			{register && (
+				<Typography component="p2" className={asm.join(cs.error)}>
+					{(errors && errors[register?.name] && errors[register?.name].message) || ''}
+				</Typography>
+			)}
+		</div>
 	</div>
 ));
 

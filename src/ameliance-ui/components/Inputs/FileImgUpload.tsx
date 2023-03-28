@@ -9,13 +9,15 @@ import { Avatar } from '../Avatar';
 import { CameraIcon } from '../icons/CameraIcon';
 import { Typography } from '../Typography';
 
+import typography from '../Typography/Typography.module.scss';
+import cs from './commonStyle.module.scss';
 import s from './FileImgUpload.module.scss';
 
 type ComponentElementType = HTMLInputElement;
 
 export interface FileImgUploadProps extends ReactHTMLElementAttributes<ComponentElementType> {
-	register: FieldValues;
-	errors: Record<string, FieldError> | undefined;
+	register?: FieldValues;
+	errors?: Record<string, FieldError> | undefined;
 	watch: (name: string) => FieldValues;
 	accept?: string;
 	label?: string;
@@ -32,7 +34,7 @@ export const FileImgUpload = forwardRef<ComponentElementType, FileImgUploadProps
 	...rest
 }, ref) => {
 	const [image, setImage] = useState<string>();
-	const files = watch(register.name);
+	const files = watch(register ? register.name : null);
 	useEffect(() => {
 		let fileImage = '';
 		if (files && files.length > 0) {
@@ -42,24 +44,28 @@ export const FileImgUpload = forwardRef<ComponentElementType, FileImgUploadProps
 	}, [files]);
 
 	return (
-		<div className={s.FileImgUpload}>
-			<span className="h5">{children}</span>
-			<label className={asm.join(s.container, 'p1')}>
-				<input
-					type="file"
-					accept={accept || ''}
-					className={asm.join(s.input, className)}
-					ref={ref}
-					{...register}
-					{...rest}
-				/>
-				{!image ? <Avatar><CameraIcon /></Avatar>
-					: <Avatar src={image} alt={image} /> }
-				{label}
-			</label>
-			<Typography component="p2" className={asm.join(s.error, 'input-error')}>
-				{(errors && errors[register.name] && errors[register.name].message) || ''}
-			</Typography>
+		<div className={asm.join(s.FileImgUpload, cs.container)}>
+			<Typography component="h5">{children}</Typography>
+			<div className={cs.inputBlockContainer}>
+				<label className={asm.join(s.container, typography.input)}>
+					<input
+						type="file"
+						accept={accept || ''}
+						className={asm.join(s.input, className)}
+						ref={ref}
+						{...register}
+						{...rest}
+					/>
+					{!image ? <Avatar><CameraIcon /></Avatar>
+						: <Avatar src={image} alt={image} /> }
+					{label}
+				</label>
+				{register && (
+					<Typography component="p2" className={asm.join(cs.error)}>
+						{(errors && errors[register.name] && errors[register.name].message) || ''}
+					</Typography>
+				)}
+			</div>
 		</div>
 	);
 });

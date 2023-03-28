@@ -1,14 +1,17 @@
-.Dropdown {
-	display: flex;
-	flex-direction: column;
-	row-gap: 4px;
+.inputContainer {
+	position: relative;
+}
+
+.icon {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
 }
 
 .input {
-	width: 100%;
-	height: 32px;
-}
-
-.error {
-	min-height: 18px;
+	-moz-appearance: none !important;
+	-webkit-appearance: none !important;
+	appearance: none !important;
 }

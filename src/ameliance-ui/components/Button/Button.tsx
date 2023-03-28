@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 
 import asm from 'asm-ts-scripts';
 
+import typography from '../Typography/Typography.module.scss';
 import s from './Button.module.scss';
 
 type ComponentElementType = HTMLButtonElement;
@@ -40,7 +41,7 @@ export const Button = forwardRef<ComponentElementType, ButtonProps>(({
 			ref={ref}
 			{...rest}
 		>
-			<span className={asm.join(s.label, sizeClass, 'button')}>
+			<span className={asm.join(s.label, typography.button, sizeClass)}>
 				{children}
 			</span>
 		</button>

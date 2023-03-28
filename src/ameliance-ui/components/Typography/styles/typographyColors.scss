@@ -1,5 +1,5 @@
-@use "typography-colors__root" as *;
-@use "typography-colors__mixins" as *;
+@use "typographyColors.root" as *;
+@use "typographyColors.mixins" as *;
 
 $typography-elements: (
 	h1,
@@ -14,10 +14,10 @@ $typography-elements: (
 	p2,
 	caption,
 	overline,
-	button,
-	button-sm,
-	button-icon,
-	button-icon-sm,
+	// button,
+	// button-sm,
+	// button-icon,
+	// button-icon-sm,
 	link,
 	link-sm,
 	input

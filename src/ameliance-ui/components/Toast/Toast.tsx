@@ -10,6 +10,7 @@ import { InfoIcon } from '../icons/InfoIcon';
 import { XCircleIcon } from '../icons/XCircleIcon';
 import { XIcon } from '../icons/XIcon';
 import { LoaderCounter } from '../Loader/LoaderCounter';
+import { Typography } from '../Typography';
 
 import s from './Toast.module.scss';
 
@@ -99,12 +100,12 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(({
 					{getIconByType(type)}
 				</Icon>
 				<div className={asm.join(s.textContent, oneLine && s.oneLine)}>
-					<h6 className={asm.join(s.title, 'h6')}>
+					<Typography component="h6" className={s.title}>
 						{!noTitle && toastTitle}
-					</h6>
-					<span className={asm.join(s.message, 'p1')}>
+					</Typography>
+					<Typography component="p1" className={s.message}>
 						{message}
-					</span>
+					</Typography>
 				</div>
 				<LoaderCounter timer={autoDeleteTime} />
 			</div>

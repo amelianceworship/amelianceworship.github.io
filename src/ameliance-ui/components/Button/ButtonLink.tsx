@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 
 import asm from 'asm-ts-scripts';
 
+import typography from '../Typography/Typography.module.scss';
 import s from './Button.module.scss';
 
 type ComponentElementType = HTMLAnchorElement;
@@ -55,7 +56,7 @@ export const ButtonLink = forwardRef<ComponentElementType, ButtonLinkProps>(({
 			{...blankAttributes}
 			{...rest}
 		>
-			<span className={asm.join(s.label, 'button')}>
+			<span className={asm.join(s.label, typography.button)}>
 				{children}
 			</span>
 		</a>

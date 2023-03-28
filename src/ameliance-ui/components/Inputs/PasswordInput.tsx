@@ -10,6 +10,8 @@ import { EyeOffIcon } from '../icons/EyeOffIcon';
 import { EyeOnIcon } from '../icons/EyeOnIcon';
 import { Typography } from '../Typography';
 
+import typography from '../Typography/Typography.module.scss';
+import cs from './commonStyle.module.scss';
 import s from './PasswordInput.module.scss';
 
 type ComponentElementType = HTMLInputElement;
@@ -36,24 +38,30 @@ export const PasswordInput = forwardRef<ComponentElementType, PasswordInputProps
 	const inputType = isShowPassword ? 'text' : 'password';
 
 	return (
-		<div className={s.PasswordInput}>
+		<div className={cs.container}>
 			<Typography component="h5">{children}</Typography>
-			<label className={s.label}>
-				<input
-					type={inputType}
-					className={asm.join(s.input, 'input text')}
-					placeholder={placeholder}
-					ref={ref}
-					{...register}
-					{...rest}
-				/>
-				<Icon size="custom" style={{ width: 20, height: 20 }} className={s.showHide} onClick={handlerIconClick}>
-					{isShowPassword ? <EyeOffIcon size="custom" style={{ width: 20, height: 20 }} /> : <EyeOnIcon size="custom" style={{ width: 20, height: 20 }} />}
-				</Icon>
-			</label>
-			<Typography component="p2" className={asm.join(s.error, 'input-error')}>
-				{(errors && errors[register?.name] && errors[register?.name].message) || ''}
-			</Typography>
+			<div className={cs.inputBlockContainer}>
+				<label className={s.inputContainer}>
+					<input
+						type={inputType}
+						className={asm.join(s.input, cs.input, typography.input)}
+						placeholder={placeholder}
+						ref={ref}
+						{...register}
+						{...rest}
+					/>
+					<Icon size="custom" style={{ width: 20, height: 20 }} className={s.icon} onClick={handlerIconClick}>
+						{isShowPassword
+							? <EyeOnIcon size="custom" style={{ width: 20, height: 20 }} />
+							: <EyeOffIcon size="custom" style={{ width: 20, height: 20 }} />}
+					</Icon>
+				</label>
+				{register && (
+					<Typography component="p2" className={asm.join(cs.error)}>
+						{(errors && errors[register?.name] && errors[register?.name].message) || ''}
+					</Typography>
+				)}
+			</div>
 		</div>
 	);
 });

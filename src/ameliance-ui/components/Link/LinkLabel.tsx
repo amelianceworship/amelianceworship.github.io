@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 
 import asm from 'asm-ts-scripts';
 
+import typography from '../Typography/Typography.module.scss';
 import s from './Link.module.scss';
 
 type ComponentElementType = HTMLSpanElement;
@@ -22,7 +23,7 @@ export const LinkLabel = forwardRef<ComponentElementType, LinkLabelProps>(({
 }, ref) => {
 	// *----- create class from props -----
 	const componentClass = [
-		display || 'link',
+		display ? typography[display] : typography.link,
 		underline === false && s.noUnderline,
 	];
 

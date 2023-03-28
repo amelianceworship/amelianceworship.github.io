@@ -6,6 +6,8 @@ import asm from 'asm-ts-scripts';
 
 import { mergeRefs } from '~/ameliance-ui/helpers/mergeRefs';
 
+import { Typography } from '../Typography';
+
 import s from './LoaderCounter.module.scss';
 
 type ComponentElementType = HTMLDivElement;
@@ -51,9 +53,9 @@ export const LoaderCounter = forwardRef<ComponentElementType, LoaderCounterProps
 		>
 			<div className={s.background} />
 			<div className={s.animation} ref={refAnimation} />
-			<p className={asm.join(s.counter, 'p2')}>
+			<Typography component="p2" className={s.counter}>
 				{counter}
-			</p>
+			</Typography>
 		</div>
 	);
 });
