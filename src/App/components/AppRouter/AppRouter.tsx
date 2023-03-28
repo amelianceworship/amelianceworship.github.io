@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Layout } from '~components/Layout/Layout';
-import { StartScreen } from '~components/StartScreen';
 import { ROUTES } from '~constants/ROUTES';
 import { AboutPage } from '~pages/AboutPage/AboutPage';
 import { ChordsListPage } from '~pages/ChordsListPage/ChordsListPage';
@@ -28,5 +27,5 @@ const router = createBrowserRouter([
 ]);
 
 export function AppRouter() {
-	return <RouterProvider router={router} fallbackElement={<StartScreen />} />;
+	return <RouterProvider router={router} />;
 }
