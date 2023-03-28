@@ -21,9 +21,9 @@ import { Typography } from '~/ameliance-ui/components/Typography';
 
 import { ScrollUpButton } from './ScrollUpButton';
 
-import s from './SongsList.module.scss';
+import s from './SongsListPage.module.scss';
 
-export function SongsList() {
+export function SongsListPage() {
 	const {
 		isLoading, songsList, songsTableNames,
 	} = useTypedSelector((state) => state.songsListReducer);
@@ -87,7 +87,7 @@ export function SongsList() {
 	};
 
 	return (
-		<Block component="main" className={asm.join(s.SongsList, 'songsList')}>
+		<Block component="main" className={s.SongsListPage}>
 			<Grid component="section" container className={s.container}>
 				{isShowToast && (
 					<ToastList
@@ -113,7 +113,7 @@ export function SongsList() {
 				{ songsList[activeTable] &&	(
 					<Block component="nav" className={s.listNavigation}>
 						{songsList[activeTable]?.map((songGroup) => (
-							<Link href={`${ROUTES.SONGS_LIST}#${songGroup[0]}`} className="link" key={songGroup[0]}>{songGroup[0]}</Link>
+							<Link href={`${ROUTES.songslist}#${songGroup[0]}`} className="link" key={songGroup[0]}>{songGroup[0]}</Link>
 						))}
 					</Block>
 				)}

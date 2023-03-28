@@ -26,7 +26,7 @@ import { Typography } from '~/ameliance-ui/components/Typography';
 import { SignUpErrorModal } from './SignUpErrorModal';
 import { SignUpSuccessModal } from './SignUpSuccessModal';
 
-import s from './SignUp.module.scss';
+import s from './SignUpPage.module.scss';
 
 interface FormFields {
 	userName: string;
@@ -35,7 +35,7 @@ interface FormFields {
 	profileImage: FileList;
 }
 
-export function SignUp() {
+export function SignUpPage() {
 	const navigate = useNavigate();
 
 	const dispatch = useTypedDispatch();
@@ -96,7 +96,7 @@ export function SignUp() {
 
 	const handlerSuccessModal = () => {
 		reset();
-		navigate(ROUTES.HOME);
+		navigate(ROUTES.home);
 	};
 
 	const handlerErrorModal = () => {
@@ -145,7 +145,7 @@ export function SignUp() {
 						<Typography component="p1">
 							Вже є акаунт?
 							{' '}
-							<Link className="link" to={ROUTES.LOGIN}><LinkLabel>Увійти</LinkLabel></Link>
+							<Link className="link" to={ROUTES.login}><LinkLabel>Увійти</LinkLabel></Link>
 						</Typography>
 					</Block>
 				</Form>

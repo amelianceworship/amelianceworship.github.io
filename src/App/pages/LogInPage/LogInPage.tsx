@@ -22,14 +22,14 @@ import { Typography } from '~/ameliance-ui/components/Typography';
 import { LogInErrorModal } from './LogInErrorModal';
 import { LogInSuccessModal } from './LogInSuccessModal';
 
-import s from './LogIn.module.scss';
+import s from './LogInPage.module.scss';
 
 interface FormFields {
 	email: string;
 	password: string;
 }
 
-export function LogIn() {
+export function LogInPage() {
 	const navigate = useNavigate();
 
 	const dispatch = useTypedDispatch();
@@ -70,7 +70,7 @@ export function LogIn() {
 	};
 
 	const handlerSuccessModal = () => {
-		navigate(ROUTES.HOME);
+		navigate(ROUTES.home);
 	};
 
 	const handlerErrorModal = () => {
@@ -103,7 +103,7 @@ export function LogIn() {
 						<Typography component="p1">
 							Немає акаунту?
 							{' '}
-							<Link to={ROUTES.SIGNUP}><LinkLabel>Створити</LinkLabel></Link>
+							<Link to={ROUTES.signup}><LinkLabel>Створити</LinkLabel></Link>
 						</Typography>
 					</Block>
 				</Form>

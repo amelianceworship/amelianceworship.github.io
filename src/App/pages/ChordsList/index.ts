@@ -1,1 +1,0 @@
-export { ChordsList } from './ChordsList';
