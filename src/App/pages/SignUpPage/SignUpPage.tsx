@@ -130,7 +130,6 @@ export function SignUpPage() {
 					<PasswordInput register={registers.password} errors={errors}>
 						Пароль*:
 					</PasswordInput>
-					<Checkbox register={{}} errors={errors} label="Я хочу поставити галочку" />
 					<Block className={s.buttons}>
 						<Button
 							submit
