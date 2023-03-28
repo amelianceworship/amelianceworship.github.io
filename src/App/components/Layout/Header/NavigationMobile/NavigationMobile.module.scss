@@ -1,10 +1,10 @@
-.NavigationDesktop {
+.NavigationMobile {
 	display: flex;
 	align-items: center;
 	gap: 16px;
 }
 
-:global(.link).active {
+.active .link {
 	font-weight: bold;
 	cursor: default;
 }

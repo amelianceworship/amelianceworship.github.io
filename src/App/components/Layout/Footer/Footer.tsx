@@ -20,9 +20,9 @@ export function Footer() {
 	return (
 		<Block component="footer" className={s.Footer}>
 			<Grid container className={s.container}>
-				{!(isLogIn || isSingUp) && (isAuth && pathname !== PRIVATE_ROUTES.CHAT)
+				{!(isLogIn || isSingUp) && (isAuth && pathname !== PRIVATE_ROUTES.chat)
 					&& (
-						<NavLink to={ROUTES.HOME}>
+						<NavLink to={ROUTES.home}>
 							<LinkLabel>
 								2023 03 12
 							</LinkLabel>
