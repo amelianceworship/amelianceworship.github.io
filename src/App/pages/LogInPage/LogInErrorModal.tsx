@@ -1,4 +1,5 @@
 import { Modal } from '~/ameliance-ui/components/Modal';
+import { Typography } from '~/ameliance-ui/components/Typography';
 
 interface LogInErrorModal {
 	onClose: () => void;
@@ -13,12 +14,12 @@ export function LogInErrorModal({ onClose }: LogInErrorModal) {
 			title="Невірні дані!"
 		>
 			<>
-				<p className="p1 center">
+				<Typography component="p1" className="center">
 					Невірно вказана електронна адреса чи пароль.
-				</p>
-				<p className="p1 center">
+				</Typography>
+				<Typography component="p1" className="center">
 					Перевірте, будь ласка, дані та спробуйте ще раз!
-				</p>
+				</Typography>
 			</>
 		</Modal>
 	);

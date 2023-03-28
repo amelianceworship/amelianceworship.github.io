@@ -1,4 +1,5 @@
 import { Modal } from '~/ameliance-ui/components/Modal';
+import { Typography } from '~/ameliance-ui/components/Typography';
 
 interface SignUpSuccessModal {
 	onClose: () => void;
@@ -12,9 +13,9 @@ export function SignUpSuccessModal({ onClose }: SignUpSuccessModal) {
 			size="medium"
 			title="Вітаю!"
 		>
-			<p className="p1 center">
+			<Typography component="p1" className="center">
 				Ви успішно зареєструвалися на сайті та отримали доступ до додаткового функціоналу!
-			</p>
+			</Typography>
 		</Modal>
 	);
 }
