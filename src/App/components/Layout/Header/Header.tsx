@@ -5,7 +5,6 @@ import { ROUTES } from '~app/constants/ROUTES';
 import { Logo } from '~components/Logo';
 import { isMatchPath } from '~helpers/isMatchPath';
 import { useAuth } from '~hooks/useAuth';
-import { useScreenQuery } from '~hooks/useScreenQuery';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { userSlice } from '~store/user/userSlice';
@@ -14,9 +13,11 @@ import { Avatar } from '~/ameliance-ui/components/Avatar';
 import { Block } from '~/ameliance-ui/components/blocks/Block';
 import { Button } from '~/ameliance-ui/components/Button';
 import { Grid } from '~/ameliance-ui/components/Grid';
+import { useScreenQuery } from '~/ameliance-ui/hooks/useScreenQuery';
 
-import { NavigationDesktop } from './NavigationDesktop';
-import { NavigationMobile } from './NavigationMobile';
+import { NavigationDesktop } from './NavigationDesktop/NavigationDesktop';
+import { NavigationMobile } from './NavigationMobile/NavigationMobile';
+import { Settings } from './Settings';
 
 import s from './Header.module.scss';
 
@@ -34,11 +35,11 @@ export function Header() {
 	const handleLogOut = () => {
 		dispatch(removeUser());
 		api.google.firebase.auth.signOut();
-		navigate(ROUTES.HOME);
+		navigate(ROUTES.home);
 	};
 
 	const handleLogIn = () => {
-		navigate(ROUTES.LOGIN);
+		navigate(ROUTES.login);
 	};
 
 	const isLogIn = isMatchPath(pathname, 'login');
@@ -49,21 +50,24 @@ export function Header() {
 		<Block component="header" className={s.Header}>
 			<Grid container component="section" className={s.container}>
 				<Logo />
-				{!isSongsList
+				<Block className={s.controls}>
+					{!isSongsList
 				&& (
-					<Block className={s.controls}>
-						{isScreenMD && !(isLogIn || isSingUp) && <NavigationDesktop />}
-						{!isScreenMD && !(isLogIn || isSingUp) && <NavigationMobile />}
+					<>
+						{!isScreenMD && !(isLogIn || isSingUp) && <NavigationDesktop />}
+						{isScreenMD && !(isLogIn || isSingUp) && <NavigationMobile />}
 						{isAuth
 							? !(isLogIn || isSingUp) && <Avatar src={photoURL} alt={displayName} char={displayName[0] || email[0]} size="small" onClick={handleLogOut} />
 							: !(isLogIn || isSingUp)
-					&& (
-						<Button size="small" onClick={handleLogIn}>
-							Увійти
-						</Button>
-					)}
-					</Block>
-				)				}
+							&& (
+								<Button size="small" onClick={handleLogIn}>
+									Увійти
+								</Button>
+							)}
+					</>
+				)}
+					<Settings />
+				</Block>
 			</Grid>
 		</Block>
 	);
