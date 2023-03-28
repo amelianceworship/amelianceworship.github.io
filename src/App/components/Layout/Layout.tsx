@@ -1,14 +1,22 @@
 import { Outlet } from 'react-router-dom';
 
-import { Footer } from './Footer';
+import { StartScreen } from '~components/StartScreen/StartScreen';
+
+import { Footer } from './Footer/Footer';
 import { Header } from './Header';
+import { useAppInit } from './hooks/useAppInit';
 
 export function Layout() {
+	const { isInit } = useAppInit();
+
+	if (!isInit) return <StartScreen />;
+
 	return (
 		<>
 			<Header />
 			<Outlet />
 			<Footer />
+			{/* <Snow /> */}
 		</>
 	);
 }
