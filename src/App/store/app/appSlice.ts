@@ -6,7 +6,7 @@ interface AppSlice {
 }
 
 const initialState: AppSlice = {
-	theme: 'dark',
+	theme: 'light',
 	fullscreen: true,
 };
 
@@ -14,6 +14,9 @@ export const appSlice = createSlice({
 	name: 'app',
 	initialState,
 	reducers: {
+		setTheme(state, action) {
+			state.theme = action.payload;
+		},
 		toggleTheme(state) {
 			state.theme = state.theme === 'light' ? 'dark' : 'light';
 		},

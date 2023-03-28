@@ -21,11 +21,11 @@ const initSongsListSlice: SongsListSlice = {
 	error: '',
 	songsList: {} as SongsListData,
 	songsTableNames: [
-		TABLE_NAMES.GENERAL,
-		TABLE_NAMES.STUDY,
-		TABLE_NAMES.CHRISTMAS,
-		TABLE_NAMES.EASTER,
-		TABLE_NAMES.DEFER,
+		TABLE_NAMES.general,
+		TABLE_NAMES.study,
+		TABLE_NAMES.christmas,
+		TABLE_NAMES.easter,
+		TABLE_NAMES.defer,
 	],
 };
 

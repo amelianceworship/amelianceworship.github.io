@@ -35,8 +35,9 @@
 		"react-hook-form": "^7.41.0",
 		"react-redux": "^8.0.5",
 		"react-responsive": "^9.0.2",
-		"react-router-dom": "^6.5.0",
-		"react-snowfall": "^1.2.1"
+		"react-router-dom": "^6.9.0",
+		"react-snowfall": "^1.2.1",
+		"redux-persist": "^6.0.0"
 	},
 	"devDependencies": {
 		"@types/react": "^18.0.26",
@@ -55,8 +56,8 @@
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-simple-import-sort": "^8.0.0",
 		"sass": "^1.57.0",
-		"typescript": "^4.9.3",
-		"vite": "^4.0.0",
+		"typescript": "^5.0.2",
+		"vite": "^4.2.1",
 		"vite-plugin-eslint": "^1.8.1"
 	}
 }

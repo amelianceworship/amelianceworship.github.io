@@ -1,5 +1,5 @@
-import type { SvgIconProps } from '~/asmlib/components/SvgIcon';
-import { SvgIcon } from '~/asmlib/components/SvgIcon';
+import type { SvgIconProps } from '~/ameliance-ui/components/SvgIcon';
+import { SvgIcon } from '~/ameliance-ui/components/SvgIcon';
 
 export function GoogleColorIcon(props: SvgIconProps) {
 	return (

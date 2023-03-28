@@ -40,11 +40,11 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 			});
 
 			return {
-				[TABLE_NAMES.GENERAL]: prepareData(response.data.general.values),
-				[TABLE_NAMES.STUDY]: prepareData(response.data.study.values),
-				[TABLE_NAMES.CHRISTMAS]: prepareData(response.data.christmas.values),
-				[TABLE_NAMES.EASTER]: prepareData(response.data.easter.values),
-				[TABLE_NAMES.DEFER]: prepareData(response.data.defer.values),
+				[TABLE_NAMES.general]: prepareData(response.data.general.values),
+				[TABLE_NAMES.study]: prepareData(response.data.study.values),
+				[TABLE_NAMES.christmas]: prepareData(response.data.christmas.values),
+				[TABLE_NAMES.easter]: prepareData(response.data.easter.values),
+				[TABLE_NAMES.defer]: prepareData(response.data.defer.values),
 			};
 		} catch (error) {
 			return thunkAPI.rejectWithValue(rejectError);
