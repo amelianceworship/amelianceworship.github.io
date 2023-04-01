@@ -1,13 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { returnError } from '~api/helpers/returnError';
 import { api } from '~api/index';
-import { rejectError } from '~store/helpers/rejectError';
-import { returnActionError } from '~store/helpers/returnActionError';
 import type { SignIn } from '~types/api/google/firebase/auth/signIn';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 import type { User } from '~types/api/google/firebase/commons/User';
 
-type CreateAsyncThunkReturned = Pick<User, 'uid' | 'displayName' | 'photoURL' | 'email' > | ErrorString;
+type CreateAsyncThunkReturned = Pick<User, 'uid' | 'displayName' | 'photoURL' | 'email' >;
 type CreateAsyncThunkArguments = SignIn;
 interface CreateAsyncThunkConfig { rejectValue: ErrorString }
 
@@ -19,8 +18,6 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 		try {
 			const response = await api.google.firebase.auth.signIn({ email, password });
 
-			if ('error' in response) return returnActionError(response);
-
 			return {
 				uid: response.user.uid || '',
 				displayName: response.user.displayName || '',
@@ -28,7 +25,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				email: response.user.email || '',
 			};
 		} catch (error) {
-			return thunkAPI.rejectWithValue(rejectError);
+			return thunkAPI.rejectWithValue(returnError(error));
 		}
 	},
 );

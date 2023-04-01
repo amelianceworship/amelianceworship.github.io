@@ -1,3 +1,5 @@
+import { returnError } from '~api/helpers/returnError';
+
 import { doPost } from '../../base/doPost';
 import type { DataUntitledResponse } from '../../types/types';
 
@@ -25,8 +27,13 @@ export interface PostAllUntitledParamsAsOneRowResponse {
 
 export async function postAllUntitledParamsAsOneRow({
 	spreadsheetId, sheetIndex, sheetName, indexesParams,
-}: PostAllUntitledParamsAsOneRow) {
-	return doPost({
-		spreadsheetId, sheetIndex, sheetName, indexesParams, 	type: 'UNTITLED_ONE_ROW',
-	}).then((data) => data as PostAllUntitledParamsAsOneRowResponse);
+}: PostAllUntitledParamsAsOneRow): Promise<PostAllUntitledParamsAsOneRowResponse> {
+	try {
+		const response = await doPost({
+			spreadsheetId, sheetIndex, sheetName, indexesParams, 	type: 'UNTITLED_ONE_ROW',
+		});
+		return response as PostAllUntitledParamsAsOneRowResponse;
+	} catch (error) {
+		throw new Error(returnError(error));
+	}
 }

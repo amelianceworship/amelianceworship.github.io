@@ -1,3 +1,5 @@
+import { returnError } from '~api/helpers/returnError';
+
 import { doGet } from '../../base/doGet';
 import type { DataUntitledResponse } from '../../types/types';
 
@@ -24,8 +26,13 @@ export interface GetUntitledColumnsDataByIndexesResponse {
 
 export async function getUntitledColumnsDataByIndexes({
 	spreadsheetId, sheetIndex, sheetName, columnIndexes,
-}: GetUntitledColumnsDataByIndexes) {
-	return doGet({
-		spreadsheetId, sheetIndex, sheetName, columnIndexes, type: 'UNTITLED',
-	}).then((data) => data as GetUntitledColumnsDataByIndexesResponse);
+}: GetUntitledColumnsDataByIndexes): Promise<GetUntitledColumnsDataByIndexesResponse> {
+	try {
+		const response = doGet({
+			spreadsheetId, sheetIndex, sheetName, columnIndexes, type: 'UNTITLED',
+		});
+		return response as unknown as GetUntitledColumnsDataByIndexesResponse;
+	} catch (error) {
+		throw new Error(returnError(error));
+	}
 }

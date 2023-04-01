@@ -1,3 +1,1 @@
-export interface ErrorString {
-	error: string;
-}
+export type ErrorString = string;

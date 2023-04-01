@@ -1,3 +1,5 @@
+import { returnError } from '~api/helpers/returnError';
+
 import { doPost } from '../../base/doPost';
 import type { DataTitledResponse } from '../../types/types';
 
@@ -30,8 +32,13 @@ export interface PostTitledColumnsDataByTitlesResponse {
 
 export async function postTitledColumnsDataByTitles({
 	spreadsheetId, sheetIndex, sheetName, titlesParams,
-}: PostTitledColumnsDataByTitles) {
-	return doPost({
-		spreadsheetId, sheetIndex, sheetName, titlesParams, type: 'TITLED',
-	}).then((data) => data as PostTitledColumnsDataByTitlesResponse);
+}: PostTitledColumnsDataByTitles): Promise<PostTitledColumnsDataByTitlesResponse> {
+	try {
+		const response = await doPost({
+			spreadsheetId, sheetIndex, sheetName, titlesParams, type: 'TITLED',
+		});
+		return response as PostTitledColumnsDataByTitlesResponse;
+	} catch (error) {
+		throw new Error(returnError(error));
+	}
 }

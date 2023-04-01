@@ -1,4 +1,4 @@
-import { appError } from '~helpers/appError';
+import { returnError } from '~api/helpers/returnError';
 
 import { BASE_GOOGLE_SHEET_URL } from './consts';
 
@@ -28,7 +28,6 @@ export async function getSheetData({
 
 		return data;
 	} catch (error) {
-		appError('getSheetData', error);
+		throw new Error(returnError(error));
 	}
-	return null;
 }

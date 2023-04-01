@@ -3,14 +3,16 @@ export type DataUntitledResponse = {
 	value: string;
 }[][];
 
-export type DataTitledValues = {
+export interface DataTitledValuesItem {
 	position: string;
 	value: string;
-}[] | null;
+}
+
+export type DataTitledValues = DataTitledValuesItem[] | null;
 
 export type DataTitledResponse = Record<string, {
 	colNumber: number;
-	values: DataTitledValues | null;
+	values: DataTitledValues;
 }>;
 
 export type GetTypes =

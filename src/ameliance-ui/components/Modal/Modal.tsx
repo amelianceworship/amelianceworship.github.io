@@ -9,7 +9,7 @@ import { Typography } from '../Typography';
 
 import s from './Modal.module.scss';
 
-type ComponentElementType = HTMLDivElement;
+export type ModalElement = HTMLDivElement;
 
 interface Button {
 	text?: string;
@@ -24,7 +24,7 @@ interface Button {
 	form?: string;
 }
 
-export interface ModalProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface ModalProps extends ReactHTMLElementAttributes<ModalElement> {
 	type?: NotificationTypes;
 	title?: string;
 	noTitle?: boolean;
@@ -40,7 +40,7 @@ export interface ModalProps extends ReactHTMLElementAttributes<ComponentElementT
 	size?: 'flex' | 'medium' | 'large';
 }
 
-export const Modal = forwardRef<ComponentElementType, ModalProps>(({
+export const Modal = forwardRef<ModalElement, ModalProps>(({
 	type,
 	title,
 	noTitle,

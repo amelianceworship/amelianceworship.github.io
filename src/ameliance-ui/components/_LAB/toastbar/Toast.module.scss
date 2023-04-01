@@ -1,4 +1,4 @@
-@use "../../styles/globals/" as *;
+@use "../../../styles/globals/" as *;
 
 .Toast {
 	display: flex;
@@ -6,11 +6,11 @@
 	gap: 16px;
 	min-width: 30vw;
 	max-width: calc(100vw - ((var(--gap) * 2)));
-	max-height: 20vh;
+	max-height: 90vh;
 	padding: calc(var(--gap) / 2);
 	background-color: var(--color--b1-2);
 	border-radius: 12px;
-	opacity: 0%;
+	// opacity: 0%;
 	transform: translateY(4px);
 	pointer-events: auto;
 	@extend %box-shadow--default;
@@ -119,5 +119,23 @@
 	100% {
 		opacity: 100%;
 		transform: translateY(0px);
+	}
+}
+
+.hideToastAnimation {
+	animation: 0.3s ease-out forwards animation-hide;
+}
+
+@keyframes animation-hide {
+	0% {
+		opacity: 100%;
+		transform: translateY(0px);
+	}
+	50% {
+		opacity: 100%;
+	}
+	100% {
+		opacity: 0%;
+		transform: translateX(100%);
 	}
 }

@@ -1,4 +1,4 @@
-export { Menu } from './Menu';
-export { MenuContainer } from './MenuContainer';
-export { MenuDivider } from './MenuDivider';
-export { MenuItem } from './MenuItem';
+export * from './Menu';
+export * from './MenuContainer';
+export * from './MenuDivider';
+export * from './MenuItem';

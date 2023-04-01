@@ -1,3 +1,5 @@
+import { returnError } from '~api/helpers/returnError';
+
 import { doGet } from '../../base/doGet';
 import type { DataTitledResponse } from '../../types/types';
 
@@ -24,8 +26,13 @@ export interface GetAllTitledColumnsDataSingleResponse {
 
 export async function getAllTitledColumnsDataSingle({
 	spreadsheetId, sheetIndex, sheetName,
-}: GetAllTitledColumnsDataSingle) {
-	return doGet({
-		spreadsheetId, sheetIndex, sheetName, type: 'TITLED_SINGLE',
-	}).then((data) => data as GetAllTitledColumnsDataSingleResponse);
+}: GetAllTitledColumnsDataSingle): Promise<GetAllTitledColumnsDataSingleResponse> {
+	try {
+		const response = await doGet({
+			spreadsheetId, sheetIndex, sheetName, type: 'TITLED_SINGLE',
+		});
+		return response as GetAllTitledColumnsDataSingleResponse;
+	} catch (error) {
+		throw new Error(returnError(error));
+	}
 }

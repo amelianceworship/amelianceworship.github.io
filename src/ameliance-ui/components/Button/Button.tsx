@@ -5,16 +5,15 @@ import asm from 'asm-ts-scripts';
 import typography from '../Typography/Typography.module.scss';
 import s from './Button.module.scss';
 
-type ComponentElementType = HTMLButtonElement;
-
-export interface ButtonProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export type ButtonElement = HTMLButtonElement;
+export interface ButtonProps extends ReactHTMLElementAttributes<ButtonElement> {
 	size?: ComponentSizes;
 	disabled?: boolean;
 	type?: 'primary' | 'secondary' | 'text';
 	submit?: boolean;
 }
 
-export const Button = forwardRef<ComponentElementType, ButtonProps>(({
+export const Button = forwardRef<ButtonElement, ButtonProps>(({
 	size = 'default',
 	type = 'primary',
 	submit,

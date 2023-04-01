@@ -2,13 +2,13 @@ import { forwardRef } from 'react';
 
 import asm from 'asm-ts-scripts';
 
-type ComponentElementType = HTMLDivElement;
+export type ContainerElement = HTMLDivElement;
 
-interface Container extends ReactHTMLElementAttributes<ComponentElementType> {
+interface Container extends ReactHTMLElementAttributes<ContainerElement> {
 	gridContainer?: boolean;
 }
 
-export const Container = forwardRef<ComponentElementType, Container>(({
+export const Container = forwardRef<ContainerElement, Container>(({
 	gridContainer,
 	children,
 	className,

@@ -11,9 +11,9 @@ import typography from '../Typography/Typography.module.scss';
 import cs from './commonStyle.module.scss';
 import s from './Dropdown.module.scss';
 
-type ComponentElementType = HTMLSelectElement;
+export type DropdownElement = HTMLSelectElement;
 
-export interface DropdownProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface DropdownProps extends ReactHTMLElementAttributes<DropdownElement> {
 	options: string[];
 	register?: FieldValues;
 	errors?: Record<string, FieldError> | undefined;
@@ -22,7 +22,7 @@ export interface DropdownProps extends ReactHTMLElementAttributes<ComponentEleme
 	onDropdownChange?: (key: string) => void;
 }
 
-export const Dropdown = forwardRef<ComponentElementType, DropdownProps>(({
+export const Dropdown = forwardRef<DropdownElement, DropdownProps>(({
 	options,
 	register,
 	errors,

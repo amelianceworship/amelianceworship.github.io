@@ -4,9 +4,9 @@ import asm from 'asm-ts-scripts';
 
 import s from './Avatar.module.scss';
 
-type ComponentElementType = HTMLDivElement;
+export type AvatarElement = HTMLDivElement;
 
-export interface AvatarProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface AvatarProps extends ReactHTMLElementAttributes<AvatarElement> {
 	src?: string;
 	alt?: string;
 	char?: string;
@@ -14,7 +14,7 @@ export interface AvatarProps extends ReactHTMLElementAttributes<ComponentElement
 	size?: ComponentSizes;
 }
 
-export const Avatar = forwardRef<ComponentElementType, AvatarProps>(({
+export const Avatar = forwardRef<AvatarElement, AvatarProps>(({
 	src,
 	alt,
 	char,

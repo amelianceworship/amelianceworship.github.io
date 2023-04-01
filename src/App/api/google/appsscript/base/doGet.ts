@@ -1,12 +1,11 @@
-import { appError } from '~helpers/appError';
-import { appLog } from '~helpers/appLog';
+import { returnError } from '~api/helpers/returnError';
 
 import type { DoGet, Response } from '../types/types';
 import { baseURL } from './baseURL';
 
 export async function doGet({
 	spreadsheetId, sheetName, sheetIndex, columnTitles, columnIndexes, type,
-}: DoGet) {
+}: DoGet): Promise<Response> {
 	const URLParams = new URLSearchParams();
 	if (spreadsheetId) URLParams.append('spreadsheetId', spreadsheetId);
 	if (sheetName) URLParams.append('sheetName', sheetName);
@@ -15,20 +14,13 @@ export async function doGet({
 	if (columnIndexes) URLParams.append('columnIndexes', JSON.stringify(columnIndexes));
 	if (type) URLParams.append('type', type);
 
-	return fetch(`${baseURL}?${URLParams}`)
-		.then((response) => response.text())
-		.then((textData) => JSON.parse(textData))
-		.then((data: Response) => {
-			if (data.status !== 'success') {
-				// eslint-disable-next-line no-console
-				appLog('doGet', 'status:', data.status);
-				// eslint-disable-next-line no-console
-				appLog('doGet', 'info:', data.info);
-				// eslint-disable-next-line no-console
-				appLog('doGet', 'error:', data.error);
-			}
-			return data;
-		})
-		// eslint-disable-next-line no-console
-		.catch((error) => appError('doGet', error));
+	try {
+		const response = await fetch(`${baseURL}?${URLParams}`);
+		const textData = await response.text();
+		const data = await JSON.parse(textData);
+		if (data.status !== 'success') throw new Error(data.error);
+		return data;
+	} catch (error) {
+		throw new Error(returnError(error));
+	}
 }

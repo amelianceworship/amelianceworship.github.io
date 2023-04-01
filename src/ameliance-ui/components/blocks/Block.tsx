@@ -7,14 +7,14 @@ import { Component } from '../_LAB/Component';
 import { getGridClass } from './helpers/grid';
 import type { Grid } from './types/Grid';
 
-type ComponentElementType = ComponentProps<ElementType>;
+export type BlockElement = ComponentProps<ElementType>;
 
-export interface BlockProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface BlockProps extends ReactHTMLElementAttributes<BlockElement> {
 	component?: ElementType;
 	grid?: Grid;
 }
 
-export const Block = forwardRef<ComponentElementType, BlockProps>(({
+export const Block = forwardRef<BlockElement, BlockProps>(({
 	component = 'div',
 	grid,
 	children,

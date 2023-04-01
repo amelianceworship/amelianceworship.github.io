@@ -1,3 +1,5 @@
+import { returnError } from '~api/helpers/returnError';
+
 import { doPost } from '../../base/doPost';
 import type { DataUntitledResponse } from '../../types/types';
 
@@ -25,8 +27,14 @@ export interface PostSingleUntitledColumnsDataByIndexesResponse {
 
 export async function postSingleUntitledColumnsDataByIndexes({
 	spreadsheetId, sheetIndex, sheetName, indexesParams,
-}: PostSingleUntitledColumnsDataByIndexes) {
-	return doPost({
-		spreadsheetId, sheetIndex, sheetName, indexesParams, 	type: 'UNTITLED_SINGLE',
-	}).then((data) => data as PostSingleUntitledColumnsDataByIndexesResponse);
+}: PostSingleUntitledColumnsDataByIndexes):
+	Promise<PostSingleUntitledColumnsDataByIndexesResponse> {
+	try {
+		const response = await doPost({
+			spreadsheetId, sheetIndex, sheetName, indexesParams, 	type: 'UNTITLED_SINGLE',
+		});
+		return response as PostSingleUntitledColumnsDataByIndexesResponse;
+	} catch (error) {
+		throw new Error(returnError(error));
+	}
 }

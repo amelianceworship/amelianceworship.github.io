@@ -1,6 +1,4 @@
-import { returnError } from '~api/google/firebase/helpers/returnError';
-
-const filePath = 'src/App/api/ipify/fetchIP.ts';
+import { returnError } from '~api/helpers/returnError';
 
 export async function fetchIP() {
 	try {
@@ -8,6 +6,6 @@ export async function fetchIP() {
 		const data = await response.json();
 		return { ip: data.ip, status: 'success' };
 	} catch (error) {
-		return returnError(filePath, error);
+		throw new Error(returnError(error));
 	}
 }

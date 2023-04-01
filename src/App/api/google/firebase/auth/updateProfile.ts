@@ -1,10 +1,9 @@
 import type { User } from 'firebase/auth';
 import { updateProfile as updateUserProfile } from 'firebase/auth';
 
-import type { ErrorResponse } from '~types/api/google/firebase/commons/ErrorResponse';
+import { returnError } from '~api/helpers/returnError';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 
-import { returnError } from '../helpers/returnError';
 import { returnSuccess } from '../helpers/returnSuccess';
 
 interface UpdateProfile {
@@ -14,11 +13,9 @@ interface UpdateProfile {
 
 }
 
-const filePath = 'src/App/api/google/firebase/auth/updateProfile.ts';
-
 export async function updateProfile({
 	user, displayName, photoURL,
-}: UpdateProfile): Promise<SuccessResponse | ErrorResponse> {
+}: UpdateProfile): Promise<SuccessResponse> {
 	try {
 		await updateUserProfile(user, {
 			displayName,
@@ -26,6 +23,6 @@ export async function updateProfile({
 		});
 		return returnSuccess();
 	} catch (error) {
-		return returnError(filePath, error);
+		throw new Error(returnError(error));
 	}
 }

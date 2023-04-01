@@ -4,13 +4,13 @@ import asm from 'asm-ts-scripts';
 
 import s from './LoaderLine.module.scss';
 
-type ComponentElementType = HTMLDivElement;
+export type LoaderLineElement = HTMLDivElement;
 
-export interface LoaderLineProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface LoaderLineProps extends ReactHTMLElementAttributes<LoaderLineElement> {
 	isInversion?: boolean;
 }
 
-export const LoaderLine = forwardRef<ComponentElementType, LoaderLineProps>(({
+export const LoaderLine = forwardRef<LoaderLineElement, LoaderLineProps>(({
 	isInversion,
 	className,
 	...rest

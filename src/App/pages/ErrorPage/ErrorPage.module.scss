@@ -6,19 +6,6 @@
 	flex-direction: column;
 }
 
-.title {
-	display: flex;
-	user-select: none;
-	.title40 {
-		font-size: 88px;
-	}
-	.title4 {
-		font-size: 88px;
-		transform: rotate(180deg) translateY(-50%);
-		animation: char-animation 1s ease-in-out infinite alternate;
-	}
-}
-
 .description {
 	display: flex;
 	flex-direction: column;
@@ -26,13 +13,4 @@
 	text-align: center;
 	margin: 0 var(--gap);
 	gap: 16px;
-}
-
-@keyframes char-animation {
-	0% {
-		transform: rotate(160deg) translateY(-50%);
-	}
-	100% {
-		transform: rotate(200deg) translateY(-50%);
-	}
 }

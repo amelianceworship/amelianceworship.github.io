@@ -1,0 +1,30 @@
+// @use "~/ameliance-ui/styles/globals/" as *;
+
+// .SongListItem {
+// 	background-color: var(--color--e2-1);
+// 	padding: 8px 16px;
+// 	border-radius: 8px;
+
+// 	@include clickable;
+
+// 	&.active {
+// 		background-color: var(--color--a2-1);
+// 	}
+// }
+
+// .song {
+// 	display: flex;
+// 	justify-content: space-between;
+// }
+
+.SongListItem {
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+}
+.copyIcon {
+	width: 28px;
+	height: 28px;
+	opacity: 50%;
+	// cursor: pointer;
+}

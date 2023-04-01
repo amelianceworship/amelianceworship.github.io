@@ -1,58 +1,101 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-import { TABLE_NAMES } from '~app/constants/TABLE_NAMES';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 
 import type { SongsListData } from './actions/fetchSongsList';
 import { fetchSongsList } from './actions/fetchSongsList';
 
-// type SongsList = Record<string, [string, { position: string; value: string }[]][]>;
-
 interface SongsListSlice {
+	mode: 'list' | 'copy';
+	activeTableNumber: number;
+	namesList: string[];
+	selectedSongsId: string[];
+	nameListLimitCount: number;
 	isLoading: boolean;
-	error: string;
+	error: ErrorString;
 	songsList: SongsListData;
-	songsTableNames: string[];
 }
 
 const initSongsListSlice: SongsListSlice = {
+	mode: 'list',
+	activeTableNumber: 0,
+	namesList: [],
+	selectedSongsId: [],
+	nameListLimitCount: 10,
 	isLoading: false,
 	error: '',
-	songsList: {} as SongsListData,
-	songsTableNames: [
-		TABLE_NAMES.general,
-		TABLE_NAMES.study,
-		TABLE_NAMES.christmas,
-		TABLE_NAMES.easter,
-		TABLE_NAMES.defer,
-	],
+	songsList: [] as SongsListData,
 };
 
 export const songsListSlice = createSlice({
 	name: 'songsList',
 	initialState: initSongsListSlice,
-	reducers: {},
+	reducers: {
+		setMode(state, action: PayloadAction<SongsListSlice['mode']>) {
+			state.mode = action.payload;
+		},
+		setActiveTable(state, action: PayloadAction<SongsListSlice['activeTableNumber']>) {
+			state.activeTableNumber = action.payload;
+		},
+		resetNamesList(state) {
+			state.namesList = [];
+		},
+		toggleSetToSelectedSongsId(state, action: PayloadAction<string>) {
+			let newSongsIdList = [...state.selectedSongsId];
+			const findIndex = state.selectedSongsId.indexOf(action.payload);
+			if (findIndex >= 0) {
+				newSongsIdList.splice(findIndex, 1);
+			} else {
+				newSongsIdList = [...state.selectedSongsId, action.payload];
+			}
+			state.selectedSongsId = newSongsIdList;
+		},
+		removeFromSelectedSongsId(state, action: PayloadAction<string>) {
+			const newSongsIdList = [...state.selectedSongsId];
+			const findIndex = state.selectedSongsId.indexOf(action.payload);
+			if (findIndex >= 0) newSongsIdList.splice(findIndex, 1);
+			state.selectedSongsId = newSongsIdList;
+		},
+		resetSelectedSongsId(state) {
+			state.selectedSongsId = [];
+		},
+		toggleSetToNamesList(state, action: PayloadAction<string>) {
+			const songName = action.payload;
+			const { namesList } = state;
+			let newNamesList = [...namesList];
+
+			if (namesList.length === 0) newNamesList = [songName];
+
+			if (namesList.length > 0 && namesList.length < state.nameListLimitCount) {
+				newNamesList = [...namesList, songName];
+			}
+
+			const indexOfSongName = namesList.indexOf(songName);
+			if (indexOfSongName >= 0) {
+				newNamesList = [...namesList];
+				newNamesList.splice(indexOfSongName, 1);
+			}
+
+			state.namesList = newNamesList;
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchSongsList.pending, (state) => {
 				state.isLoading = true;
 				state.error = '';
-				state.songsList = {} as SongsListData;
 			})
 			.addCase(
 				fetchSongsList.fulfilled,
-				(state, action: PayloadAction<SongsListData | ErrorString>) => {
-					if ('error' in action.payload) {
-						state.error = (action.payload as ErrorString).error;
-					} else {
-						state.songsList = action.payload;
-					}
+				(state, action: PayloadAction<SongsListData>) => {
+					state.songsList = action.payload;
+					state.error = '';
 					state.isLoading = false;
 				},
 			)
 			.addCase(fetchSongsList.rejected, (state, action: PayloadAction<unknown>) => {
-				state.error = (action.payload as ErrorString).error;
+				if (typeof action.payload === 'string') state.error = action.payload;
 				state.isLoading = false;
 			});
 	},

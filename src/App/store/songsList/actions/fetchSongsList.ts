@@ -1,30 +1,35 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import asm from 'asm-ts-scripts';
 
+import type { DataTitledValues } from '~api/google/appsscript/types/types';
+import { returnError } from '~api/helpers/returnError';
 import { api } from '~api/index';
-import { TABLE_NAMES } from '~app/constants/TABLE_NAMES';
-import { rejectError } from '~store/helpers/rejectError';
+import { asmGroupBy } from '~helpers/asmGroupBy';
+import { asmRemoveEmptyValues } from '~helpers/asmRemoveEmptyValues';
+import { asmSortArrayLocalCompare } from '~helpers/asmSortArrayLocalCompare';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
-
-// TODO: add export types to library
 
 const GOOGLE_SONGSLIST_TABLE_ID = import.meta.env.VITE_GOOGLE_SONGSLIST_TABLE_ID;
 
-type ObjItem = Record<string, string | number>;
-type GroupOfObj = [string, ObjItem[]];
-type GroupBy = GroupOfObj[];
-
-function prepareData(data: { position: string; value: string }[] | null): GroupBy {
+function prepareData(data: DataTitledValues) {
 	let combinedListOfData;
 	if (data) {
-		const listOfDataSorted = asm.sortArrayLocalCompare(data, 'value');
-		const listOfDataCleaned = asm.removeEmptyValues(listOfDataSorted, 'value');
-		combinedListOfData = asm.groupBy(listOfDataCleaned, 'value');
+		const listOfDataSorted = asmSortArrayLocalCompare(data, 'value');
+		const listOfDataCleaned = asmRemoveEmptyValues(listOfDataSorted, 'value');
+		combinedListOfData = asmGroupBy(listOfDataCleaned, 'value');
 	}
-	return combinedListOfData as GroupBy;
+	return combinedListOfData;
 }
-export type SongsListData = Partial<Record<string, GroupBy>>;
-export type CreateAsyncThunkReturned = SongsListData | ErrorString;
+
+// TODO: move types to slice
+export interface SongItem {
+	position: string;
+	value: string;
+}
+export type SongsGroup = [string, SongItem[]];
+type TableOfGroups = [string, Array<SongsGroup>];
+export type SongsListData = Array<TableOfGroups>;
+
+export type CreateAsyncThunkReturned = SongsListData;
 type CreateAsyncThunkArguments = void;
 interface CreateAsyncThunkConfig { rejectValue: ErrorString }
 
@@ -39,15 +44,18 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				sheetName: 'common',
 			});
 
-			return {
-				[TABLE_NAMES.general]: prepareData(response.data.general.values),
-				[TABLE_NAMES.study]: prepareData(response.data.study.values),
-				[TABLE_NAMES.christmas]: prepareData(response.data.christmas.values),
-				[TABLE_NAMES.easter]: prepareData(response.data.easter.values),
-				[TABLE_NAMES.defer]: prepareData(response.data.defer.values),
-			};
+			const responseTables = Object.entries(response.data);
+			const tableNames = [];
+			const data = responseTables.map((table) => {
+				const tableName = table[0];
+				tableNames.push(tableName);
+				const tableData = prepareData(table[1].values);
+				return [tableName, tableData];
+			});
+
+			return data as SongsListData;
 		} catch (error) {
-			return thunkAPI.rejectWithValue(rejectError);
+			return thunkAPI.rejectWithValue(returnError(error));
 		}
 	},
 );

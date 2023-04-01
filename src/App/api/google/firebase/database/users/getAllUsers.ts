@@ -2,11 +2,10 @@ import asm from 'asm-ts-scripts';
 import type { DocumentData } from 'firebase/firestore';
 import { collection, getDocs } from 'firebase/firestore';
 
-import type { ErrorResponse } from '~types/api/google/firebase/commons/ErrorResponse';
+import { returnError } from '~api/helpers/returnError';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 
 import { db } from '../../firebase';
-import { returnError } from '../../helpers/returnError';
 
 type Users = Record<string, DocumentData>;
 
@@ -14,9 +13,7 @@ export interface GetAllUsersResponse extends SuccessResponse {
 	users: Users;
 }
 
-const filePath = 'src/App/api/google/firebase/database/users/getAllUsers.ts';
-
-export async function getAllUsers(): Promise<GetAllUsersResponse | ErrorResponse> {
+export async function getAllUsers(): Promise<GetAllUsersResponse> {
 	const usersRef = collection(db, 'users');
 
 	try {
@@ -27,9 +24,8 @@ export async function getAllUsers(): Promise<GetAllUsersResponse | ErrorResponse
 		});
 		if (!asm.isObjectEmpty(users)) return { users, status: 'success' };
 
-		const error = 'Can\'t find any chats!';
-		return returnError(filePath, error);
+		throw new Error(returnError('Can\'t find any chats!'));
 	} catch (error) {
-		return returnError(filePath, error);
+		throw new Error(returnError(error));
 	}
 }

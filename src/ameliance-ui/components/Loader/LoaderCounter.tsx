@@ -4,20 +4,18 @@ import {
 
 import asm from 'asm-ts-scripts';
 
-import { mergeRefs } from '~/ameliance-ui/helpers/mergeRefs';
-
 import { Typography } from '../Typography';
 
 import s from './LoaderCounter.module.scss';
 
-type ComponentElementType = HTMLDivElement;
+export type LoaderCounterElement = HTMLDivElement;
 
-export interface LoaderCounterProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface LoaderCounterProps extends ReactHTMLElementAttributes<LoaderCounterElement> {
 	timer: number;
 	isInversion?: boolean;
 }
 
-export const LoaderCounter = forwardRef<ComponentElementType, LoaderCounterProps>(({
+export const LoaderCounter = forwardRef<LoaderCounterElement, LoaderCounterProps>(({
 	timer,
 	isInversion,
 	className,
@@ -48,7 +46,7 @@ export const LoaderCounter = forwardRef<ComponentElementType, LoaderCounterProps
 	return (
 		<div
 			className={asm.join(s.LoaderCounter, className, componentClass)}
-			ref={mergeRefs([ref, refAnimation])}
+			ref={ref}
 			{...rest}
 		>
 			<div className={s.background} />
@@ -61,46 +59,3 @@ export const LoaderCounter = forwardRef<ComponentElementType, LoaderCounterProps
 });
 
 LoaderCounter.displayName = 'LoaderCounter';
-
-// import {
-// 	useEffect, useLayoutEffect, useRef, useState,
-// } from 'react';
-
-// import asm from 'asm-ts-scripts';
-
-// import s from './LoaderCounter.module.scss';
-
-// interface LoaderCounter {
-// 	timer: number;
-// 	isInversion?: boolean;
-// }
-
-// export function LoaderCounter({ timer, isInversion }: LoaderCounter) {
-// 	const [counter, setCounter] = useState(timer / 1000);
-
-// 	useEffect(() => {
-// 		asm.setIntervalCounts({
-// 			callback: () => setCounter((prev) => prev - 1),
-// 			delay: 1000,
-// 			counts: timer / 1000,
-// 		});
-// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-// 	}, []);
-
-// 	const refAnimation = useRef<HTMLDivElement>(null);
-
-// 	useLayoutEffect(() => {
-// 		refAnimation.current?.style.setProperty('--loader-counter--animation-duration', `${timer}ms`);
-// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-// 	}, [timer]);
-
-// 	return (
-// 		<div className={asm.join(s.LoaderCounter, isInversion ? s.inversion : s.normal)}>
-// 			<div className={s.background} />
-// 			<div className={s.animation} ref={refAnimation} />
-// 			<p className={asm.join(s.counter, 'p2')}>
-// 				{counter}
-// 			</p>
-// 		</div>
-// 	);
-// }

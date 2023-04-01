@@ -6,14 +6,14 @@ import { ReactChildren } from '../_LAB/ReactChildren';
 
 import s from './List.module.scss';
 
-type ComponentElementType = HTMLUListElement;
+export type ListElement = HTMLUListElement;
 
-export interface ListProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface ListProps extends ReactHTMLElementAttributes<ListElement> {
 	type?: 'unordered' | 'custom';
 	margin?: number;
 }
 
-export const List = forwardRef<ComponentElementType, ListProps>(({
+export const List = forwardRef<ListElement, ListProps>(({
 	type,
 	margin,
 	children,

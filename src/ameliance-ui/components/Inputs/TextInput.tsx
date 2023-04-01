@@ -10,14 +10,14 @@ import { Typography } from '../Typography';
 import typography from '../Typography/Typography.module.scss';
 import cs from './commonStyle.module.scss';
 
-type ComponentElementType = HTMLInputElement;
+export type TextInputElement = HTMLInputElement;
 
-export interface TextInputProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface TextInputProps extends ReactHTMLElementAttributes<TextInputElement> {
 	register?: FieldValues;
 	errors?: Record<string, FieldError> | undefined;
 }
 
-export const TextInput = forwardRef<ComponentElementType, TextInputProps>(({
+export const TextInput = forwardRef<TextInputElement, TextInputProps>(({
 	register,
 	errors,
 	placeholder,
