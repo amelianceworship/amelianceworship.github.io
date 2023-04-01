@@ -1,22 +1,19 @@
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 
-import type { ErrorResponse } from '~types/api/google/firebase/commons/ErrorResponse';
+import { returnError } from '~api/helpers/returnError';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 import type { User } from '~types/api/google/firebase/commons/User';
 
 import { db } from '../../firebase';
-import { returnError } from '../../helpers/returnError';
 import { returnSuccess } from '../../helpers/returnSuccess';
 
 export interface UpdateGroupInfo extends Partial<User> {
 	uid: string;
 }
 
-const filePath = 'src/App/api/google/firebase/database/groups/updateGroupInfo.ts';
-
 export async function updateUser({
 	uid, displayName, photoURL, email, role, sex, lastActiveChatId, isOnline,
-}: UpdateGroupInfo): Promise<SuccessResponse | ErrorResponse> {
+}: UpdateGroupInfo): Promise<SuccessResponse> {
 	const usersRef = doc(db, 'users', uid);
 	try {
 		const user = {} as UpdateGroupInfo;
@@ -31,6 +28,6 @@ export async function updateUser({
 		await updateDoc(usersRef, { user });
 		return returnSuccess();
 	} catch (error) {
-		return returnError(filePath, error);
+		throw new Error(returnError(error));
 	}
 }

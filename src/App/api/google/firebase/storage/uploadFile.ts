@@ -1,10 +1,9 @@
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
-import type { ErrorResponse } from '~types/api/google/firebase/commons/ErrorResponse';
+import { returnError } from '~api/helpers/returnError';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 
 import { storage } from '../firebase';
-import { returnError } from '../helpers/returnError';
 
 export interface UploadFile {
 	refName: string;
@@ -15,18 +14,16 @@ export interface UploadFileResponse extends SuccessResponse {
 	downloadURL: string;
 }
 
-const filePath = 'src/App/api/google/firebase/storage/uploadFile.ts';
-
 export async function uploadFile({
 	refName, file,
-}: UploadFile): Promise<UploadFileResponse | ErrorResponse> {
+}: UploadFile): Promise<UploadFileResponse> {
 	const storageRef = ref(storage, refName);
 	try {
 		await uploadBytesResumable(storageRef, file);
 		const downloadURL = await getDownloadURL(storageRef);
 		return { downloadURL, status: 'success' };
 	} catch (error) {
-		return returnError(filePath, error);
+		throw new Error(returnError(error));
 	}
 }
 

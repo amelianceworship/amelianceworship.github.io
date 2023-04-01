@@ -1,3 +1,5 @@
+import { returnError } from '~api/helpers/returnError';
+
 import { doGet } from '../../base/doGet';
 import type { DataTitledResponse } from '../../types/types';
 
@@ -24,8 +26,13 @@ export interface GetAllTitledColumnsDataResponse {
 
 export async function getAllTitledColumnsData({
 	spreadsheetId, sheetIndex, sheetName,
-}: GetAllTitledColumnsData) {
-	return doGet({
-		spreadsheetId, sheetIndex, sheetName, type: 'TITLED',
-	}).then((data) => data as GetAllTitledColumnsDataResponse);
+}: GetAllTitledColumnsData): Promise<GetAllTitledColumnsDataResponse> {
+	try {
+		const response = await doGet({
+			spreadsheetId, sheetIndex, sheetName, type: 'TITLED',
+		});
+		return response as GetAllTitledColumnsDataResponse;
+	} catch (error) {
+		throw new Error(returnError(error));
+	}
 }

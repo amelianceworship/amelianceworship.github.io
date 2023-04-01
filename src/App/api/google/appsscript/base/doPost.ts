@@ -1,12 +1,11 @@
-import { appError } from '~helpers/appError';
-import { appLog } from '~helpers/appLog';
+import { returnError } from '~api/helpers/returnError';
 
 import type { DoPost, Response } from '../types/types';
 import { baseURL } from './baseURL';
 
 export async function doPost({
 	spreadsheetId, sheetName, sheetIndex, titlesParams, indexesParams, type, col, row, value,
-}: DoPost) {
+}: DoPost): Promise<Response> {
 	const URLParams = new URLSearchParams();
 	if (spreadsheetId) URLParams.append('spreadsheetId', spreadsheetId);
 	if (sheetName) URLParams.append('sheetName', sheetName);
@@ -18,20 +17,13 @@ export async function doPost({
 	if (row) URLParams.append('row', row.toString());
 	if (value) URLParams.append('value', value.toString());
 
-	return fetch(`${baseURL}?${URLParams}`, { method: 'POST' })
-		.then((response) => response.text())
-		.then((textData) => JSON.parse(textData))
-		.then((data: Response) => {
-			if (data.status !== 'success') {
-				// eslint-disable-next-line no-console
-				appLog('doPost', data.status);
-				// eslint-disable-next-line no-console
-				appLog('doPost', data.info);
-				// eslint-disable-next-line no-console
-				appLog('doPost', data.error);
-			}
-			return data;
-		})
-		// eslint-disable-next-line no-console
-		.catch((error) => appError('doPost', error));
+	try {
+		const response = await fetch(`${baseURL}?${URLParams}`, { method: 'POST' });
+		const textData = await response.text();
+		const data = await JSON.parse(textData);
+		if (data.status !== 'success') throw new Error(data.error);
+		return data;
+	} catch (error) {
+		throw new Error(returnError(error));
+	}
 }

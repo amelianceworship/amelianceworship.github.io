@@ -1,22 +1,19 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
+import { returnError } from '~api/helpers/returnError';
 import type { ChatId } from '~types/api/google/firebase/commons/ChatId';
-import type { ErrorResponse } from '~types/api/google/firebase/commons/ErrorResponse';
 import type { Messages } from '~types/api/google/firebase/commons/Messages';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 
 import { db } from '../../firebase';
-import { returnError } from '../../helpers/returnError';
 
 type GetChatMessages = ChatId;
 
 export interface GetChatMessagesResponse extends SuccessResponse, Messages {}
 
-const filePath = 'src/App/api/google/firebase/database/chats/getChatMessages.ts';
-
 export async function getChatMessages(
 	{ chatId }: GetChatMessages,
-): Promise<GetChatMessagesResponse | ErrorResponse> {
+): Promise<GetChatMessagesResponse> {
 	const chatRef = doc(db, 'chats', chatId);
 	try {
 		const docSnap = await getDoc(chatRef);
@@ -27,15 +24,15 @@ export async function getChatMessages(
 		const docSnapNew = await getDoc(chatRef);
 		if (docSnapNew.exists()) return { messages: docSnapNew.data().message, status: 'success' };
 
-		return returnError(filePath, 'Can\'t find group chat!');
+		throw new Error('Can\'t find group chat!');
 	} catch (error) {
-		return returnError(filePath, error);
+		throw new Error(returnError(error));
 	}
 }
 
 // export async function getChatMessages(
 // 	{ chatId }: GetChatMessages,
-// ): Promise<GetChatMessagesResponse | ErrorResponse> {
+// ): Promise<GetChatMessagesResponse> {
 // 	const docRef = doc(db, 'chats', chatId);
 // 	return getDoc(docRef)
 // 		.then(async (docSnap) => {

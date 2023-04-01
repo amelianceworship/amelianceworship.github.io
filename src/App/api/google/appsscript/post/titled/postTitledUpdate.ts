@@ -1,3 +1,5 @@
+import { returnError } from '~api/helpers/returnError';
+
 import { doPost } from '../../base/doPost';
 import type { DataUntitledResponse } from '../../types/types';
 
@@ -28,8 +30,13 @@ export interface PostTitledUpdateResponse {
 
 export async function postTitledUpdate({
 	spreadsheetId, sheetIndex, sheetName, col, row, value,
-}: PostTitledUpdate) {
-	return doPost({
-		spreadsheetId, sheetIndex, sheetName, col, row, value, type: 'TITLED_UPDATE',
-	}).then((data) => data as PostTitledUpdateResponse);
+}: PostTitledUpdate): Promise<PostTitledUpdateResponse> {
+	try {
+		const response = await doPost({
+			spreadsheetId, sheetIndex, sheetName, col, row, value, type: 'TITLED_UPDATE',
+		});
+		return response as PostTitledUpdateResponse;
+	} catch (error) {
+		throw new Error(returnError(error));
+	}
 }

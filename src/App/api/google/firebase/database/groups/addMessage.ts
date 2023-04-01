@@ -1,25 +1,22 @@
 import { doc, Timestamp, updateDoc } from 'firebase/firestore';
 
-import type { ErrorResponse } from '~types/api/google/firebase/commons/ErrorResponse';
+import { returnError } from '~api/helpers/returnError';
 import type { Message } from '~types/api/google/firebase/commons/Message';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 
 import { db } from '../../firebase';
-import { returnError } from '../../helpers/returnError';
 import { returnSuccess } from '../../helpers/returnSuccess';
 import { getGroupMessages } from './getGroupMessages';
 
 export type AddMessage = Omit<Message, 'messageId' | 'date' >;
 
-const filePath = 'src/App/api/google/firebase/database/groups/addMessage.ts';
-
 export async function addMessage({
 	text, chatId, user,
-}: AddMessage): Promise<SuccessResponse | ErrorResponse> {
+}: AddMessage): Promise<SuccessResponse> {
 	try {
 		const response = await getGroupMessages({ chatId });
 
-		if ('error' in response) return returnError(filePath, response.error?.toString());
+		if ('error' in response) throw new Error(response.error?.toString());
 
 		const newMessageId = response.messages && response.messages.length > 0
 			? response.messages[response.messages.length - 1].messageId + 1 : 0;
@@ -43,6 +40,6 @@ export async function addMessage({
 		await updateDoc(docRef, { messages });
 		return returnSuccess();
 	} catch (error) {
-		return returnError(filePath, error);
+		throw new Error(returnError(error));
 	}
 }

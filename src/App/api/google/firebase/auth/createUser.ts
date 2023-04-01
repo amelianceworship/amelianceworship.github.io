@@ -1,11 +1,10 @@
 import type { User } from 'firebase/auth';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
-import type { ErrorResponse } from '~types/api/google/firebase/commons/ErrorResponse';
+import { returnError } from '~api/helpers/returnError';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 
 import { auth } from '../firebase';
-import { returnError } from '../helpers/returnError';
 
 export interface CreateUser {
 	email: string;
@@ -16,15 +15,13 @@ export interface CreateUserResponse extends SuccessResponse {
 	user: User;
 }
 
-const filePath = 'src/App/api/google/firebase/auth/createUser.ts';
-
 export async function createUser({
 	email, password,
-}: CreateUser): Promise<CreateUserResponse | ErrorResponse> {
+}: CreateUser): Promise<CreateUserResponse> {
 	try {
 		const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 		return { user: userCredential.user, status: 'success' };
 	} catch (error) {
-		return returnError(filePath, error);
+		throw new Error(returnError(error));
 	}
 }

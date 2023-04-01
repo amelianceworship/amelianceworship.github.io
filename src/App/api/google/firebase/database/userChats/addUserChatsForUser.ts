@@ -1,27 +1,24 @@
 import { doc, setDoc } from 'firebase/firestore';
 
-import type { ErrorResponse } from '~types/api/google/firebase/commons/ErrorResponse';
+import { returnError } from '~api/helpers/returnError';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 
 import { db } from '../../firebase';
-import { returnError } from '../../helpers/returnError';
 import { returnSuccess } from '../../helpers/returnSuccess';
 
 interface AddUserChatsForUser {
 	uid: string;
 }
 
-const filePath = 'src/App/api/google/firebase/database/userChats/addUserChatsForUser.ts';
-
 export async function addUserChatsForUser({
 	uid,
-}: AddUserChatsForUser): Promise<SuccessResponse | ErrorResponse> {
+}: AddUserChatsForUser): Promise<SuccessResponse> {
 	const userChatsRef = doc(db, 'userChats', uid);
 
 	try {
 		await setDoc(userChatsRef, {});
 		return returnSuccess();
 	} catch (error) {
-		return returnError(filePath, error);
+		throw new Error(returnError(error));
 	}
 }

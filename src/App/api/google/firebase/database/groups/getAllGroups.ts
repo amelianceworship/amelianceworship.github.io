@@ -2,11 +2,10 @@ import asm from 'asm-ts-scripts';
 import type { DocumentData } from 'firebase/firestore';
 import { collection, getDocs } from 'firebase/firestore';
 
-import type { ErrorResponse } from '~types/api/google/firebase/commons/ErrorResponse';
+import { returnError } from '~api/helpers/returnError';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 
 import { db } from '../../firebase';
-import { returnError } from '../../helpers/returnError';
 
 type Groups = Record<string, DocumentData>;
 
@@ -14,9 +13,7 @@ export interface GetAllGroupsResponse extends SuccessResponse {
 	groups: Groups;
 }
 
-const filePath = 'src/App/api/google/firebase/database/groups/getAllGroups.ts';
-
-export async function getAllGroups(): Promise<GetAllGroupsResponse | ErrorResponse> {
+export async function getAllGroups(): Promise<GetAllGroupsResponse> {
 	const groupsRef = collection(db, 'groups');
 
 	try {
@@ -27,8 +24,8 @@ export async function getAllGroups(): Promise<GetAllGroupsResponse | ErrorRespon
 		});
 		if (!asm.isObjectEmpty(groups)) return { groups, status: 'success' };
 
-		return returnError(filePath, 'Can\'t find any groups!');
+		throw new Error('Can\'t find any groups!');
 	} catch (error) {
-		return returnError(filePath, error);
+		throw new Error(returnError(error));
 	}
 }
