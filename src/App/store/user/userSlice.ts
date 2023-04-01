@@ -1,7 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 import type { User } from '~types/api/google/firebase/commons/User';
 
 import { createUser } from './actions/createUser';
@@ -83,21 +82,17 @@ export const userSlice = createSlice({
 			})
 			.addCase(
 				createUser.fulfilled,
-				(state, action: PayloadAction<Pick<User, 'uid' | 'displayName' | 'photoURL' | 'email' > | ErrorString>) => {
-					if ('error' in action.payload) {
-						state.error = action.payload.error;
-					} else {
-						state.uid = action.payload.uid;
-						state.displayName = action.payload.displayName;
-						state.photoURL = action.payload.photoURL;
-						state.email = action.payload.email;
-					}
-
+				(state, action: PayloadAction<Pick<User, 'uid' | 'displayName' | 'photoURL' | 'email' >>) => {
+					state.uid = action.payload.uid;
+					state.displayName = action.payload.displayName;
+					state.photoURL = action.payload.photoURL;
+					state.email = action.payload.email;
+					state.error = '';
 					state.isLoading = false;
 				},
 			)
 			.addCase(createUser.rejected, (state, action: PayloadAction<unknown>) => {
-				state.error = (action.payload as ErrorString).error;
+				if (typeof action.payload === 'string') state.error = action.payload;
 				state.isLoading = false;
 			})
 
@@ -117,20 +112,18 @@ export const userSlice = createSlice({
 			})
 			.addCase(
 				signIn.fulfilled,
-				(state, action: PayloadAction<Pick<User, 'email' | 'displayName' | 'photoURL' | 'uid' > | ErrorString>) => {
-					if ('error' in action.payload) {
-						state.error = action.payload.error;
-					} else {
-						state.email = action.payload.email;
-						state.displayName = action.payload.displayName;
-						state.photoURL = action.payload.photoURL;
-						state.uid = action.payload.uid;
-					}
+				(state, action: PayloadAction<Pick<User, 'email' | 'displayName' | 'photoURL' | 'uid' >>) => {
+					state.email = action.payload.email;
+					state.displayName = action.payload.displayName;
+					state.photoURL = action.payload.photoURL;
+					state.uid = action.payload.uid;
+
+					state.error = '';
 					state.isLoading = false;
 				},
 			)
 			.addCase(signIn.rejected, (state, action: PayloadAction<unknown>) => {
-				state.error = (action.payload as ErrorString).error;
+				if (typeof action.payload === 'string') state.error = action.payload;
 				state.isLoading = false;
 			})
 
@@ -150,20 +143,17 @@ export const userSlice = createSlice({
 			})
 			.addCase(
 				signInWithGoogle.fulfilled,
-				(state, action: PayloadAction<Pick<User, 'email' | 'displayName' | 'photoURL' | 'uid' > | ErrorString>) => {
-					if ('error' in action.payload) {
-						state.error = action.payload.error;
-					} else {
-						state.email = action.payload.email;
-						state.displayName = action.payload.displayName;
-						state.photoURL = action.payload.photoURL;
-						state.uid = action.payload.uid;
-					}
+				(state, action: PayloadAction<Pick<User, 'email' | 'displayName' | 'photoURL' | 'uid' >>) => {
+					state.email = action.payload.email;
+					state.displayName = action.payload.displayName;
+					state.photoURL = action.payload.photoURL;
+					state.uid = action.payload.uid;
+					state.error = '';
 					state.isLoading = false;
 				},
 			)
 			.addCase(signInWithGoogle.rejected, (state, action: PayloadAction<unknown>) => {
-				state.error = (action.payload as ErrorString).error;
+				if (typeof action.payload === 'string') state.error = action.payload;
 				state.isLoading = false;
 			});
 	},

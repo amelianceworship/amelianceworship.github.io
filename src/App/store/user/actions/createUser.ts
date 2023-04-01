@@ -1,14 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import asm from 'asm-ts-scripts';
 
+import { returnError } from '~api/helpers/returnError';
 import { api } from '~api/index';
-import { rejectError } from '~store/helpers/rejectError';
-import { returnActionError } from '~store/helpers/returnActionError';
 import type { CreateUser } from '~types/api/google/firebase/auth/createUser';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 import type { User } from '~types/api/google/firebase/commons/User';
 
-type CreateAsyncThunkReturned = Pick<User, 'uid' | 'displayName' | 'photoURL' | 'email' > | ErrorString;
+type CreateAsyncThunkReturned = Pick<User, 'uid' | 'displayName' | 'photoURL' | 'email' >;
 type CreateAsyncThunkArguments = CreateUser;
 interface CreateAsyncThunkConfig { rejectValue: ErrorString }
 
@@ -22,7 +21,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 		try {
 			//* ----- create user in auth -----
 			const response = await api.google.firebase.auth.createUser({ email, password });
-			if ('error' in response) return returnActionError(response);
+			if ('error' in response) throw new Error(response.error?.toString());
 
 			// *----- upload user image -----
 			const responseURL = photo ? await api.google.firebase.storage.uploadFile({
@@ -61,7 +60,6 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 
 			// *----- get current auth user data -----
 			const userResponse = api.google.firebase.auth.getCurrentAuthUser();
-			if ('error' in userResponse) return returnActionError(userResponse);
 
 			return {
 				uid: userResponse.user.uid?.toString() || '',
@@ -70,7 +68,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				email: userResponse.user.email?.toString() || '',
 			};
 		} catch (error) {
-			return thunkAPI.rejectWithValue(rejectError);
+			return thunkAPI.rejectWithValue(returnError(error));
 		}
 	},
 );
