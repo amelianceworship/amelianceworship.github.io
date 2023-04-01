@@ -1,15 +1,15 @@
-import { returnError } from '~api/google/firebase/helpers/returnError';
+import { returnError } from '~api/helpers/returnError';
 
-const filePath = 'src/App/helpers/writeTextToClipboard.ts';
+export type WriteTextToClipboardReturn = boolean;
 
-export async function writeTextToClipboard(text: string) {
+export async function writeTextToClipboard(text: string): Promise<WriteTextToClipboardReturn> {
 	if (text) {
 		try {
 			await navigator.clipboard.writeText(text);
-			return { status: 'success' };
+			return true;
 		} catch (error) {
-			return returnError(filePath, error);
+			throw new Error(returnError(error));
 		}
 	}
-	return { status: 'error' };
+	return false;
 }
