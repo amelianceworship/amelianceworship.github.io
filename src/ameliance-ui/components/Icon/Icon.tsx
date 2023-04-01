@@ -4,15 +4,15 @@ import asm from 'asm-ts-scripts';
 
 import s from './Icon.module.scss';
 
-type ComponentElementType = HTMLDivElement;
+export type IconElement = HTMLDivElement;
 
-export interface IconProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface IconProps extends ReactHTMLElementAttributes<IconElement> {
 	size?: ComponentSizes;
 	height?: string | number;
 	width?: string | number;
 }
 
-export const Icon = forwardRef<ComponentElementType, IconProps>(({
+export const Icon = forwardRef<IconElement, IconProps>(({
 	size = 'default',
 	width = 24,
 	height = 24,

@@ -5,15 +5,15 @@ import asm from 'asm-ts-scripts';
 import { getGridClass } from './helpers/grid';
 import type { Grid } from './types/Grid';
 
-type ComponentElementType = HTMLElement;
+export type SectionElement = HTMLElement;
 
-export interface SectionProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface SectionProps extends ReactHTMLElementAttributes<SectionElement> {
 	container?: boolean;
 	gridContainer?: boolean;
 	grid?: Grid;
 }
 
-export const Section = forwardRef<ComponentElementType, SectionProps>(({
+export const Section = forwardRef<SectionElement, SectionProps>(({
 	gridContainer,
 	grid,
 	children,

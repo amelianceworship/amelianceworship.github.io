@@ -10,14 +10,14 @@ import { Typography } from '../Typography';
 import typography from '../Typography/Typography.module.scss';
 import cs from './commonStyle.module.scss';
 
-type ComponentElementType = HTMLInputElement;
+export type EmailInputElement = HTMLInputElement;
 
-export interface EmailInputProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface EmailInputProps extends ReactHTMLElementAttributes<EmailInputElement> {
 	register?: FieldValues;
 	errors?: Record<string, FieldError> | undefined;
 }
 
-export const EmailInput = forwardRef<ComponentElementType, EmailInputProps>(({
+export const EmailInput = forwardRef<EmailInputElement, EmailInputProps>(({
 	register,
 	errors,
 	placeholder,

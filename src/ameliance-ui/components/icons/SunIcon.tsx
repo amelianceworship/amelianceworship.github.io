@@ -1,7 +1,7 @@
 import type { SvgIconProps } from '../SvgIcon';
 import { SvgIcon } from '../SvgIcon';
 
-export function MoonIcon(props: SvgIconProps) {
+export function SunIcon(props: SvgIconProps) {
 	return (
 		<SvgIcon
 			fill="none"

@@ -5,15 +5,15 @@ import asm from 'asm-ts-scripts';
 import typography from '../Typography/Typography.module.scss';
 import s from './Link.module.scss';
 
-type ComponentElementType = HTMLSpanElement;
+export type LinkLabelElement = HTMLSpanElement;
 
-export interface LinkLabelProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface LinkLabelProps extends ReactHTMLElementAttributes<LinkLabelElement> {
 	display?: TypographyVariants;
 	underline?: boolean;
 	blank?: boolean;
 }
 
-export const LinkLabel = forwardRef<ComponentElementType, LinkLabelProps>(({
+export const LinkLabel = forwardRef<LinkLabelElement, LinkLabelProps>(({
 	display,
 	underline,
 	children,

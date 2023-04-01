@@ -13,9 +13,9 @@ import typography from '../Typography/Typography.module.scss';
 import cs from './commonStyle.module.scss';
 import s from './FileImgUpload.module.scss';
 
-type ComponentElementType = HTMLInputElement;
+export type FileImgUploadElement = HTMLInputElement;
 
-export interface FileImgUploadProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface FileImgUploadProps extends ReactHTMLElementAttributes<FileImgUploadElement> {
 	register?: FieldValues;
 	errors?: Record<string, FieldError> | undefined;
 	watch: (name: string) => FieldValues;
@@ -23,7 +23,7 @@ export interface FileImgUploadProps extends ReactHTMLElementAttributes<Component
 	label?: string;
 }
 
-export const FileImgUpload = forwardRef<ComponentElementType, FileImgUploadProps>(({
+export const FileImgUpload = forwardRef<FileImgUploadElement, FileImgUploadProps>(({
 	register,
 	errors,
 	watch,

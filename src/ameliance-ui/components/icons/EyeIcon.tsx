@@ -1,7 +1,7 @@
 import type { SvgIconProps } from '../SvgIcon';
 import { SvgIcon } from '../SvgIcon';
 
-export function EyeOnIcon(props: SvgIconProps) {
+export function EyeIcon(props: SvgIconProps) {
 	return (
 		<SvgIcon
 			fill="none"

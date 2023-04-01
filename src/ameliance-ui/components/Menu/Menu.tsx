@@ -10,9 +10,9 @@ import { XIcon } from '../icons/XIcon';
 
 import s from './Menu.module.scss';
 
-type ComponentElementType = HTMLDivElement;
+export type MenuElement = HTMLDivElement;
 
-export interface MenuProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface MenuProps extends ReactHTMLElementAttributes<MenuElement> {
 	children: React.ReactNode;
 	isOpen: boolean;
 	scrollLock?: boolean;
@@ -28,7 +28,7 @@ export interface MenuProps extends ReactHTMLElementAttributes<ComponentElementTy
 		vertical: 'top' | 'center' | 'bottom';
 	};
 }
-export const Menu = forwardRef<ComponentElementType, MenuProps>(({
+export const Menu = forwardRef<MenuElement, MenuProps>(({
 	children,
 	isOpen,
 	scrollLock,

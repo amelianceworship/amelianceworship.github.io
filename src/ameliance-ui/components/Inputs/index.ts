@@ -1,6 +1,7 @@
-export { Checkbox } from './Checkbox';
-export { EmailInput } from './EmailInput';
-export { PasswordInput } from './PasswordInput';
-export { TextInput } from './TextInput';
-export { FileUpload } from './FileUpload';
-export { FileImgUpload } from './FileImgUpload';
+export * from './Checkbox';
+export * from './Dropdown';
+export * from './EmailInput';
+export * from './FileImgUpload';
+export * from './FileUpload';
+export * from './PasswordInput';
+export * from './TextInput';

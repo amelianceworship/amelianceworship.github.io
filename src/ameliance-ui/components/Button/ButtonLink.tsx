@@ -5,10 +5,10 @@ import asm from 'asm-ts-scripts';
 import typography from '../Typography/Typography.module.scss';
 import s from './Button.module.scss';
 
-type ComponentElementType = HTMLAnchorElement;
+export type ButtonLinkElement = HTMLAnchorElement;
 
 export interface ButtonLinkProps extends ReactHTMLElementAttributes<
-ComponentElementType, React.AnchorHTMLAttributes<ComponentElementType>> {
+ButtonLinkElement, React.AnchorHTMLAttributes<ButtonLinkElement>> {
 	size?: ComponentSizes;
 	width?: string | number;
 	height?: string | number;
@@ -18,7 +18,7 @@ ComponentElementType, React.AnchorHTMLAttributes<ComponentElementType>> {
 	customStyle?: boolean;
 }
 
-export const ButtonLink = forwardRef<ComponentElementType, ButtonLinkProps>(({
+export const ButtonLink = forwardRef<ButtonLinkElement, ButtonLinkProps>(({
 	size = 'default',
 	width,
 	height,

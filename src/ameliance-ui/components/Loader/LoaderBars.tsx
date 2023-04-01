@@ -4,11 +4,11 @@ import asm from 'asm-ts-scripts';
 
 import s from './LoaderBars.module.scss';
 
-type ComponentElementType = HTMLDivElement;
+export type LoaderBarsElement = HTMLDivElement;
 
-export type LoaderBarsProps = ReactHTMLElementAttributes<ComponentElementType>;
+export type LoaderBarsProps = ReactHTMLElementAttributes<LoaderBarsElement>;
 
-export const LoaderBars = forwardRef<ComponentElementType, LoaderBarsProps>(({
+export const LoaderBars = forwardRef<LoaderBarsElement, LoaderBarsProps>(({
 	className,
 	...rest
 }, ref) => (

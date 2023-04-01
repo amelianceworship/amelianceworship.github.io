@@ -4,14 +4,14 @@ import asm from 'asm-ts-scripts';
 
 import s from './MenuItem.module.scss';
 
-type ComponentElementType = HTMLLIElement;
+export type MenuItemElement = HTMLLIElement;
 
-export interface MenuItemProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface MenuItemProps extends ReactHTMLElementAttributes<MenuItemElement> {
 	children: React.ReactNode;
 	disabled?: boolean;
 }
 
-export const MenuItem = forwardRef<ComponentElementType, MenuItemProps>(({
+export const MenuItem = forwardRef<MenuItemElement, MenuItemProps>(({
 	disabled,
 	children,
 	className,

@@ -8,9 +8,9 @@ import { Typography } from '../Typography';
 
 import s from './AccordionItem.module.scss';
 
-type ComponentElementType = HTMLDivElement;
+export type AccordionItemElement = HTMLDivElement;
 
-export interface AccordionItemProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface AccordionItemProps extends ReactHTMLElementAttributes<AccordionItemElement> {
 	heading: string | string[];
 	text?: string | string[];
 	headingComponent?: TypographyVariants;
@@ -22,7 +22,7 @@ export interface AccordionItemProps extends ReactHTMLElementAttributes<Component
 	disabled?: boolean;
 }
 
-export const AccordionItem = forwardRef<ComponentElementType, AccordionItemProps>(({
+export const AccordionItem = forwardRef<AccordionItemElement, AccordionItemProps>(({
 	heading,
 	text,
 	headingComponent,

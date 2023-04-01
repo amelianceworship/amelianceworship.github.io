@@ -4,11 +4,11 @@ import asm from 'asm-ts-scripts';
 
 import s from './MenuContainer.module.scss';
 
-type ComponentElementType = HTMLDivElement;
+export type MenuContainerElement = HTMLDivElement;
 
-export type MenuContainerProps = ReactHTMLElementAttributes<ComponentElementType>;
+export type MenuContainerProps = ReactHTMLElementAttributes<MenuContainerElement>;
 
-export const MenuContainer = forwardRef<ComponentElementType, MenuContainerProps>(({
+export const MenuContainer = forwardRef<MenuContainerElement, MenuContainerProps>(({
 	children,
 	className,
 	...rest

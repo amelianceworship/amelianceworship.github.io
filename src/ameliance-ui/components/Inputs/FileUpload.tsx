@@ -4,13 +4,13 @@ import asm from 'asm-ts-scripts';
 
 import s from './FileUpload.module.scss';
 
-type ComponentElementType = HTMLInputElement;
+export type FileUploadElement = HTMLInputElement;
 
-export interface FileUploadProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface FileUploadProps extends ReactHTMLElementAttributes<FileUploadElement> {
 	icon: string;
 }
 
-export const FileUpload = forwardRef<ComponentElementType, FileUploadProps>(({
+export const FileUpload = forwardRef<FileUploadElement, FileUploadProps>(({
 	children,
 	className,
 	...rest

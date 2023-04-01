@@ -1,10 +1,11 @@
 @use "../../styles/globals/" as *;
 
 .StickyButton {
-	z-index: 100;
+	--sticky-button-offset: 24px;
+	z-index: 10;
 	position: fixed;
 	right: var(--gap);
-	bottom: var(--gap);
+	bottom: calc(var(--gap) * -2);
 	background-color: var(--color--b1-2);
 	border-radius: 50%;
 	@extend %box-shadow--default;
@@ -31,12 +32,12 @@
 
 @keyframes sticky-button-show {
 	100% {
-		bottom: var(--gap);
+		bottom: calc(var(--sticky-button-offset));
 	}
 }
 
 @keyframes sticky-button-hide {
 	100% {
-		bottom: -64px;
+		bottom: -64px * 3;
 	}
 }

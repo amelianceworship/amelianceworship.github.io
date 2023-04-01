@@ -5,16 +5,16 @@ import asm from 'asm-ts-scripts';
 import typography from '../Typography/Typography.module.scss';
 import s from './Link.module.scss';
 
-type ComponentElementType = HTMLAnchorElement;
+export type LinkElement = HTMLAnchorElement;
 
 export interface LinkProps extends ReactHTMLElementAttributes<
-ComponentElementType, React.AnchorHTMLAttributes<ComponentElementType>> {
+LinkElement, React.AnchorHTMLAttributes<LinkElement>> {
 	display?: TypographyVariants;
 	underline?: boolean;
 	blank?: boolean;
 }
 
-export const Link = forwardRef<ComponentElementType, LinkProps>(({
+export const Link = forwardRef<LinkElement, LinkProps>(({
 	display,
 	underline,
 	children,

@@ -6,15 +6,15 @@ import { mergeRefs } from '~/ameliance-ui/helpers/mergeRefs';
 
 import s from './Backdrop.module.scss';
 
-type ComponentElementType = HTMLButtonElement;
+export type BackdropElement = HTMLButtonElement;
 
-export interface BackdropProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface BackdropProps extends ReactHTMLElementAttributes<BackdropElement> {
 	opacity?: number;
 	disabled?: boolean;
 	show: boolean;
 }
 
-export const Backdrop = forwardRef<ComponentElementType, BackdropProps>(({
+export const Backdrop = forwardRef<BackdropElement, BackdropProps>(({
 	className,
 	disabled,
 	show,

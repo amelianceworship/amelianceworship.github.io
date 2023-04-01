@@ -8,9 +8,10 @@ import { Typography } from '../Typography';
 
 import s from './AccordionListItem.module.scss';
 
-type ComponentElementType = HTMLLIElement;
+export type AccordionListItemElement = HTMLLIElement;
 
-export interface AccordionListItemProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface AccordionListItemProps extends
+	ReactHTMLElementAttributes<AccordionListItemElement> {
 	heading: string | string[];
 	text?: string | string[];
 	headingComponent?: TypographyVariants;
@@ -22,7 +23,7 @@ export interface AccordionListItemProps extends ReactHTMLElementAttributes<Compo
 	disabled?: boolean;
 }
 
-export const AccordionListItem = forwardRef<ComponentElementType, AccordionListItemProps>(({
+export const AccordionListItem = forwardRef<AccordionListItemElement, AccordionListItemProps>(({
 	heading,
 	text,
 	headingComponent,

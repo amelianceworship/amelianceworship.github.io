@@ -5,15 +5,15 @@ import asm from 'asm-ts-scripts';
 
 import { Component } from '../_LAB/Component';
 
-type ComponentElementType = ComponentProps<ElementType>;
+export type GridElement = ComponentProps<ElementType>;
 
-export interface GridProps extends ReactHTMLElementAttributes<ComponentElementType> {
+export interface GridProps extends ReactHTMLElementAttributes<GridElement> {
 	component?: ElementType;
 	container?: boolean;
 	row?: boolean;
 }
 
-export const Grid = forwardRef<ComponentElementType, GridProps>(({
+export const Grid = forwardRef<GridElement, GridProps>(({
 	container,
 	row,
 	component = 'div',

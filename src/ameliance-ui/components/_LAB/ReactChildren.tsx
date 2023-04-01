@@ -1,8 +1,8 @@
 import { Children, cloneElement, isValidElement } from 'react';
 
-type ComponentElementType = HTMLElement;
+export type ReactChildrenElement = HTMLElement;
 
-export type ReactChildrenProps = ReactHTMLElementAttributes<ComponentElementType>;
+export type ReactChildrenProps = ReactHTMLElementAttributes<ReactChildrenElement>;
 
 export function ReactChildren({
 	children,
