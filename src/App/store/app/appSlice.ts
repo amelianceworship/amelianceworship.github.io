@@ -6,7 +6,7 @@ interface AppSlice {
 }
 
 const initialState: AppSlice = {
-	theme: 'light',
+	theme: 'dark',
 	fullscreen: true,
 };
 
