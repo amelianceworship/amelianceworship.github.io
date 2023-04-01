@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import type { DataTitledValues, DataTitledValuesItem } from '~api/google/appsscript/types/types';
+import type { DataTitledValues } from '~api/google/appsscript/types/types';
 import { returnError } from '~api/helpers/returnError';
 import { api } from '~api/index';
 import { asmGroupBy } from '~helpers/asmGroupBy';
