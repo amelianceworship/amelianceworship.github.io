@@ -1,5 +1,5 @@
 import { writeTextToClipboard } from '~helpers/writeTextToClipboard';
-import type { SongValue } from '~store/songsList/actions/fetchSongsList';
+import type { SongItem } from '~store/songsList/actions/fetchSongsList';
 
 import { useToast } from '~/ameliance-ui/components/_LAB/toastbar';
 import { Button } from '~/ameliance-ui/components/Button';
@@ -10,7 +10,7 @@ import { Typography } from '~/ameliance-ui/components/Typography';
 import s from './SongListItem.module.scss';
 
 interface SongListItem {
-	song: SongValue;
+	song: SongItem;
 }
 
 export function SongListItem({ song }: SongListItem) {
