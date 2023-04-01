@@ -1,0 +1,35 @@
+@use "~/ameliance-ui/styles/globals/" as *;
+
+.Toolbar {
+	position: sticky;
+	bottom: 0;
+	z-index: 100;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	background-color: var(--color--b1-0);
+	height: 64px;
+}
+
+.button {
+	// height: 36px;
+	display: flex;
+	// flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	// cursor: pointer;
+	// border-radius: 8px;
+	// background-color: var(--button-secondary__background);
+
+	// @include clickable;
+
+	// @include hover {
+	// 	background-color: var(--button-secondary__background_hover);
+	// }
+	// @include hover-animation;
+
+	// @include active {
+	// 	background-color: var(--button-secondary__background_active);
+	// }
+}
