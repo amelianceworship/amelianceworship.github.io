@@ -1,4 +1,4 @@
-@mixin noEvents {
+@mixin no-events {
 	pointer-events: none;
 	@content;
 }
