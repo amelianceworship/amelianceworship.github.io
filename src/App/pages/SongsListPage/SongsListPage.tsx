@@ -22,10 +22,8 @@ import s from './SongsListPage.module.scss';
 
 export function SongsListPage() {
 	const [activeTableNumber, setActiveTableNumber] = useState(0);
-	const [charsListTable, setCharsListTable] = useState<string[][]>([]);
-
 	const {
-		error, isLoading, songsList, mode,
+		error, isLoading, songsList, mode, tableGroupLabels,
 	} = useTypedSelector((state) => state.songsListReducer);
 
 	const dispatch = useTypedDispatch();
@@ -36,18 +34,6 @@ export function SongsListPage() {
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	useEffect(() => {
-		if (charsListTable.length === 0 && songsList.length > 0) {
-			setCharsListTable(
-				// *----- generate array of group char heading -----
-				songsList
-					.map((table) => table[1]
-						.map((group) => group[0])),
-			);
-		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [songsList]);
 
 	const handleTableNameChange = (select: string) => {
 		const tableNumber = TABLE_NAMES.indexOf(select);
@@ -65,8 +51,8 @@ export function SongsListPage() {
 					onDropdownChange={handleTableNameChange}
 					options={TABLE_NAMES}
 				/>
-				{charsListTable.length > 0
-					&& <ListNavigation charsList={charsListTable[activeTableNumber]} />}
+				{tableGroupLabels && tableGroupLabels.length > 0
+					&& <ListNavigation charsList={tableGroupLabels[activeTableNumber]} />}
 				{ songsList.length > 0 && mode === 'list'
 					&& <SongsList songsTable={songsList[activeTableNumber][1]} />}
 				{ songsList.length > 0 && mode === 'copy'

@@ -11,6 +11,7 @@ interface SongsListSlice {
 	activeTableNumber: number;
 	namesList: string[];
 	selectedSongsId: string[];
+	tableGroupLabels: string[][];
 	nameListLimitCount: number;
 	isLoading: boolean;
 	error: ErrorString;
@@ -22,6 +23,7 @@ const initSongsListSlice: SongsListSlice = {
 	activeTableNumber: 0,
 	namesList: [],
 	selectedSongsId: [],
+	tableGroupLabels: [],
 	nameListLimitCount: 10,
 	isLoading: false,
 	error: '',
@@ -37,6 +39,9 @@ export const songsListSlice = createSlice({
 		},
 		setActiveTable(state, action: PayloadAction<SongsListSlice['activeTableNumber']>) {
 			state.activeTableNumber = action.payload;
+		},
+		resetTableGroupLabels(state) {
+			state.tableGroupLabels = [];
 		},
 		resetNamesList(state) {
 			state.namesList = [];
@@ -92,6 +97,9 @@ export const songsListSlice = createSlice({
 					state.songsList = action.payload;
 					state.error = '';
 					state.isLoading = false;
+					state.tableGroupLabels = action.payload
+						.map((table) => table[1]
+							.map((group) => group[0]));
 				},
 			)
 			.addCase(fetchSongsList.rejected, (state, action: PayloadAction<unknown>) => {
