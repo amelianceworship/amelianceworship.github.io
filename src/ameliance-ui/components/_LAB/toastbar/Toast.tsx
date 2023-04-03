@@ -1,4 +1,6 @@
-import { forwardRef, useEffect, useRef } from 'react';
+import React, {
+	forwardRef, useEffect, useRef, useState,
+} from 'react';
 
 import asm from 'asm-ts-scripts';
 
@@ -75,18 +77,22 @@ export const Toast = forwardRef<ToastElement, ToastProps>(({
 		|| (type === 'error' && 'Помилка!')
 		|| (type === 'warn' && 'Попередження!'));
 
+	const closeToast = () => {
+		toastRef.current?.classList.add(s.hideToastAnimation);
+		toastRef.current?.addEventListener('animationend', (event) => {
+			if (event.target === toastRef.current) {
+				event.stopPropagation();
+				remove(id);
+			}
+		});
+	};
+
 	// *----- auto dismiss -----
 	const dismissRef = useRef<ReturnType<typeof setTimeout>>();
 	useEffect(() => {
 		if (duration > 0) {
 			dismissRef.current = setTimeout(() => {
-				toastRef.current?.classList.add(s.hideToastAnimation);
-				toastRef.current?.addEventListener('animationend', (event) => {
-					if (event.target === toastRef.current) {
-						event.stopPropagation();
-						remove(id);
-					}
-				});
+				closeToast();
 			}, duration);
 		}
 		return () => {
@@ -113,15 +119,24 @@ export const Toast = forwardRef<ToastElement, ToastProps>(({
 	// // eslint-disable-next-line react-hooks/exhaustive-deps
 	// }, []);
 
+	const [touchPosition, setTouchPosition] = useState<number | null>(null);
+	const handleToastOnTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+		const startTouch = event.touches[0].clientX;
+		setTouchPosition(startTouch);
+	};
+
+	const handleToastOnTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+		const startTouch = touchPosition;
+		if (startTouch === null) return;
+		const currentTouch = event.touches[0].clientX;
+		const diff = currentTouch - startTouch;
+		if (diff > 10) closeToast();
+		setTouchPosition(null);
+	};
+
 	const handleCloseButtonClick = (event: React.MouseEvent<IconElement>) => {
 		if (onCloseButtonClick) onCloseButtonClick(event);
-		toastRef.current?.classList.add(s.hideToastAnimation);
-		toastRef.current?.addEventListener('animationend', (e) => {
-			if (e.target === toastRef.current) {
-				e.stopPropagation();
-				remove(id);
-			}
-		});
+		closeToast();
 	};
 
 	return (
@@ -129,6 +144,8 @@ export const Toast = forwardRef<ToastElement, ToastProps>(({
 			className={asm.join(s.Toast, className, componentClass)}
 			ref={mergeRefs([ref, toastRef])}
 			{...rest}
+			onTouchStart={handleToastOnTouchStart}
+			onTouchMove={handleToastOnTouchMove}
 		>
 			<div className={s.content}>
 				<Icon>
