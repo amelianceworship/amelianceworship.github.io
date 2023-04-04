@@ -60,7 +60,6 @@ export function Controls({
 				'--progress-bar--range-progress',
 				`${(Number(reassignProgressBarRef.value) / Math.trunc(duration)) * 100}%`,
 			);
-			console.log('repeat');
 
 			if (isPlaying) {
 				playAnimationRef.current = requestAnimationFrame(repeat);
