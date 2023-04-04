@@ -2,10 +2,9 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import asm from 'asm-ts-scripts';
 
-// eslint-disable-next-line import/order
-import { mp3List } from '~assets/mp3/mp3List';
+import { mp3List } from '~app/data/mp3List';
 
-const audioFilesList = mp3List.trim().split('\n').map((song) => song.trim());
+const audioFilesList: string[] = mp3List.trim().split('\n').map((song) => song.trim());
 
 interface MusicPlayerSlice {
 	normalOrderAudioFilesList: string[];
