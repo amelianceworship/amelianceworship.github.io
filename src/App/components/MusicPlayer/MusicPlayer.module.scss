@@ -1,0 +1,16 @@
+@use "~/ameliance-ui/styles/globals/" as *;
+
+.MusicPlayer {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	position: sticky;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 110;
+	width: 100%;
+	background-color: var(--color--b1-1);
+	padding: 16px;
+	border-radius: 16px 16px 0 0;
+}

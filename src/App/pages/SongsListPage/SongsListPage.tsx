@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import asm from 'asm-ts-scripts';
 
+import { MusicPlayer } from '~components/MusicPlayer/MusicPlayer';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import type { SongsGroup } from '~store/songsList/actions/fetchSongsList';
@@ -29,6 +30,8 @@ export function SongsListPage() {
 	const {
 		error, isLoading, songsList, mode, tableGroupLabels,
 	} = useTypedSelector((state) => state.songsListReducer);
+
+	const { isPlayerShow } = useTypedSelector((state) => state.musicPlayerReducer);
 
 	const dispatch = useTypedDispatch();
 
@@ -91,6 +94,8 @@ export function SongsListPage() {
 				{!isLoading && <Toolbar />}
 				<ScrollUpButton />
 			</Grid>
+			{ songsListTable && isPlayerShow && mode === 'list'
+				&& <MusicPlayer />}
 		</Block>
 	);
 }

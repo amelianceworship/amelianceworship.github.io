@@ -1,8 +1,10 @@
-@use "~/ameliance-ui/styles/globals/" as *;
-
 .SongListItem {
 	display: flex;
 	justify-content: space-between;
 	gap: 16px;
-	@include no-select;
+}
+
+.playIcon {
+	position: relative;
+	left: 1px;
 }

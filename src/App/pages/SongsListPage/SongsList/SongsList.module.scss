@@ -1,3 +1,5 @@
+@use "~/ameliance-ui/styles/globals/" as *;
+
 .SongsList {
 	display: flex;
 	flex-direction: column;
