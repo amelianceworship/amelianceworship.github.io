@@ -1,5 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom';
 
+import { APP } from '~constants/APP';
 import { PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
 import { isMatchPath } from '~helpers/isMatchPath';
 import { useAuth } from '~hooks/useAuth';
@@ -16,6 +17,9 @@ export function Footer() {
 
 	const isLogIn = isMatchPath(pathname, 'login');
 	const isSingUp = isMatchPath(pathname, 'signup');
+	const isSongsList = isMatchPath(pathname, 'songslist');
+
+	if	(isSongsList) return null;
 
 	return (
 		<Block component="footer" className={s.Footer}>
@@ -23,8 +27,8 @@ export function Footer() {
 				{!(isLogIn || isSingUp) && (isAuth && pathname !== PRIVATE_ROUTES.chat)
 					&& (
 						<NavLink to={ROUTES.home}>
-							<LinkLabel>
-								2023 03 12
+							<LinkLabel display="caption">
+								{`${APP.name} ${APP.version}`}
 							</LinkLabel>
 						</NavLink>
 					)}
