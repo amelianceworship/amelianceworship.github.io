@@ -12,3 +12,10 @@ body:has(.SongsListPage) {
 	width: 100%;
 	scroll-padding-top: 0px;
 }
+
+.tools {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	flex-direction: column;
+}

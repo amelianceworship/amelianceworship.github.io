@@ -4,12 +4,14 @@ import asm from 'asm-ts-scripts';
 
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
+import type { SongsGroup } from '~store/songsList/actions/fetchSongsList';
 import { fetchSongsList } from '~store/songsList/actions/fetchSongsList';
 
 import { LoaderOverlay } from '~/ameliance-ui/components/_LAB/LoaderOverlay';
 import { Block } from '~/ameliance-ui/components/blocks/Block';
 import { Grid } from '~/ameliance-ui/components/Grid';
 import { Dropdown } from '~/ameliance-ui/components/Inputs/Dropdown';
+import { SearchInput } from '~/ameliance-ui/components/Inputs/SearchInput';
 
 import { TABLE_NAMES } from './constants/TABLE_NAMES';
 import { ListNavigation } from './ListNavigation/ListNavigation';
@@ -22,6 +24,8 @@ import s from './SongsListPage.module.scss';
 
 export function SongsListPage() {
 	const [activeTableNumber, setActiveTableNumber] = useState(0);
+	const [songsListTable, setSongsListTable] = useState<SongsGroup[]>();
+
 	const {
 		error, isLoading, songsList, mode, tableGroupLabels,
 	} = useTypedSelector((state) => state.songsListReducer);
@@ -35,6 +39,23 @@ export function SongsListPage() {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	const [searchValue, setSearchValue] = useState('');
+
+	useEffect(() => {
+		if (songsList.length > 0) {
+			const songsActiveTable = songsList[activeTableNumber][1];
+			if (!searchValue) {
+				setSongsListTable(songsActiveTable);
+			} else {
+				setSongsListTable(songsActiveTable.map((group) => [
+					group[0],
+					group[1]
+						.filter((song) => song.value.toLowerCase().includes(searchValue.toLowerCase())),
+				]));
+			}
+		}
+	}, [activeTableNumber, songsList, searchValue]);
+
 	const handleTableNameChange = (select: string) => {
 		const tableNumber = TABLE_NAMES.indexOf(select);
 		setActiveTableNumber(tableNumber);
@@ -42,21 +63,31 @@ export function SongsListPage() {
 
 	if (error) throw Error(error);
 
+	const handleSearchOnChange = (value: string) => {
+		setSearchValue(value);
+	};
+
 	return (
 		<Block component="main" className={s.SongsListPage}>
 			<Grid component="section" container className={s.container}>
-				{isLoading && <LoaderOverlay />}
-				<Dropdown
-					selected={TABLE_NAMES[activeTableNumber]}
-					onDropdownChange={handleTableNameChange}
-					options={TABLE_NAMES}
-				/>
-				{tableGroupLabels && tableGroupLabels.length > 0
+				<Block className={s.tools}>
+					{isLoading && <LoaderOverlay />}
+					<Dropdown
+						selected={TABLE_NAMES[activeTableNumber]}
+						onDropdownChange={handleTableNameChange}
+						options={TABLE_NAMES}
+					/>
+					<SearchInput
+						placeholder="Пошук..."
+						onChangeValue={handleSearchOnChange}
+					/>
+					{tableGroupLabels && tableGroupLabels.length > 0
 					&& <ListNavigation charsList={tableGroupLabels[activeTableNumber]} />}
-				{ songsList.length > 0 && mode === 'list'
-					&& <SongsList songsTable={songsList[activeTableNumber][1]} />}
-				{ songsList.length > 0 && mode === 'copy'
-					&& <SongsCopy songsTable={songsList[activeTableNumber][1]} />}
+				</Block>
+				{ songsListTable && mode === 'list'
+					&& <SongsList songsTable={songsListTable} />}
+				{ songsListTable && mode === 'copy'
+					&& <SongsCopy songsTable={songsListTable} />}
 				{!isLoading && <Toolbar />}
 				<ScrollUpButton />
 			</Grid>
