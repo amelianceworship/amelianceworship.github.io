@@ -26,7 +26,7 @@ export interface SongItem {
 	value: string;
 }
 export type SongsGroup = [string, SongItem[]];
-type TableOfGroups = [string, Array<SongsGroup>];
+export type TableOfGroups = [string, Array<SongsGroup>];
 export type SongsListData = Array<TableOfGroups>;
 
 export type CreateAsyncThunkReturned = SongsListData;
