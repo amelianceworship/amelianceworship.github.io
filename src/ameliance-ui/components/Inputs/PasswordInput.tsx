@@ -12,7 +12,7 @@ import { Typography } from '../Typography';
 
 import typography from '../Typography/Typography.module.scss';
 import cs from './commonStyle.module.scss';
-import s from './PasswordInput.module.scss';
+import ics from './iconCommonStyle.module.scss';
 
 export type PasswordInputElement = HTMLInputElement;
 
@@ -41,16 +41,16 @@ export const PasswordInput = forwardRef<PasswordInputElement, PasswordInputProps
 		<div className={cs.container}>
 			<Typography component="h5">{children}</Typography>
 			<div className={cs.inputBlockContainer}>
-				<label className={s.inputContainer}>
+				<label className={ics.inputContainer}>
 					<input
 						type={inputType}
-						className={asm.join(s.input, cs.input, typography.input)}
+						className={asm.join(cs.input, ics.input, typography.input)}
 						placeholder={placeholder}
 						ref={ref}
 						{...register}
 						{...rest}
 					/>
-					<Icon size="custom" style={{ width: 20, height: 20 }} className={s.icon} onClick={handlerIconClick}>
+					<Icon size="custom" style={{ width: 20, height: 20 }} className={ics.icon} onClick={handlerIconClick}>
 						{isShowPassword
 							? <EyeIcon size="custom" style={{ width: 20, height: 20 }} />
 							: <EyeOffIcon size="custom" style={{ width: 20, height: 20 }} />}

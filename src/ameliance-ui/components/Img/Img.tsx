@@ -20,8 +20,8 @@ export const Img = forwardRef<ImgElement, ImgProps>(({
 	const [imgSrc, setImgSrc] = useState(src);
 
 	const imageOnErrorHandler = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-		if (fallbackScr) setImgSrc(fallbackScr);
 		if (onError) onError(event);
+		if (fallbackScr) setImgSrc(fallbackScr);
 	};
 
 	return (
