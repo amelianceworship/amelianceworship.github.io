@@ -91,9 +91,9 @@ export function SongsListPage() {
 					&& <SongsList songsTable={songsListTable} />}
 				{ songsListTable && mode === 'copy'
 					&& <SongsCopy songsTable={songsListTable} />}
-				{!isLoading && <Toolbar />}
 				<ScrollUpButton />
 			</Grid>
+			{!isLoading && songsListTable && !isPlayerShow && <Toolbar />}
 			{ songsListTable && isPlayerShow && mode === 'list'
 				&& <MusicPlayer />}
 		</Block>
