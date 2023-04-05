@@ -3,10 +3,12 @@ import { useEffect, useState } from 'react';
 import asm from 'asm-ts-scripts';
 
 import { MusicPlayer } from '~components/MusicPlayer/MusicPlayer';
+import { getToday } from '~helpers/getToday';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import type { SongsGroup } from '~store/songsList/actions/fetchSongsList';
 import { fetchSongsList } from '~store/songsList/actions/fetchSongsList';
+import { songsListSlice } from '~store/songsList/songsListSlice';
 
 import { LoaderOverlay } from '~/ameliance-ui/components/_LAB/LoaderOverlay';
 import { Block } from '~/ameliance-ui/components/blocks/Block';
@@ -28,16 +30,19 @@ export function SongsListPage() {
 	const [songsListTable, setSongsListTable] = useState<SongsGroup[]>();
 
 	const {
-		error, isLoading, songsList, mode, tableGroupLabels,
+		error, isLoading, songsList, mode, tableGroupLabels, lastFetchingDate,
 	} = useTypedSelector((state) => state.songsListReducer);
 
 	const { isPlayerShow } = useTypedSelector((state) => state.musicPlayerReducer);
 
 	const dispatch = useTypedDispatch();
+	const { actions } = songsListSlice;
 
 	useEffect(() => {
-		if (asm.isObjectEmpty(songsList)) {
+		const today = getToday();
+		if (asm.isObjectEmpty(songsList) || lastFetchingDate !== today) {
 			dispatch(fetchSongsList());
+			dispatch(actions.setLastFetchingDate(today));
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

@@ -1,6 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
+import { getToday } from '~helpers/getToday';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 
 import type { SongsListData } from './actions/fetchSongsList';
@@ -16,6 +17,7 @@ interface SongsListSlice {
 	isLoading: boolean;
 	error: ErrorString;
 	songsList: SongsListData;
+	lastFetchingDate: string;
 }
 
 const initSongsListSlice: SongsListSlice = {
@@ -28,6 +30,7 @@ const initSongsListSlice: SongsListSlice = {
 	isLoading: false,
 	error: '',
 	songsList: [] as SongsListData,
+	lastFetchingDate: '',
 };
 
 export const songsListSlice = createSlice({
@@ -83,6 +86,9 @@ export const songsListSlice = createSlice({
 			}
 
 			state.namesList = newNamesList;
+		},
+		setLastFetchingDate(state, action: PayloadAction<SongsListSlice['lastFetchingDate']>) {
+			state.lastFetchingDate = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
