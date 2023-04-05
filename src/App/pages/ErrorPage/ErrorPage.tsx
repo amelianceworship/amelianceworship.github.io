@@ -4,7 +4,7 @@ import { ROUTES } from '~constants/ROUTES';
 import { clearLocalStorageAndReload } from '~helpers/clearLocalStorageAndReload';
 
 import { Block } from '~/ameliance-ui/components/blocks/Block';
-import { Button } from '~/ameliance-ui/components/Button';
+import { Button, ButtonLink } from '~/ameliance-ui/components/Button';
 import { Grid } from '~/ameliance-ui/components/Grid';
 import { Typography } from '~/ameliance-ui/components/Typography';
 
@@ -33,6 +33,7 @@ export function ErrorPage() {
 						<Button type="secondary" size="small" onClick={handleResetButtonOnClick}>
 							Видалити дані та перезавантажити
 						</Button>
+						<ButtonLink type="secondary" size="small" href="https://t.me/amelianceskymusic" blank>Написати мені в Телеграм</ButtonLink>
 					</Block>
 					<Typography component="h3">
 						Сорі, виникла помилка =(
