@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { returnError } from '~api/helpers/returnError';
 import { api } from '~api/index';
+import { returnError } from '~helpers/returnError';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 import type { User } from '~types/api/google/firebase/commons/User';
 
