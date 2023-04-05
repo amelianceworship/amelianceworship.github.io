@@ -71,12 +71,11 @@ export function Controls({
 		if (audioRef.current) {
 			if (isPlaying) {
 				audioRef.current.play();
-				playAnimationRef.current = requestAnimationFrame(repeat);
 			} else {
 				audioRef.current.pause();
-				if (playAnimationRef.current) cancelAnimationFrame(playAnimationRef.current);
 			}
 		}
+		playAnimationRef.current = requestAnimationFrame(repeat);
 	}, [isPlaying, audioRef, repeat]);
 
 	const handlePlayPauseIconOnClick = () => {
