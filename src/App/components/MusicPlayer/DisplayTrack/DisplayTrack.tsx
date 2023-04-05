@@ -1,4 +1,5 @@
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
+import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';
 
 import { AudioPlayer } from '~/ameliance-ui/components/_LAB/AudioPlayer';
@@ -10,39 +11,39 @@ import { Typography } from '~/ameliance-ui/components/Typography';
 import s from './DisplayTrack.module.scss';
 
 interface DisplayTrackProps {
-	currentTrack: string;
-	setDuration: (duration: number) => void;
+	timeProgress: number;
 	audioRef: React.RefObject<HTMLAudioElement>;
 	progressBarRef: React.RefObject<HTMLInputElement>;
-	handleNext?: () => void;
 }
 
 export function DisplayTrack({
-	currentTrack,
-	setDuration,
+	timeProgress,
 	audioRef,
 	progressBarRef,
-	handleNext,
 }: DisplayTrackProps) {
+	const { currentTrack } = useTypedSelector((state) => state.musicPlayerReducer);
 	const { actions } = musicPlayerSlice;
 	const dispatch = useTypedDispatch();
 
 	const onLoadedMetadataHandler = () => {
 		if (audioRef.current && progressBarRef.current) {
-			const seconds = audioRef.current.duration;
-			setDuration(seconds);
-			const reassignAudioRef = progressBarRef.current;
-			reassignAudioRef.max = seconds.toString();
+			const reassignAudioRef = audioRef.current;
+			const seconds = Math.trunc(reassignAudioRef.duration);
+			dispatch(actions.setCurrentTrackDuration(seconds));
+
+			const reassignProgressBarRef = progressBarRef.current;
+			reassignProgressBarRef.max = seconds.toString();
 		}
 	};
 
 	const handleOnEnded = () => {
-		if (handleNext) handleNext();
+		dispatch(actions.nextTrack());
 	};
 
 	const handleCloseIconOnClick = () => {
-		dispatch(actions.setCurrentSong(null));
 		dispatch(actions.hidePlayer());
+		dispatch(actions.setIsPlaying(false));
+		dispatch(actions.setCurrentTrackTimeProgress(timeProgress));
 	};
 
 	return (

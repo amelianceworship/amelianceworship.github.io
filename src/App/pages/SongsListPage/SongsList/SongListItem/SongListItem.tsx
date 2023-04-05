@@ -18,22 +18,25 @@ interface SongListItem {
 export function SongListItem({
 	song,
 }: SongListItem) {
-	const { audioFilesList, currentSong } = useTypedSelector((state) => state.musicPlayerReducer);
+	const {
+		audioTracksList,
+		currentTrack,
+		isPlaying,
+	} = useTypedSelector((state) => state.musicPlayerReducer);
 
 	const { actions } = musicPlayerSlice;
 	const dispatch = useTypedDispatch();
 	const handlePlayPauseButtonOnClick = () => {
-		if (currentSong && currentSong.includes(song.value)) {
-			dispatch(actions.setCurrentSong(null));
-		} else {
-			dispatch(actions.setCurrentSong(song.value));
-		}
 		dispatch(actions.showPlayer());
+		dispatch(actions.toggleIsPlaying());
+		if (currentTrack && currentTrack.includes(song.value)) {
+			// dispatch(actions.setCurrentTrack(null));
+		} else {
+			dispatch(actions.setCurrentTrack(song.value));
+		}
 	};
 
-	const isPlaying = currentSong && currentSong.includes(song.value);
-
-	const buttonType = isPlaying ? 'secondary' : 'text';
+	const buttonType = isPlaying && (currentTrack === song.value) ? 'secondary' : 'text';
 
 	return (
 		<ListItem
@@ -46,14 +49,14 @@ export function SongListItem({
 			>
 				{song.value}
 			</Typography>
-			{audioFilesList.includes(song.value)
+			{audioTracksList.includes(song.value)
 				&& (
 					<Button
 						type={buttonType}
 						size="small"
 						onClick={handlePlayPauseButtonOnClick}
 					>
-						{isPlaying
+						{isPlaying && (currentTrack === song.value)
 							? <PauseIcon size="small" />
 							: <PlayIcon size="small" className={s.playIcon} />}
 					</Button>

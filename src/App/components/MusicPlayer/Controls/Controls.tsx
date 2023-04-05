@@ -3,6 +3,7 @@ import {
 } from 'react';
 
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
+import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';
 
 import { Block } from '~/ameliance-ui/components/blocks';
@@ -17,38 +18,27 @@ import { SkipForwardIcon } from '~/ameliance-ui/components/icons/SkipForwardIcon
 import s from './Controls.module.scss';
 
 interface Controls {
-	tracks: string[];
-	trackIndex: number;
-	setTrackIndex: (arg: ((trackIndex: number) => number) | number) => void;
-	setCurrentTrack: (track: string) => void;
-	duration: number;
 	timeProgress: number;
 	setTimeProgress: (time: number) => void;
 	audioRef: React.RefObject<HTMLAudioElement>;
 	progressBarRef: React.RefObject<HTMLInputElement>;
-	handleNext: () => void;
-	isPlaying: boolean;
-	setIsPlaying: (callback: (arg: boolean) => boolean) => void;
 }
 
 export function Controls({
-	tracks,
-	trackIndex,
-	setTrackIndex,
-	setCurrentTrack,
-	duration,
 	timeProgress,
 	setTimeProgress,
 	audioRef,
 	progressBarRef,
-	handleNext,
-	isPlaying,
-	setIsPlaying,
 }: Controls) {
 	const playAnimationRef = useRef<number>();
 
-	const { actions } = musicPlayerSlice;
+	const {
+		isPlaying,
+		currentTrackDuration,
+		currentTrackTimeProgress,
+	} = useTypedSelector((state) => state.musicPlayerReducer);
 	const dispatch = useTypedDispatch();
+	const { actions } = musicPlayerSlice;
 
 	const repeat = useCallback(() => {
 		if (audioRef.current && progressBarRef.current) {
@@ -58,14 +48,14 @@ export function Controls({
 			reassignProgressBarRef.value = currentTime.toString();
 			reassignProgressBarRef.style.setProperty(
 				'--progress-bar--range-progress',
-				`${(Number(reassignProgressBarRef.value) / Math.trunc(duration)) * 100}%`,
+				`${(Number(reassignProgressBarRef.value) / currentTrackDuration) * 100}%`,
 			);
 
 			if (isPlaying) {
 				playAnimationRef.current = requestAnimationFrame(repeat);
 			}
 		}
-	}, [audioRef, duration, isPlaying, progressBarRef, setTimeProgress]);
+	}, [audioRef, currentTrackDuration, isPlaying, progressBarRef, setTimeProgress]);
 
 	useEffect(() => {
 		if (audioRef.current) {
@@ -79,12 +69,10 @@ export function Controls({
 	}, [isPlaying, audioRef, repeat]);
 
 	const handlePlayPauseIconOnClick = () => {
-		setIsPlaying((prev) => !prev);
+		dispatch(actions.toggleIsPlaying());
 
-		if (isPlaying) {
-			dispatch(actions.setCurrentSong(null));
-		} else {
-			dispatch(actions.setCurrentSong(tracks[trackIndex]));
+		if (!isPlaying) {
+			setTimeProgress(currentTrackTimeProgress);
 		}
 	};
 
@@ -109,20 +97,13 @@ export function Controls({
 				const reassignAudioRef = audioRef.current;
 				reassignAudioRef.currentTime = 0;
 			}
-		} else if (trackIndex === 0) {
-			const lastTrackIndex = tracks.length - 1;
-			setTrackIndex(lastTrackIndex);
-			setCurrentTrack(tracks[lastTrackIndex]);
-			dispatch(actions.setCurrentSong(tracks[trackIndex]));
 		} else {
-			setTrackIndex((prev: number) => prev - 1);
-			setCurrentTrack(tracks[trackIndex - 1]);
-			dispatch(actions.setCurrentSong(tracks[trackIndex - 1]));
+			dispatch(actions.prevTrack());
 		}
 	};
 
 	const handleNextOnClick = () => {
-		if (handleNext) handleNext();
+		dispatch(actions.nextTrack());
 	};
 
 	return (
