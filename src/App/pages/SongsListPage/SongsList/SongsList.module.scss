@@ -1,3 +1,5 @@
+@use "~/ameliance-ui/styles/globals/" as *;
+
 .SongsList {
 	display: flex;
 	flex-direction: column;
@@ -14,7 +16,7 @@
 		background-color: var(--color--b1-0);
 		padding: calc(var(--gap) / 2) 0;
 		z-index: 1;
-		user-select: none;
+		@include no-select;
 	}
 }
 

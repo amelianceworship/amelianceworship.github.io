@@ -60,17 +60,17 @@ export function Toolbar() {
 		<Grid className={s.Toolbar} container row>
 			{mode === 'copy' ? (
 				<>
-					<Block className={s.button} grid={{ xx: 3 }}>
+					<Block className={s.button}>
 						{selectedSongsId.length > 0
 							? <Button type="secondary" onClick={handleResetOnClick}><XIcon /></Button>
 							: <Button type="secondary" onClick={handleBackwardOnClick}><ArrowLeftIcon /></Button>}
 					</Block>
-					<Block className={s.button} grid={{ xx: 9 }}>
+					<Block className={s.button}>
 						<Button onClick={handleCopyToClipboardOnClick} disabled={namesList.length <= 0}>{`Скопіювати ${namesList.length} / 10`}</Button>
 					</Block>
 				</>
 			) : (
-				<Block className={s.button} grid={{ xx: 3 }}>
+				<Block className={s.button}>
 					{/* <Block className={s.button} onClick={handleSelectOnClick} grid={{ xx: 3 }}> */}
 					<Button type="secondary" onClick={handleSelectOnClick}><CheckSquareIcon /></Button>
 					{/* <Typography component="caption">Вибрати</Typography> */}

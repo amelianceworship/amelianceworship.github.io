@@ -1,4 +1,4 @@
-import { returnError } from '~api/helpers/returnError';
+import { returnError } from '~helpers/returnError';
 
 import { BASE_GOOGLE_SHEET_URL } from './consts';
 

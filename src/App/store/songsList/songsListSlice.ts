@@ -1,6 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
+import { getToday } from '~helpers/getToday';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 
 import type { SongsListData } from './actions/fetchSongsList';
@@ -11,10 +12,12 @@ interface SongsListSlice {
 	activeTableNumber: number;
 	namesList: string[];
 	selectedSongsId: string[];
+	tableGroupLabels: string[][];
 	nameListLimitCount: number;
 	isLoading: boolean;
 	error: ErrorString;
 	songsList: SongsListData;
+	lastFetchingDate: string;
 }
 
 const initSongsListSlice: SongsListSlice = {
@@ -22,10 +25,12 @@ const initSongsListSlice: SongsListSlice = {
 	activeTableNumber: 0,
 	namesList: [],
 	selectedSongsId: [],
+	tableGroupLabels: [],
 	nameListLimitCount: 10,
 	isLoading: false,
 	error: '',
 	songsList: [] as SongsListData,
+	lastFetchingDate: '',
 };
 
 export const songsListSlice = createSlice({
@@ -37,6 +42,9 @@ export const songsListSlice = createSlice({
 		},
 		setActiveTable(state, action: PayloadAction<SongsListSlice['activeTableNumber']>) {
 			state.activeTableNumber = action.payload;
+		},
+		resetTableGroupLabels(state) {
+			state.tableGroupLabels = [];
 		},
 		resetNamesList(state) {
 			state.namesList = [];
@@ -79,6 +87,9 @@ export const songsListSlice = createSlice({
 
 			state.namesList = newNamesList;
 		},
+		setLastFetchingDate(state, action: PayloadAction<SongsListSlice['lastFetchingDate']>) {
+			state.lastFetchingDate = action.payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -92,6 +103,9 @@ export const songsListSlice = createSlice({
 					state.songsList = action.payload;
 					state.error = '';
 					state.isLoading = false;
+					state.tableGroupLabels = action.payload
+						.map((table) => table[1]
+							.map((group) => group[0]));
 				},
 			)
 			.addCase(fetchSongsList.rejected, (state, action: PayloadAction<unknown>) => {

@@ -1,9 +1,10 @@
 import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router-dom';
 
 import { ROUTES } from '~constants/ROUTES';
+import { clearLocalStorageAndReload } from '~helpers/clearLocalStorageAndReload';
 
 import { Block } from '~/ameliance-ui/components/blocks/Block';
-import { Button } from '~/ameliance-ui/components/Button';
+import { Button, ButtonLink } from '~/ameliance-ui/components/Button';
 import { Grid } from '~/ameliance-ui/components/Grid';
 import { Typography } from '~/ameliance-ui/components/Typography';
 
@@ -14,14 +15,26 @@ import s from './ErrorPage.module.scss';
 export function ErrorPage() {
 	const error = useRouteError();
 	const navigate = useNavigate();
+
+	const handleResetButtonOnClick = () => {
+		clearLocalStorageAndReload();
+	};
+
 	if (isRouteErrorResponse(error) && error.status) return <PageNotFound />;
+
 	return (
 		<Block component="main">
 			<Grid container component="section" className={s.container}>
 				<>
-					<Button size="small" onClick={() => navigate(ROUTES.home)}>
-						На головну
-					</Button>
+					<Block className={s.buttons}>
+						<Button size="small" onClick={() => navigate(ROUTES.home)}>
+							На головну
+						</Button>
+						<Button type="secondary" size="small" onClick={handleResetButtonOnClick}>
+							Видалити дані та перезавантажити
+						</Button>
+						<ButtonLink type="secondary" size="small" href="https://t.me/amelianceskymusic" blank>Написати мені в Телеграм</ButtonLink>
+					</Block>
 					<Typography component="h3">
 						Сорі, виникла помилка =(
 					</Typography>

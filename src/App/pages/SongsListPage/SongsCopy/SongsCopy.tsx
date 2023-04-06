@@ -15,14 +15,20 @@ interface SongsCopy {
 export function SongsCopy({ songsTable }: SongsCopy) {
 	return (
 		<Block className={s.SongsCopy}>
-			{songsTable.map((songGroup) => (
-				<Block className={s.songsGroup} key={songGroup[0]}>
-					<Typography component="h3" className={s.songsGroupSymbol} id={songGroup[0]}>{songGroup[0]}</Typography>
-					<List className={s.songsNames}>
-						{songGroup[1].map((song) => <SongListItem key={song.position} song={song} />)}
-					</List>
-				</Block>
-			))}
+			{songsTable.map((songGroup) => (songGroup[1].length > 0
+					&& (
+						<Block className={s.songsGroup} key={songGroup[0]}>
+							<Typography component="h3" className={s.songsGroupSymbol} id={songGroup[0]}>{songGroup[0]}</Typography>
+							<List className={s.songsNames}>
+								{songGroup[1].map((song) => (
+									<SongListItem
+										key={song.position}
+										song={song}
+									/>
+								))}
+							</List>
+						</Block>
+					)))}
 		</Block>
 	);
 }

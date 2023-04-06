@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import asm from 'asm-ts-scripts';
 
-import { returnError } from '~api/helpers/returnError';
 import { api } from '~api/index';
+import { returnError } from '~helpers/returnError';
 import type { CreateUser } from '~types/api/google/firebase/auth/createUser';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 import type { User } from '~types/api/google/firebase/commons/User';

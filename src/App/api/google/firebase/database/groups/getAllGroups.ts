@@ -2,7 +2,7 @@ import asm from 'asm-ts-scripts';
 import type { DocumentData } from 'firebase/firestore';
 import { collection, getDocs } from 'firebase/firestore';
 
-import { returnError } from '~api/helpers/returnError';
+import { returnError } from '~helpers/returnError';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 
 import { db } from '../../firebase';

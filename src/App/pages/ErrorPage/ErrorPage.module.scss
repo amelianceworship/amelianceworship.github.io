@@ -6,6 +6,13 @@
 	flex-direction: column;
 }
 
+.buttons {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 16px;
+}
+
 .description {
 	display: flex;
 	flex-direction: column;

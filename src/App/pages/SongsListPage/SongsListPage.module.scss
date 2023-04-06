@@ -11,4 +11,12 @@ body:has(.SongsListPage) {
 	max-width: 480px;
 	width: 100%;
 	scroll-padding-top: 0px;
+	padding-bottom: 12px;
+}
+
+.tools {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	flex-direction: column;
 }

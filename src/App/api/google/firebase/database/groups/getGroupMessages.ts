@@ -1,6 +1,6 @@
 import {	doc, getDoc } from 'firebase/firestore';
 
-import { returnError } from '~api/helpers/returnError';
+import { returnError } from '~helpers/returnError';
 import type { ChatId } from '~types/api/google/firebase/commons/ChatId';
 import type { Messages } from '~types/api/google/firebase/commons/Messages';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';

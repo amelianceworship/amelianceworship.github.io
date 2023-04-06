@@ -1,6 +1,6 @@
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 
-import { returnError } from '~api/helpers/returnError';
+import { returnError } from '~helpers/returnError';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 import type { User } from '~types/api/google/firebase/commons/User';
 

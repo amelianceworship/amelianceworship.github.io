@@ -1,4 +1,4 @@
-import { returnError } from '~api/helpers/returnError';
+import { returnError } from '~helpers/returnError';
 
 export async function fetchIP() {
 	try {

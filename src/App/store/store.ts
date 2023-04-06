@@ -14,6 +14,7 @@ import storage from 'redux-persist/lib/storage';
 import { APP } from '~constants/APP';
 
 import { appSlice } from './app/appSlice';
+import { musicPlayerSlice } from './musicPlayer/musicPlayerSlice';
 // import { chatSlice } from './chat/chatSlice';
 import { songsListSlice } from './songsList/songsListSlice';
 import { userSlice } from './user/userSlice';
@@ -23,6 +24,7 @@ const rootReducers = combineReducers({
 	// chatReducer: chatSlice.reducer,
 	songsListReducer: songsListSlice.reducer,
 	userReducer: userSlice.reducer,
+	musicPlayerReducer: musicPlayerSlice.reducer,
 });
 
 const persistConfig = {
