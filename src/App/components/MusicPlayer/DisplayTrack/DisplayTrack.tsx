@@ -36,7 +36,7 @@ export function DisplayTrack({
 		}
 	};
 
-	const handleOnEnded = () => {
+	const onEndedHandler = () => {
 		dispatch(actions.nextTrack());
 	};
 
@@ -49,10 +49,10 @@ export function DisplayTrack({
 	return (
 		<Block className={s.DisplayTrack}>
 			<AudioPlayer
-				src={`./assets/mp3/${currentTrack}.mp3`}
+				src={`/mp3/${currentTrack}.mp3`}
 				ref={audioRef}
 				onLoadedMetadata={onLoadedMetadataHandler}
-				onEnded={handleOnEnded}
+				onEnded={onEndedHandler}
 			/>
 			<Typography component="h6">{currentTrack}</Typography>
 			<Icon onClick={handleCloseIconOnClick}><XIcon size="small" /></Icon>
