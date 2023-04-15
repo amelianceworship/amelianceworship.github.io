@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+import asm from 'asm-ts-scripts';
+
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';
@@ -18,11 +20,14 @@ export function MusicPlayer() {
 		lastOpenedTrack,
 		currentTrack,
 		isPlaying,
+		isPlayerShow,
 		currentTrackIndex,
 		currentTrackTimeProgress,
 	} = useTypedSelector((state) => state.musicPlayerReducer);
 	const dispatch = useTypedDispatch();
 	const { actions } = musicPlayerSlice;
+
+	const show = isPlayerShow && s.show;
 
 	const [timeProgress, setTimeProgress] = useState(
 		lastOpenedTrack === currentTrack ? currentTrackTimeProgress : 0,
@@ -62,7 +67,7 @@ export function MusicPlayer() {
 	}, [actions, audioTracksList, currentTrack, dispatch]);
 
 	return (
-		<Block className={s.MusicPlayer}>
+		<Block className={asm.join(s.MusicPlayer, show)}>
 			<DisplayTrack
 				timeProgress={timeProgress}
 				audioRef={audioRef}
