@@ -1,9 +1,10 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import {
+	matchPath, useLocation, useNavigate,
+} from 'react-router-dom';
 
 import { api } from '~api/index';
 import { ROUTES } from '~app/constants/ROUTES';
 import { Logo } from '~components/Logo';
-import { isMatchPath } from '~helpers/isMatchPath';
 import { useAuth } from '~hooks/useAuth';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
@@ -42,9 +43,9 @@ export function Header() {
 		navigate(ROUTES.login);
 	};
 
-	const isLogIn = isMatchPath(pathname, 'login');
-	const isSingUp = isMatchPath(pathname, 'signup');
-	const isSongsList = isMatchPath(pathname, 'songslist');
+	const isLogIn = matchPath('/login', pathname);
+	const isSingUp = matchPath('/signup', pathname);
+	const isSongsList = matchPath('/songslist', pathname) || matchPath('/songslist/:page', pathname);
 
 	return (
 		<Block component="header" className={s.Header}>

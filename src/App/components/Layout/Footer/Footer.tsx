@@ -1,8 +1,7 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { matchPath, NavLink, useLocation } from 'react-router-dom';
 
 import { APP } from '~constants/APP';
 import { PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
-import { isMatchPath } from '~helpers/isMatchPath';
 import { useAuth } from '~hooks/useAuth';
 
 import { Block } from '~/ameliance-ui/components/blocks/Block';
@@ -15,9 +14,9 @@ export function Footer() {
 	const { pathname } = useLocation();
 	const { isAuth } = useAuth();
 
-	const isLogIn = isMatchPath(pathname, 'login');
-	const isSingUp = isMatchPath(pathname, 'signup');
-	const isSongsList = isMatchPath(pathname, 'songslist');
+	const isLogIn = matchPath('/login', pathname);
+	const isSingUp = matchPath('/signup', pathname);
+	const isSongsList = matchPath('/songslist', pathname) || matchPath('/songslist/:page', pathname);
 
 	if	(isSongsList) return null;
 

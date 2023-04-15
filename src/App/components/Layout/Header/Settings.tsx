@@ -8,10 +8,10 @@ import { fetchSongsList } from '~store/songsList/actions/fetchSongsList';
 
 import { Button } from '~/ameliance-ui/components/Button';
 import { Icon } from '~/ameliance-ui/components/Icon';
+import { AlertOctagonIcon } from '~/ameliance-ui/components/icons/AlertOctagonIcon';
 import { MoonIcon } from '~/ameliance-ui/components/icons/MoonIcon';
 import { MoreVerticalIcon } from '~/ameliance-ui/components/icons/MoreVerticalIcon';
 import { RefreshCcwIcon } from '~/ameliance-ui/components/icons/RefreshCcwIcon';
-import { RotateCcwIcon } from '~/ameliance-ui/components/icons/RotateCcwIcon';
 import { SunIcon } from '~/ameliance-ui/components/icons/SunIcon';
 import {
 	Menu, MenuContainer, MenuDivider, MenuItem,
@@ -59,12 +59,11 @@ export function Settings() {
 				preventItemClickClose
 			>
 				<MenuItem onClick={handleResetMenuItemOnClick}>
-					<Icon><RotateCcwIcon /></Icon>
+					<Icon><AlertOctagonIcon /></Icon>
 					<Typography component="p1">
 						Скинути налаштування
 					</Typography>
 				</MenuItem>
-				<MenuDivider />
 				<MenuItem onClick={handleReloadSongsLIstMenuItemOnClick}>
 					<Icon><RefreshCcwIcon /></Icon>
 					<Typography component="p1">

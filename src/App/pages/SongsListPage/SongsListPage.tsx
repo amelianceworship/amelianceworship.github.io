@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import asm from 'asm-ts-scripts';
 
@@ -18,10 +19,10 @@ import { SearchInput } from '~/ameliance-ui/components/Inputs/SearchInput';
 
 import { TABLE_NAMES } from './constants/TABLE_NAMES';
 import { ListNavigation } from './ListNavigation/ListNavigation';
+import { Navbar } from './Navbar/Navbar';
 import { ScrollUpButton } from './ScrollUpButton';
-import { SongsCopy } from './SongsCopy/SongsCopy';
 import { SongsList } from './SongsList/SongsList';
-import { Toolbar } from './Toolbar/Toolbar';
+import { SongsSelection } from './SongsSelection/SongsSelection';
 
 import s from './SongsListPage.module.scss';
 
@@ -30,13 +31,16 @@ export function SongsListPage() {
 	const [songsListTable, setSongsListTable] = useState<SongsGroup[]>();
 
 	const {
-		error, isLoading, songsList, mode, tableGroupLabels, lastFetchingDate,
+		error, isLoading, songsList, tableGroupLabels, lastFetchingDate,
+
 	} = useTypedSelector((state) => state.songsListReducer);
 
 	const { isPlayerShow } = useTypedSelector((state) => state.musicPlayerReducer);
 
 	const dispatch = useTypedDispatch();
 	const { actions } = songsListSlice;
+
+	const { page } = useParams();
 
 	useEffect(() => {
 		const today = getToday();
@@ -92,14 +96,13 @@ export function SongsListPage() {
 					{tableGroupLabels && tableGroupLabels.length > 0
 					&& <ListNavigation charsList={tableGroupLabels[activeTableNumber]} />}
 				</Block>
-				{ songsListTable && mode === 'list'
-					&& <SongsList songsTable={songsListTable} />}
-				{ songsListTable && mode === 'copy'
-					&& <SongsCopy songsTable={songsListTable} />}
+				{ songsListTable && (page === 'selection'
+					? <SongsSelection songsTable={songsListTable} />
+					: <SongsList songsTable={songsListTable} />)}
 				<ScrollUpButton />
 			</Grid>
-			{!isLoading && songsListTable && !isPlayerShow && <Toolbar />}
-			{ songsListTable && isPlayerShow && mode === 'list'
+			{!isLoading && songsListTable && <Navbar />}
+			{ songsListTable && isPlayerShow
 				&& <MusicPlayer />}
 		</Block>
 	);
