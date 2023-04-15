@@ -1,14 +1,12 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getToday } from '~helpers/getToday';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 
 import type { SongsListData } from './actions/fetchSongsList';
 import { fetchSongsList } from './actions/fetchSongsList';
 
 interface SongsListSlice {
-	mode: 'list' | 'copy';
 	activeTableNumber: number;
 	namesList: string[];
 	selectedSongsId: string[];
@@ -21,7 +19,6 @@ interface SongsListSlice {
 }
 
 const initSongsListSlice: SongsListSlice = {
-	mode: 'list',
 	activeTableNumber: 0,
 	namesList: [],
 	selectedSongsId: [],
@@ -37,9 +34,6 @@ export const songsListSlice = createSlice({
 	name: 'songsList',
 	initialState: initSongsListSlice,
 	reducers: {
-		setMode(state, action: PayloadAction<SongsListSlice['mode']>) {
-			state.mode = action.payload;
-		},
 		setActiveTable(state, action: PayloadAction<SongsListSlice['activeTableNumber']>) {
 			state.activeTableNumber = action.payload;
 		},
