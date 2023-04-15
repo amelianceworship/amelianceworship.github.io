@@ -1,3 +1,5 @@
+import asm from 'asm-ts-scripts';
+
 import { writeTextToClipboard } from '~helpers/writeTextToClipboard';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
@@ -7,30 +9,24 @@ import { useToast } from '~/ameliance-ui/components/_LAB/toastbar';
 import { Block } from '~/ameliance-ui/components/blocks/Block';
 import { Button } from '~/ameliance-ui/components/Button';
 import { Grid } from '~/ameliance-ui/components/Grid';
-import { ArrowLeftIcon } from '~/ameliance-ui/components/icons/ArrowLeftIcon';
-import { CheckSquareIcon } from '~/ameliance-ui/components/icons/CheckSquareIcon';
 import { XIcon } from '~/ameliance-ui/components/icons/XIcon';
 
-import s from './Toolbar.module.scss';
+import s from './SelectionBar.module.scss';
 
-export function Toolbar() {
-	const { mode, namesList, selectedSongsId } = useTypedSelector((state) => state.songsListReducer);
+export function SelectionBar() {
+	const { namesList } = useTypedSelector((state) => state.songsListReducer);
+	const { isPlayerShow } = useTypedSelector((state) => state.musicPlayerReducer);
+
+	const extended = isPlayerShow && s.extended;
+
 	const dispatch = useTypedDispatch();
 	const { actions } = songsListSlice;
 
 	const { add } = useToast();
 
-	const handleBackwardOnClick = () => {
-		dispatch(actions.setMode('list'));
-	};
-
 	const handleResetOnClick = () => {
 		dispatch(actions.resetNamesList());
 		dispatch(actions.resetSelectedSongsId());
-	};
-
-	const handleSelectOnClick = () => {
-		dispatch(actions.setMode('copy'));
 	};
 
 	const handleCopyToClipboardOnClick = async () => {
@@ -57,25 +53,13 @@ export function Toolbar() {
 	};
 
 	return (
-		<Grid className={s.Toolbar} container row>
-			{mode === 'copy' ? (
-				<>
-					<Block className={s.button}>
-						{selectedSongsId.length > 0
-							? <Button type="secondary" onClick={handleResetOnClick}><XIcon /></Button>
-							: <Button type="secondary" onClick={handleBackwardOnClick}><ArrowLeftIcon /></Button>}
-					</Block>
-					<Block className={s.button}>
-						<Button onClick={handleCopyToClipboardOnClick} disabled={namesList.length <= 0}>{`Скопіювати ${namesList.length} / 10`}</Button>
-					</Block>
-				</>
-			) : (
-				<Block className={s.button}>
-					{/* <Block className={s.button} onClick={handleSelectOnClick} grid={{ xx: 3 }}> */}
-					<Button type="secondary" onClick={handleSelectOnClick}><CheckSquareIcon /></Button>
-					{/* <Typography component="caption">Вибрати</Typography> */}
-				</Block>
-			)}
+		<Grid className={asm.join(s.SelectionBar, extended)} row>
+			<Block className={s.button}>
+				<Button size="small" type="secondary" onClick={handleResetOnClick}><XIcon /></Button>
+			</Block>
+			<Block className={s.button}>
+				<Button size="small" onClick={handleCopyToClipboardOnClick} disabled={namesList.length <= 0}>{`Скопіювати ${namesList.length} / 10`}</Button>
+			</Block>
 		</Grid>
 	);
 }

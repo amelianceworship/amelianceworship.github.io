@@ -1,3 +1,5 @@
+import asm from 'asm-ts-scripts';
+
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';
@@ -37,6 +39,7 @@ export function SongListItem({
 	};
 
 	const buttonType = isPlaying && (currentTrack === song.value) ? 'secondary' : 'text';
+	const playingClass = isPlaying && (currentTrack === song.value) && s.playing;
 
 	return (
 		<ListItem
@@ -55,6 +58,7 @@ export function SongListItem({
 						type={buttonType}
 						size="small"
 						onClick={handlePlayPauseButtonOnClick}
+						className={asm.join(playingClass)}
 					>
 						{isPlaying && (currentTrack === song.value)
 							? <PauseIcon size="small" />
