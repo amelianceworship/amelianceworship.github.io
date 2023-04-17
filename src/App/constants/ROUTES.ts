@@ -1,14 +1,15 @@
 export const ROUTES = {
-	home: '/',
 	about: '/about',
+	chordslist: '/chordslist',
+	home: '/',
+	login: '/login',
+	other: '/*',
+	signup: '/signup',
 	songslist: '/songslist',
 	songslistSelection: '/songslist/selection',
-	chordslist: '/chordslist',
-	login: '/login',
-	signup: '/signup',
-	other: '/*',
 };
 
 export const PRIVATE_ROUTES = {
+	admin: '/admin',
 	chat: '/chat',
 };
