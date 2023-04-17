@@ -2,8 +2,7 @@ import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
-import asm from 'asm-ts-scripts';
-
+import { isObjectEmpty } from '~/ameliance-scripts';
 import { GoogleColorIcon } from '~components/SVG/GoogleColorIcon';
 import { ROUTES } from '~constants/ROUTES';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
@@ -58,7 +57,7 @@ export function SignUpPage() {
 		},
 	});
 
-	const isValidFixed = asm.isObjectEmpty(errors);//* fix isValid default has false
+	const isValidFixed = isObjectEmpty(errors);//* fix isValid default has false
 
 	const registers = {
 		userName: register('userName', {

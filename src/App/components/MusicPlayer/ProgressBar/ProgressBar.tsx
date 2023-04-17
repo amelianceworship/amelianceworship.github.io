@@ -1,4 +1,4 @@
-import { toTimeFormat } from '~helpers/toTimeFormat';
+import { toTimeFormat } from '~/ameliance-scripts';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';

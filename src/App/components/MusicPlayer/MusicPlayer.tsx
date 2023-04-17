@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import asm from 'asm-ts-scripts';
-
+import { join } from '~/ameliance-scripts';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';
@@ -67,7 +66,7 @@ export function MusicPlayer() {
 	}, [actions, audioTracksList, currentTrack, dispatch]);
 
 	return (
-		<Block className={asm.join(s.MusicPlayer, show)}>
+		<Block className={join(s.MusicPlayer, show)}>
 			<DisplayTrack
 				timeProgress={timeProgress}
 				audioRef={audioRef}

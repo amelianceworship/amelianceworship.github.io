@@ -1,10 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { groupBy, removeEmptyValues, sortArrayLocalCompare } from '~/ameliance-scripts';
 import type { DataTitledValues } from '~api/google/appsscript/types/types';
 import { api } from '~api/index';
-import { asmGroupBy } from '~helpers/asmGroupBy';
-import { asmRemoveEmptyValues } from '~helpers/asmRemoveEmptyValues';
-import { asmSortArrayLocalCompare } from '~helpers/asmSortArrayLocalCompare';
 import { returnError } from '~helpers/returnError';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 
@@ -13,9 +11,9 @@ const GOOGLE_SONGSLIST_TABLE_ID = import.meta.env.VITE_GOOGLE_SONGSLIST_TABLE_ID
 function prepareData(data: DataTitledValues) {
 	let combinedListOfData;
 	if (data) {
-		const listOfDataSorted = asmSortArrayLocalCompare(data, 'value');
-		const listOfDataCleaned = asmRemoveEmptyValues(listOfDataSorted, 'value');
-		combinedListOfData = asmGroupBy(listOfDataCleaned, 'value');
+		const listOfDataSorted = sortArrayLocalCompare(data, 'value');
+		const listOfDataCleaned = removeEmptyValues(listOfDataSorted, 'value');
+		combinedListOfData = groupBy(listOfDataCleaned, 'value');
 	}
 	return combinedListOfData;
 }

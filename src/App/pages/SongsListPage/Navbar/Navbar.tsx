@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import asm from 'asm-ts-scripts';
-
+import { join } from '~/ameliance-scripts';
 import { ROUTES } from '~constants/ROUTES';
 
 import { Block } from '~/ameliance-ui/components/blocks/Block';
@@ -30,7 +29,7 @@ export function Navbar() {
 	return (
 		<Grid className={s.Navbar} row>
 			<Block
-				className={asm.join(s.button, listActive)}
+				className={join(s.button, listActive)}
 				onClick={handleListOnClick}
 				grid={{ xx: 3 }}
 			>
@@ -38,7 +37,7 @@ export function Navbar() {
 				<Typography component="caption">Список</Typography>
 			</Block>
 			<Block
-				className={asm.join(s.button, selectionActive)}
+				className={join(s.button, selectionActive)}
 				onClick={handleSelectionOnClick}
 				grid={{ xx: 3 }}
 			>

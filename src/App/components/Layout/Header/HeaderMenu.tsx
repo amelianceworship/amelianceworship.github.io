@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { clearLocalStorageAndReload } from '~/ameliance-scripts/scripts';
 import { appSlice } from '~store/app/appSlice';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
