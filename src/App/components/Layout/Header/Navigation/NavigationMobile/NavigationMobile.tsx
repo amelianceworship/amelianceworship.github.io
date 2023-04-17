@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { PRIVATE_ROUTES, ROUTES } from '~app/constants/ROUTES';
-
 import { Nav } from '~/ameliance-ui/components/blocks/Nav';
 import { Button } from '~/ameliance-ui/components/Button';
 import { MenuIcon } from '~/ameliance-ui/components/icons/MenuIcon';
 import { LinkLabel } from '~/ameliance-ui/components/Link';
 import { Menu, MenuContainer, MenuItem } from '~/ameliance-ui/components/Menu';
+
+import { navigationList } from '../navigationList';
 
 import s from './NavigationMobile.module.scss';
 
@@ -34,27 +34,15 @@ export function NavigationMobile() {
 					menuOrigin={{ horizontal: 'right', vertical: 'top' }}
 					preventItemClickClose
 				>
-					<MenuItem>
-						<NavLink className={linkClass} end to={ROUTES.home}>
-							<LinkLabel className={s.link} underline={false}>
-								Головна
-							</LinkLabel>
-						</NavLink>
-					</MenuItem>
-					<MenuItem>
-						<NavLink className={linkClass} to={ROUTES.songslist}>
-							<LinkLabel className={s.link} underline={false}>
-								Список пісень
-							</LinkLabel>
-						</NavLink>
-					</MenuItem>
-					<MenuItem>
-						<NavLink className={linkClass} end to={PRIVATE_ROUTES.chat}>
-							<LinkLabel className={s.link} underline={false}>
-								Чат
-							</LinkLabel>
-						</NavLink>
-					</MenuItem>
+					{navigationList.map((item) => (
+						<MenuItem key={item.label}>
+							<NavLink className={linkClass} end={item.end} to={item.path}>
+								<LinkLabel className={s.link} underline={false}>
+									{item.label}
+								</LinkLabel>
+							</NavLink>
+						</MenuItem>
+					))}
 				</Menu>
 				<Button type="text" onClick={handelIconMenuClick}>
 					<MenuIcon />
