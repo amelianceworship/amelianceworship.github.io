@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { clearLocalStorageAndReload } from '~helpers/clearLocalStorageAndReload';
+import { clearLocalStorageAndReload } from '~/ameliance-scripts/scripts';
 import { appSlice } from '~store/app/appSlice';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
@@ -19,7 +19,7 @@ import {
 import { Typography } from '~/ameliance-ui/components/Typography';
 import { toggleTheme } from '~/ameliance-ui/scripts/toggleTheme';
 
-export function Settings() {
+export function HeaderMenu() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const { theme } = useTypedSelector((state) => state.appReducer);

@@ -14,7 +14,7 @@ export function LogInSuccessModal({ onClose }: LogInSuccessModal) {
 			title="Вітаю!"
 		>
 			<Typography component="p1" className="center">
-				Ви успішно увійшли на сайт та отримали доступ до додаткового функціоналу!
+				Ви успішно увійшли на сайт!
 			</Typography>
 		</Modal>
 	);

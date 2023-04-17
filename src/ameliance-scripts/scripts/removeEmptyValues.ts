@@ -1,18 +1,17 @@
-// TODO: replace to library
-import asm from 'asm-ts-scripts'; // TODO: remove
+import { isObject } from './isObject';
 
-export function asmRemoveEmptyValues<T, K extends string | number>(
+export function removeEmptyValues<T, K extends string | number>(
 	array: T[],
 	key?: K,
 ): T[] {
 	const arrayCopy = array.slice();
 	const arrayFirstItem = arrayCopy[0];
 
-	if (typeof arrayFirstItem !== 'string' && !asm.isObject(arrayFirstItem) && !Array.isArray(arrayFirstItem)) {
+	if (typeof arrayFirstItem !== 'string' && !isObject(arrayFirstItem) && !Array.isArray(arrayFirstItem)) {
 		throw new Error('Invalid value');
 	}
 
-	if ((asm.isObject(arrayFirstItem) || Array.isArray(arrayFirstItem)) && !key) {
+	if ((isObject(arrayFirstItem) || Array.isArray(arrayFirstItem)) && !key) {
 		throw new Error('No key provided');
 	}
 
@@ -26,7 +25,7 @@ export function asmRemoveEmptyValues<T, K extends string | number>(
 		result = arrayCopy.filter((value) => String(value).trim() !== '');
 	}
 
-	if (asm.isObject(arrayFirstItem) && key) {
+	if (isObject(arrayFirstItem) && key) {
 		result = arrayCopy.filter((value) => {
 			const typedValue = String((value as Record<K, unknown>)[key]);
 			return typedValue.trim() !== '';

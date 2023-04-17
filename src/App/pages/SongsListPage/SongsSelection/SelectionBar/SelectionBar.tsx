@@ -1,6 +1,4 @@
-import asm from 'asm-ts-scripts';
-
-import { writeTextToClipboard } from '~helpers/writeTextToClipboard';
+import { join, writeTextToClipboard } from '~/ameliance-scripts';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { songsListSlice } from '~store/songsList/songsListSlice';
@@ -53,7 +51,7 @@ export function SelectionBar() {
 	};
 
 	return (
-		<Grid className={asm.join(s.SelectionBar, extended)} row>
+		<Grid className={join(s.SelectionBar, extended)} row>
 			<Block className={s.button}>
 				<Button size="small" type="secondary" onClick={handleResetOnClick}><XIcon /></Button>
 			</Block>

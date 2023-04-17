@@ -1,9 +1,7 @@
-import { APP } from '~constants/APP';
-import { returnError } from '~helpers/returnError';
+import { PACKAGE_NAME } from '../constants/PACKAGE_NAME ';
+import { returnError } from '../scripts/returnError';
 
-const APP_NAME = APP.name;
-
-export function setLocalStorage<T>(store: string, group: string, value: T) {
+export function setLocalStorage<T>(appName: string, store: string, group: string, value: T) {
 	const setLocalStorageItem	= <
 		K extends Record<string, Record<string, string>>,
 		J extends Record<string, K>,
@@ -18,14 +16,14 @@ export function setLocalStorage<T>(store: string, group: string, value: T) {
 				},
 			},
 		};
-		localStorage.setItem(APP_NAME, JSON.stringify(newStoreObj));
+		localStorage.setItem(appName, JSON.stringify(newStoreObj));
 	};
 
 	try {
-		const appStorage = localStorage.getItem(APP_NAME);
+		const appStorage = localStorage.getItem(appName);
 		const appStorageObj = appStorage ? JSON.parse(appStorage) : {};
 		setLocalStorageItem(appStorageObj, value);
 	} catch (error) {
-		returnError(error);
+		returnError(error, PACKAGE_NAME);
 	}
 }

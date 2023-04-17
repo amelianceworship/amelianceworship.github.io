@@ -1,7 +1,7 @@
 import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router-dom';
 
+import { clearLocalStorageAndReload } from '~/ameliance-scripts';
 import { ROUTES } from '~constants/ROUTES';
-import { clearLocalStorageAndReload } from '~helpers/clearLocalStorageAndReload';
 
 import { Block } from '~/ameliance-ui/components/blocks/Block';
 import { Button, ButtonLink } from '~/ameliance-ui/components/Button';

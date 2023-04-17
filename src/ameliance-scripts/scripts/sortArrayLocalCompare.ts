@@ -1,18 +1,17 @@
-// TODO: replace to library
-import asm from 'asm-ts-scripts'; // TODO: remove
+import { isObject } from './isObject';
 
-export function asmSortArrayLocalCompare<T, K extends string | number>(
+export function sortArrayLocalCompare<T, K extends string | number>(
 	array: T[],
 	key?: K,
 ): T[] {
 	const arrayCopy = array.slice();
 	const arrayFirstItem = arrayCopy[0];
 
-	if (typeof arrayFirstItem !== 'string' && !asm.isObject(arrayFirstItem) && !Array.isArray(arrayFirstItem)) {
+	if (typeof arrayFirstItem !== 'string' && !isObject(arrayFirstItem) && !Array.isArray(arrayFirstItem)) {
 		throw new Error('Invalid value');
 	}
 
-	if ((asm.isObject(arrayFirstItem) || Array.isArray(arrayFirstItem)) && !key) {
+	if ((isObject(arrayFirstItem) || Array.isArray(arrayFirstItem)) && !key) {
 		throw new Error('No key provided');
 	}
 
@@ -30,7 +29,7 @@ export function asmSortArrayLocalCompare<T, K extends string | number>(
 		});
 	}
 
-	if (asm.isObject(arrayFirstItem) && key) {
+	if (isObject(arrayFirstItem) && key) {
 		result = arrayCopy.sort((a, b) => {
 			const aKey = String((a as Record<K, unknown>)[key]);
 			const bKey = String((b as Record<K, unknown>)[key]);

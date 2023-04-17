@@ -1,8 +1,8 @@
-import asm from 'asm-ts-scripts';
+import { isObject } from './isObject';
 
 function getGroupSymbol<T, K extends string | number>(item: T, key?: K): string {
 	if (typeof item === 'string') return item[0];
-	if (asm.isObject(item) && key) {
+	if (isObject(item) && key) {
 		return String((item as Record<K, unknown>)[key])[0];
 	}
 	if (Array.isArray(item) && key && typeof key === 'number') {
@@ -11,17 +11,17 @@ function getGroupSymbol<T, K extends string | number>(item: T, key?: K): string 
 	return '';
 }
 
-export function asmGroupBy<T, K extends string | number>(
+export function groupBy<T, K extends string | number>(
 	array: T[],
 	key?: K,
 ): [string, T[]][] {
 	const arrayFirstItem = array[0];
 
-	if (typeof arrayFirstItem !== 'string' && !asm.isObject(arrayFirstItem) && !Array.isArray(arrayFirstItem)) {
+	if (typeof arrayFirstItem !== 'string' && !isObject(arrayFirstItem) && !Array.isArray(arrayFirstItem)) {
 		throw new Error('Invalid value');
 	}
 
-	if ((asm.isObject(arrayFirstItem) || Array.isArray(arrayFirstItem)) && !key) {
+	if ((isObject(arrayFirstItem) || Array.isArray(arrayFirstItem)) && !key) {
 		throw new Error('No key provided');
 	}
 

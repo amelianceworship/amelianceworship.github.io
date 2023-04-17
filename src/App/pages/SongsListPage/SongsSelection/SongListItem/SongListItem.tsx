@@ -1,5 +1,4 @@
-import asm from 'asm-ts-scripts';
-
+import { join } from '~/ameliance-scripts';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import type { SongItem } from '~store/songsList/actions/fetchSongsList';
@@ -42,7 +41,7 @@ export function SongListItem({ song }: SongListItem) {
 
 	return (
 		<Block
-			className={asm.join(s.SongListItem, componentClass)}
+			className={join(s.SongListItem, componentClass)}
 			onClick={handleListItemOnClick}
 		>
 			<ListItem className={s.song}>

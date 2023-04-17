@@ -1,12 +1,9 @@
-import { APP } from '~constants/APP';
+import { PACKAGE_NAME } from '../constants/PACKAGE_NAME ';
+import { returnError } from '../scripts/returnError';
 
-import { appLog } from './appLog';
-
-const APP_NAME = APP.name;
-
-export function getLocalStorage<T>(store: string, key: string, initValue?: T) {
+export function getLocalStorage<T>(appName: string, store: string, key: string, initValue?: T) {
 	const setLocalStorageItem = <K, D>(storeObj: Record<string, K>, value: D) => {
-		localStorage.setItem(APP_NAME, JSON.stringify({
+		localStorage.setItem(appName, JSON.stringify({
 			...storeObj,
 			[store]: {
 				...storeObj[store],
@@ -16,7 +13,7 @@ export function getLocalStorage<T>(store: string, key: string, initValue?: T) {
 	};
 
 	try {
-		const appStorage = localStorage.getItem(APP_NAME);
+		const appStorage = localStorage.getItem(appName);
 		const appStorageObj = appStorage ? JSON.parse(appStorage) : {};
 		if (!appStorage) {
 			if (initValue) setLocalStorageItem(appStorageObj, initValue);
@@ -29,7 +26,7 @@ export function getLocalStorage<T>(store: string, key: string, initValue?: T) {
 		}
 		return storageValue;
 	} catch (error) {
-		appLog('getLocalStorage', error);
+		returnError(error, PACKAGE_NAME);
 		return initValue;
 	}
 }

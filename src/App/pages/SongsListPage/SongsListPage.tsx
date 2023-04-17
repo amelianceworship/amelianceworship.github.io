@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import asm from 'asm-ts-scripts';
-
+import { getToday, isObjectEmpty } from '~/ameliance-scripts';
 import { MusicPlayer } from '~components/MusicPlayer/MusicPlayer';
-import { getToday } from '~helpers/getToday';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import type { SongsGroup } from '~store/songsList/actions/fetchSongsList';
@@ -44,7 +42,7 @@ export function SongsListPage() {
 
 	useEffect(() => {
 		const today = getToday();
-		if (asm.isObjectEmpty(songsList) || lastFetchingDate !== today) {
+		if (isObjectEmpty(songsList) || lastFetchingDate !== today) {
 			dispatch(fetchSongsList());
 			dispatch(actions.setLastFetchingDate(today));
 		}

@@ -1,5 +1,4 @@
-import asm from 'asm-ts-scripts';
-
+import { join } from '~/ameliance-scripts';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';
@@ -58,7 +57,7 @@ export function SongListItem({
 						type={buttonType}
 						size="small"
 						onClick={handlePlayPauseButtonOnClick}
-						className={asm.join(playingClass)}
+						className={join(playingClass)}
 					>
 						{isPlaying && (currentTrack === song.value)
 							? <PauseIcon size="small" />
