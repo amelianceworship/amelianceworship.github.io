@@ -28,8 +28,6 @@ export function useAppInit() {
 	const location = useLocation();
 	const [startLocation, setStartLocation] = useState('');
 
-	// initLocalStorage();
-
 	useLayoutEffect(() => {
 		document.body.classList.add('scroll');
 	}, []);
