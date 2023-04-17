@@ -1,4 +1,4 @@
-import { PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
+import { ROUTES } from '~constants/ROUTES';
 
 interface NavigationItem {
 	label: string;
@@ -16,18 +16,6 @@ export const navigationList: NavigationList = [
 	}, {
 		label: 'Список пісень',
 		path: ROUTES.songslist,
-		end: false,
-	}, {
-		label: 'Акорди',
-		path: ROUTES.chordslist,
-		end: false,
-	}, {
-		label: 'Чат',
-		path: PRIVATE_ROUTES.chat,
-		end: false,
-	}, {
-		label: 'Панель адміна',
-		path: PRIVATE_ROUTES.admin,
 		end: false,
 	},
 ];
