@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { clearLocalStorageAndReload } from '~/ameliance-scripts/scripts';
+import { useFullscreen } from '~hooks/useFullscreen';
 import { appSlice } from '~store/app/appSlice';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
@@ -9,6 +10,8 @@ import { fetchSongsList } from '~store/songsList/actions/fetchSongsList';
 import { Button } from '~/ameliance-ui/components/Button';
 import { Icon } from '~/ameliance-ui/components/Icon';
 import { AlertOctagonIcon } from '~/ameliance-ui/components/icons/AlertOctagonIcon';
+import { Maximize2Icon } from '~/ameliance-ui/components/icons/Maximize2Icon';
+import { Minimize2Icon } from '~/ameliance-ui/components/icons/Minimize2Icon';
 import { MoonIcon } from '~/ameliance-ui/components/icons/MoonIcon';
 import { MoreVerticalIcon } from '~/ameliance-ui/components/icons/MoreVerticalIcon';
 import { RefreshCcwIcon } from '~/ameliance-ui/components/icons/RefreshCcwIcon';
@@ -20,11 +23,14 @@ import { Typography } from '~/ameliance-ui/components/Typography';
 import { toggleTheme } from '~/ameliance-ui/scripts/toggleTheme';
 
 export function HeaderMenu() {
+	const [fullscreenMode, setFullscreenMode] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const { theme } = useTypedSelector((state) => state.appReducer);
 	const { actions } = appSlice;
 	const dispatch = useTypedDispatch();
+
+	const setFullscreen = useFullscreen();
 
 	const handelIconMenuClick = () => {
 		setIsMenuOpen(true);
@@ -47,6 +53,12 @@ export function HeaderMenu() {
 	const handleThemeMenuItemOnClick = () => {
 		const newTheme = toggleTheme();
 		dispatch(actions.setTheme(newTheme));
+	};
+
+	const handleFullscreenMenuItemOnClick = () => {
+		const newFullscreen = !fullscreenMode;
+		setFullscreen(newFullscreen);
+		setFullscreenMode(newFullscreen);
 	};
 
 	return (
@@ -77,6 +89,12 @@ export function HeaderMenu() {
 						Тема:
 						{' '}
 						{theme === 'dark' ? 'темна' : 'світла'}
+					</Typography>
+				</MenuItem>
+				<MenuItem onClick={handleFullscreenMenuItemOnClick}>
+					<Icon>{fullscreenMode ? <Minimize2Icon /> : <Maximize2Icon />}</Icon>
+					<Typography component="p1">
+						На весь екран
 					</Typography>
 				</MenuItem>
 			</Menu>
