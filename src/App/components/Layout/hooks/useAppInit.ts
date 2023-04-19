@@ -4,9 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import { auth } from '~api/google/firebase/firebase';
+import { api } from '~api/index';
 import { useViewportHeight } from '~hooks/useViewportHeight';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
+import { updateUser } from '~store/user/actions/updateUser';
 import { userSlice } from '~store/user/userSlice';
 
 import { useInitTheme } from '~/ameliance-ui/hooks/useInitTheme';
@@ -38,13 +40,21 @@ export function useAppInit() {
 
 	useEffect(() => {
 		const initFetch = async () => {
-			onAuthStateChanged(auth, (user) => {
+			onAuthStateChanged(auth, async (user) => {
 				if (user) {
+					const userFromDatabase = await api.google.firebase.database.users
+						.getUserById({ userId: user.uid });
+
+					dispatch(updateUser({
+						uid: user.uid,
+						visitsCount: userFromDatabase.user.visitsCount + 1,
+					}));
+
+					const userFinalFromDatabase = await api.google.firebase.database.users
+						.getUserById({ userId: user.uid });
+
 					dispatch(actions.setUser({
-						displayName: user.displayName?.toString(),
-						email: user.email?.toString(),
-						photoURL: user.photoURL?.toString(),
-						uid: user.uid?.toString(),
+						...userFinalFromDatabase.user,
 					}));
 				}
 				if (!isInit) {
