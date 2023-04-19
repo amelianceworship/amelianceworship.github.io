@@ -10,6 +10,11 @@ export const ROUTES = {
 };
 
 export const PRIVATE_ROUTES = {
-	admin: '/admin',
+	user: '/user',
 	chat: '/chat',
+	top: '/top',
+};
+
+export const ADMIN_ROUTES = {
+	admin: '/admin',
 };
