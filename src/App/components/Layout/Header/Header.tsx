@@ -28,28 +28,22 @@ export function Header() {
 
 	const isLogIn = matchPath('/login', pathname);
 	const isSingUp = matchPath('/signup', pathname);
-	const isSongsList = matchPath('/songslist', pathname) || matchPath('/songslist/:page', pathname);
 
 	return (
 		<Block component="header" className={s.Header}>
 			<Grid container component="section" className={s.container}>
 				<Logo />
 				<Block className={s.controls}>
-					{!isSongsList
-				&& (
-					<>
-						{!(isLogIn || isSingUp) && <Navigation />}
-						{isAuth
-							? !(isLogIn || isSingUp) && <UserMenu />
-							: !(isLogIn || isSingUp)
+					{!(isLogIn || isSingUp) && <Navigation />}
+					<HeaderMenu />
+					{isAuth
+						? !(isLogIn || isSingUp) && <UserMenu />
+						: !(isLogIn || isSingUp)
 							&& (
 								<Button size="small" onClick={handleLogIn}>
 									Увійти
 								</Button>
 							)}
-					</>
-				)}
-					<HeaderMenu />
 				</Block>
 			</Grid>
 		</Block>
