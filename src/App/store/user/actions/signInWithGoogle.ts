@@ -43,7 +43,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 						role: '',
 						sex: '',
 						lastActiveChatId: '0',
-						visitsCount: 0,
+						visitsCount: 1,
 					});
 				}
 				// *----- add chatList for user -----

@@ -44,7 +44,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 					role: '',
 					sex: '',
 					lastActiveChatId: '0',
-					visitsCount: 0,
+					visitsCount: 1,
 				});
 			}
 
@@ -73,7 +73,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				lastActiveChatId: '',
 				lastVisitDate: '',
 				isOnline: false,
-				visitsCount: 0,
+				visitsCount: 1,
 			};
 		} catch (error) {
 			return thunkAPI.rejectWithValue(returnError(error));
