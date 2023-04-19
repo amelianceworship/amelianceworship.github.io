@@ -6,16 +6,18 @@ import type { SuccessResponse } from '~types/api/google/firebase/commons/Success
 
 import { auth } from '../firebase';
 
-interface SignIn {
+interface SignInWithEmail {
 	email: string;
 	password: string;
 }
 
-interface SignInResponse extends SuccessResponse {
+interface SignInWithEmailResponse extends SuccessResponse {
 	user: User;
 }
 
-export async function signIn({ email, password }: SignIn): Promise<SignInResponse> {
+export async function signInWithEmail({
+	email, password,
+}: SignInWithEmail): Promise<SignInWithEmailResponse> {
 	try {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password);
 		return { user: userCredential.user, status: 'success' };

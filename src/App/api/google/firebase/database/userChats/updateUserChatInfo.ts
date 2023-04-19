@@ -1,4 +1,6 @@
-import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
+
+import { getCurrentDateInMs } from '~/ameliance-scripts';
 
 import { db } from '../../firebase';
 
@@ -21,6 +23,6 @@ export function updateUserChatInfo({
 			displayName: targetChatUserDisplayName,
 			photoURL: targetChatUserPhotoURL,
 		},
-		[`${chatId}.date`]: serverTimestamp(),
+		[`${chatId}.date`]: getCurrentDateInMs(),
 	});
 }

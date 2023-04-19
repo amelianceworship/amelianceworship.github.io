@@ -1,15 +1,7 @@
-import { createUser } from './createUser';
-import { getCurrentAuthUser } from './getCurrentAuthUser';
-import { signIn } from './signIn';
-import { signInWithGoogle } from './signInWithGoogle';
-import { signOut } from './signOut';
-import { updateProfile } from './updateProfile';
-
-export const auth = {
-	createUser,
-	getCurrentAuthUser,
-	signIn,
-	signInWithGoogle,
-	signOut,
-	updateProfile,
-};
+export * from './createUser';
+export * from './getCurrentAuthUser';
+export * from './signInWithEmail';
+export * from './signInWithGoogle';
+export * from './signOut';
+export * from './updateProfile';
+export * from './sendSignInLinkToEmail';

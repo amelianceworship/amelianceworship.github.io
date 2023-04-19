@@ -1,15 +1,6 @@
-import { addGroup } from './addGroup';
-import { addMessage } from './addMessage';
-import { getAllGroups } from './getAllGroups';
-import { getGroupInfo } from './getGroupInfo';
-import { getGroupMessages } from './getGroupMessages';
-import { updateGroupInfo } from './updateGroupInfo';
-
-export const groups = {
-	addGroup,
-	addMessage,
-	getGroupMessages,
-	getAllGroups,
-	updateGroupInfo,
-	getGroupInfo,
-};
+export * from './addGroup';
+export * from './addMessage';
+export * from './getAllGroups';
+export * from './getGroupInfo';
+export * from './getGroupMessages';
+export * from './updateGroupInfo';

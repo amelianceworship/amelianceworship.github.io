@@ -1,5 +1,1 @@
-import { getChatMessages } from './getChatMessages';
-
-export const chats = {
-	getChatMessages,
-};
+export * from './getChatMessages';
