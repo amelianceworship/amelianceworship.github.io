@@ -9,13 +9,23 @@
 .form {
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: 32px;
 	max-width: 420px;
 	width: 100%;
 }
 
-.buttons {
+.main {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.additional {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+}
+
+.center {
+	align-self: center;
 }

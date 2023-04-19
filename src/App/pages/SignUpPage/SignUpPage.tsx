@@ -11,6 +11,7 @@ import { createUser } from '~store/user/actions/createUser';
 import { signInWithGoogle } from '~store/user/actions/signInWithGoogle';
 import { userSlice } from '~store/user/userSlice';
 
+import { LoaderOverlay } from '~/ameliance-ui/components/_LAB/LoaderOverlay';
 import { Block } from '~/ameliance-ui/components/blocks/Block';
 import { Main } from '~/ameliance-ui/components/blocks/Main';
 import { Button } from '~/ameliance-ui/components/Button';
@@ -57,7 +58,7 @@ export function SignUpPage() {
 		},
 	});
 
-	const isValidFixed = isObjectEmpty(errors);//* fix isValid default has false
+	const isValidFixed = isObjectEmpty(errors); //* fix isValid default has false
 
 	const registers = {
 		userName: register('userName', {
@@ -105,48 +106,51 @@ export function SignUpPage() {
 	return (
 		<Main>
 			<Grid container className={s.container}>
-				{/* {isLoading && <LoaderOverlay />} */}
 				<Typography component="h4">Реєстрація</Typography>
 				<Form
 					className={s.form}
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					<FileImgUpload
-						watch={watch}
-						register={registers.profileImage}
-						errors={errors}
-						accept=".jpg, .jpeg, .png"
-						label="Оберіть зображення"
-					>
-						Зображення профілю*:
-					</FileImgUpload>
-					<TextInput register={registers.userName} errors={errors}>
-						Логін*:
-					</TextInput>
-					<EmailInput register={registers.email} errors={errors}>
-						Адреса електронної пошти*:
-					</EmailInput>
-					<PasswordInput register={registers.password} errors={errors}>
-						Пароль*:
-					</PasswordInput>
-					<Block className={s.buttons}>
+					<Block className={s.main}>
+						<FileImgUpload
+							watch={watch}
+							register={registers.profileImage}
+							errors={errors}
+							accept=".jpg, .jpeg, .png"
+							label="Оберіть зображення"
+						>
+							Зображення профілю*:
+						</FileImgUpload>
+						<TextInput register={registers.userName} errors={errors}>
+							Логін*:
+						</TextInput>
+						<EmailInput register={registers.email} errors={errors}>
+							Адреса електронної пошти*:
+						</EmailInput>
+						<PasswordInput register={registers.password} errors={errors}>
+							Пароль*:
+						</PasswordInput>
 						<Button
 							submit
 							disabled={!isDirty || !isValidFixed}
 						>
 							Створити
 						</Button>
+					</Block>
+					<Typography component="p2" className={s.center}>або</Typography>
+					<Block className={s.additional}>
 						<Button type="secondary" onClick={handleSignInWithGoogle}>
 							<GoogleColorIcon />
 							Увійти через Google
 						</Button>
-						<Typography component="p1">
+						<Typography component="p2">
 							Вже є акаунт?
 							{' '}
-							<Link className="link" to={ROUTES.login}><LinkLabel>Увійти</LinkLabel></Link>
+							<Link className="link" to={ROUTES.login}><LinkLabel display="p2">Увійти</LinkLabel></Link>
 						</Typography>
 					</Block>
 				</Form>
+				{isLoading && <LoaderOverlay />}
 			</Grid>
 			{(uid && !isLoading) ? <SignUpSuccessModal onClose={handlerSuccessModal} /> : null}
 			{(error && !isLoading) ? <SignUpErrorModal onClose={handlerErrorModal} /> : null}
