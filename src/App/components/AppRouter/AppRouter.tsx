@@ -10,6 +10,7 @@ import { LogInPage } from '~pages/LogInPage/LogInPage';
 import { SignUpPage } from '~pages/SignUpPage/SignUpPage';
 import { SongsListPage } from '~pages/SongsListPage/SongsListPage';
 import { UserPage } from '~pages/UserPage/UserPage';
+import { UsersPage } from '~pages/UsersPage/UsersPage';
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
 	const { isAuth } = useAuth();
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
 			{
 				element: <ProtectedRoute><UserPage /></ProtectedRoute>,
 				path: PRIVATE_ROUTES.user,
+			},
+			{
+				element: <ProtectedRoute><UsersPage /></ProtectedRoute>,
+				path: PRIVATE_ROUTES.users,
 			},
 			{
 				element: <AdminRoute><AdminPage /></AdminRoute>,

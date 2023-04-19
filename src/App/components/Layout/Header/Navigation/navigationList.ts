@@ -19,8 +19,8 @@ export const navigationList: NavigationList = [
 		path: ROUTES.songslist,
 		end: false,
 	}, {
-		label: 'Топ',
-		path: PRIVATE_ROUTES.top,
+		label: 'Користувачі',
+		path: PRIVATE_ROUTES.users,
 		end: false,
 		private: true,
 	},

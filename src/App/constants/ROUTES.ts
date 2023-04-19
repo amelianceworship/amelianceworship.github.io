@@ -5,6 +5,7 @@ export const ROUTES = {
 	login: '/login',
 	other: '/*',
 	signup: '/signup',
+	signupContinue: '/signup/continue',
 	songslist: '/songslist',
 	songslistSelection: '/songslist/selection',
 };
@@ -12,7 +13,7 @@ export const ROUTES = {
 export const PRIVATE_ROUTES = {
 	user: '/user',
 	chat: '/chat',
-	top: '/top',
+	users: '/users',
 };
 
 export const ADMIN_ROUTES = {
