@@ -4,4 +4,3 @@ export * from './signInWithEmail';
 export * from './signInWithGoogle';
 export * from './signOut';
 export * from './updateProfile';
-export * from './sendSignInLinkToEmail';
