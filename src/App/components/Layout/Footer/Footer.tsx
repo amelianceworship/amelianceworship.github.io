@@ -1,12 +1,11 @@
-import { matchPath, NavLink, useLocation } from 'react-router-dom';
+import { matchPath, useLocation } from 'react-router-dom';
 
-import { APP } from '~constants/APP';
-import { PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
+import { PRIVATE_ROUTES } from '~constants/ROUTES';
 import { useAuth } from '~hooks/useAuth';
 
 import { Block } from '~/ameliance-ui/components/blocks/Block';
 import { Grid } from '~/ameliance-ui/components/Grid';
-import { LinkLabel } from '~/ameliance-ui/components/Link/LinkLabel';
+import { Link } from '~/ameliance-ui/components/Link';
 
 import s from './Footer.module.scss';
 
@@ -24,12 +23,10 @@ export function Footer() {
 		<Block component="footer" className={s.Footer}>
 			<Grid container className={s.container}>
 				{!(isLogIn || isSingUp) && (isAuth && pathname !== PRIVATE_ROUTES.chat)
-					&& (
-						<NavLink to={ROUTES.home}>
-							<LinkLabel display="caption">
-								{`${APP.name} ${APP.version}`}
-							</LinkLabel>
-						</NavLink>
+					&&	(
+						<Link display="caption" underline={false} href="https://github.com/AmelianceSkyMusic" blank>
+							AmelianceSkyMusic
+						</Link>
 					)}
 			</Grid>
 		</Block>
