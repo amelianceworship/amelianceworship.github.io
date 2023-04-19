@@ -6,6 +6,7 @@ import type { User } from '~types/api/google/firebase/commons/User';
 import { createUser } from './actions/createUser';
 import { signIn } from './actions/signIn';
 import { signInWithGoogle } from './actions/signInWithGoogle';
+import { updateUser } from './actions/updateUser';
 
 interface UserState {
 	isLoading: boolean;
@@ -14,12 +15,13 @@ interface UserState {
 	displayName: string;
 	photoURL: string;
 	email: string;
-	status: 'user' | 'admin' | 'owner';
-	sex: 'male' | 'female' | 'unknown';
+	status: 'user' | 'admin' | 'owner' | '';
+	sex: 'male' | 'female' | '';
 	role: string;
 	lastActiveChatId: string;
 	lastVisitDate: string;
 	isOnline: boolean;
+	visitsCount: number;
 }
 
 const initialState: UserState = {
@@ -29,12 +31,13 @@ const initialState: UserState = {
 	displayName: '',
 	photoURL: '',
 	email: '',
-	status: 'user',
-	sex: 'unknown',
+	status: '',
+	sex: '',
 	role: '',
 	lastActiveChatId: '',
 	lastVisitDate: '',
 	isOnline: false,
+	visitsCount: 0,
 };
 
 export const userSlice = createSlice({
@@ -52,12 +55,15 @@ export const userSlice = createSlice({
 			state.displayName = '';
 			state.photoURL = '';
 			state.email = '';
-			state.status = 'user';
-			state.sex = 'unknown';
+			state.status = '';
+			state.sex = '';
 			state.role = '';
 			state.lastActiveChatId = '';
 			state.lastVisitDate = '';
 			state.isOnline = false;
+			state.visitsCount = 0;
+			state.error = '';
+			state.isLoading = false;
 		},
 		resetError(state) {
 			state.error = '';
@@ -67,26 +73,36 @@ export const userSlice = createSlice({
 		builder
 
 			.addCase(createUser.pending, (state) => {
-				state.isLoading = true;
-				state.error = '';
 				state.uid = '';
 				state.displayName = '';
 				state.photoURL = '';
 				state.email = '';
-				state.status = 'user';
-				state.sex = 'unknown';
+				state.status = '';
+				state.sex = '';
 				state.role = '';
 				state.lastActiveChatId = '';
 				state.lastVisitDate = '';
 				state.isOnline = false;
+				state.visitsCount = 0;
+
+				state.error = '';
+				state.isLoading = true;
 			})
 			.addCase(
 				createUser.fulfilled,
-				(state, action: PayloadAction<Pick<User, 'uid' | 'displayName' | 'photoURL' | 'email' >>) => {
+				(state, action: PayloadAction<User>) => {
 					state.uid = action.payload.uid;
 					state.displayName = action.payload.displayName;
 					state.photoURL = action.payload.photoURL;
 					state.email = action.payload.email;
+					state.status = action.payload.status;
+					state.sex = action.payload.sex;
+					state.role = action.payload.role;
+					state.lastActiveChatId = action.payload.lastActiveChatId;
+					state.lastVisitDate = action.payload.lastVisitDate;
+					state.isOnline = action.payload.isOnline;
+					state.visitsCount = action.payload.visitsCount;
+
 					state.error = '';
 					state.isLoading = false;
 				},
@@ -97,26 +113,35 @@ export const userSlice = createSlice({
 			})
 
 			.addCase(signIn.pending, (state) => {
-				state.isLoading = true;
-				state.error = '';
 				state.uid = '';
 				state.displayName = '';
 				state.photoURL = '';
 				state.email = '';
-				state.status = 'user';
-				state.sex = 'unknown';
+				state.status = '';
+				state.sex = '';
 				state.role = '';
 				state.lastActiveChatId = '';
 				state.lastVisitDate = '';
 				state.isOnline = false;
+				state.visitsCount = 0;
+
+				state.error = '';
+				state.isLoading = true;
 			})
 			.addCase(
 				signIn.fulfilled,
-				(state, action: PayloadAction<Pick<User, 'email' | 'displayName' | 'photoURL' | 'uid' >>) => {
-					state.email = action.payload.email;
+				(state, action: PayloadAction<User>) => {
+					state.uid = action.payload.uid;
 					state.displayName = action.payload.displayName;
 					state.photoURL = action.payload.photoURL;
-					state.uid = action.payload.uid;
+					state.email = action.payload.email;
+					state.status = action.payload.status;
+					state.sex = action.payload.sex;
+					state.role = action.payload.role;
+					state.lastActiveChatId = action.payload.lastActiveChatId;
+					state.lastVisitDate = action.payload.lastVisitDate;
+					state.isOnline = action.payload.isOnline;
+					state.visitsCount = action.payload.visitsCount;
 
 					state.error = '';
 					state.isLoading = false;
@@ -128,31 +153,69 @@ export const userSlice = createSlice({
 			})
 
 			.addCase(signInWithGoogle.pending, (state) => {
-				state.isLoading = true;
-				state.error = '';
 				state.uid = '';
 				state.displayName = '';
 				state.photoURL = '';
 				state.email = '';
-				state.status = 'user';
-				state.sex = 'unknown';
+				state.status = '';
+				state.sex = '';
 				state.role = '';
 				state.lastActiveChatId = '';
 				state.lastVisitDate = '';
 				state.isOnline = false;
+				state.visitsCount = 0;
+
+				state.error = '';
+				state.isLoading = true;
 			})
 			.addCase(
 				signInWithGoogle.fulfilled,
-				(state, action: PayloadAction<Pick<User, 'email' | 'displayName' | 'photoURL' | 'uid' >>) => {
-					state.email = action.payload.email;
+				(state, action: PayloadAction<User>) => {
+					state.uid = action.payload.uid;
 					state.displayName = action.payload.displayName;
 					state.photoURL = action.payload.photoURL;
-					state.uid = action.payload.uid;
+					state.email = action.payload.email;
+					state.status = action.payload.status;
+					state.sex = action.payload.sex;
+					state.role = action.payload.role;
+					state.lastActiveChatId = action.payload.lastActiveChatId;
+					state.lastVisitDate = action.payload.lastVisitDate;
+					state.isOnline = action.payload.isOnline;
+					state.visitsCount = action.payload.visitsCount;
+
 					state.error = '';
 					state.isLoading = false;
 				},
 			)
 			.addCase(signInWithGoogle.rejected, (state, action: PayloadAction<unknown>) => {
+				if (typeof action.payload === 'string') state.error = action.payload;
+				state.isLoading = false;
+			})
+
+			.addCase(updateUser.pending, (state) => {
+				state.error = '';
+				state.isLoading = true;
+			})
+			.addCase(
+				updateUser.fulfilled,
+				(state, action: PayloadAction<User>) => {
+					state.uid = action.payload.uid;
+					state.displayName = action.payload.displayName;
+					state.photoURL = action.payload.photoURL;
+					state.email = action.payload.email;
+					state.status = action.payload.status;
+					state.sex = action.payload.sex;
+					state.role = action.payload.role;
+					state.lastActiveChatId = action.payload.lastActiveChatId;
+					state.lastVisitDate = action.payload.lastVisitDate;
+					state.isOnline = action.payload.isOnline;
+					state.visitsCount = action.payload.visitsCount;
+
+					state.error = '';
+					state.isLoading = false;
+				},
+			)
+			.addCase(updateUser.rejected, (state, action: PayloadAction<unknown>) => {
 				if (typeof action.payload === 'string') state.error = action.payload;
 				state.isLoading = false;
 			});
