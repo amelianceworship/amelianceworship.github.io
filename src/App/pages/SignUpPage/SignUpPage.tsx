@@ -4,10 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { isObjectEmpty } from '~/ameliance-scripts';
 import { GoogleColorIcon } from '~components/SVG/GoogleColorIcon';
-import { ROUTES } from '~constants/ROUTES';
+import { PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
+import { useAuth } from '~hooks/useAuth';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
-import { createUser } from '~store/user/actions/createUser';
+import { createUserWithEmail } from '~store/user/actions/createUserWithEmail';
 import { signInWithGoogle } from '~store/user/actions/signInWithGoogle';
 import { userSlice } from '~store/user/userSlice';
 
@@ -17,9 +18,7 @@ import { Main } from '~/ameliance-ui/components/blocks/Main';
 import { Button } from '~/ameliance-ui/components/Button';
 import { Form } from '~/ameliance-ui/components/Form';
 import { Grid } from '~/ameliance-ui/components/Grid';
-import {
-	EmailInput, FileImgUpload, PasswordInput, TextInput,
-} from '~/ameliance-ui/components/Inputs';
+import { EmailInput, PasswordInput } from '~/ameliance-ui/components/Inputs';
 import { LinkLabel } from '~/ameliance-ui/components/Link';
 import { Typography } from '~/ameliance-ui/components/Typography';
 
@@ -29,13 +28,14 @@ import { SignUpSuccessModal } from './SignUpSuccessModal';
 import s from './SignUpPage.module.scss';
 
 interface FormFields {
-	userName: string;
 	email: string;
 	password: string;
-	profileImage: FileList;
+	confirmPassword: string;
 }
 
 export function SignUpPage() {
+	const { isFillProfile } = useAuth();
+
 	const navigate = useNavigate();
 
 	const dispatch = useTypedDispatch();
@@ -46,27 +46,21 @@ export function SignUpPage() {
 		register,
 		handleSubmit,
 		reset,
+		resetField,
 		watch,
-		formState: { errors, isDirty },
+		formState: { errors },
 	} = useForm<FormFields>({
 		mode: 'onSubmit',
 		defaultValues: {
-			userName: '',
 			email: '',
 			password: '',
-			profileImage: undefined,
+			confirmPassword: '',
 		},
 	});
 
 	const isValidFixed = isObjectEmpty(errors); //* fix isValid default has false
 
 	const registers = {
-		userName: register('userName', {
-			required: 'Поле таке пусте! Введіть більше символів!',
-			pattern: { value: /^[\sа-яА-ЯёЁъЪїЇіІєЄґҐa-zA-Z_]+$/, message: 'Використовуйте тільки літери, пробіл або нижнє підкреслення!' },
-			minLength: { value: 2, message: 'Мінімальна довжина логіну 2 символів' },
-			maxLength: { value: 32, message: 'Максимальна довжина логіну 32 символів' },
-		}),
 		email: register('email', {
 			required: 'Поле таке пусте! Введіть більше символів!',
 			pattern: { value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i, message: 'Невірно введена адреса електронної пошти!' },
@@ -77,17 +71,26 @@ export function SignUpPage() {
 			minLength: { value: 8, message: 'Мінімальна довжина пароля 8 символів' },
 			maxLength: { value: 16, message: 'Максимальна довжина пароля 16 символів' },
 		}),
-		profileImage: register('profileImage', {
-			required: 'Будь ласка, оберіть зображення!',
+		confirmPassword: register('confirmPassword', {
+			required: 'Поле таке пусте! Введіть більше символів!',
+			pattern: { value: /^[a-zA-Z0-9]+$/, message: 'Використовуйте тільки латинські літери та цифри!' },
+			minLength: { value: 8, message: 'Мінімальна довжина пароля 8 символів' },
+			maxLength: { value: 16, message: 'Максимальна довжина пароля 16 символів' },
+			validate: (value: string) => watch('password') === value
+				|| 'Паролі не збігаються!',
 		}),
 	};
 
 	const onSubmit: SubmitHandler<FormFields> = async ({
-		userName, email, password, profileImage,
+		email, password,
 	}: FormFields) => {
-		dispatch(createUser({
-			displayName: userName, email, password, photo: profileImage[0],
+		dispatch(createUserWithEmail({
+			email, password,
 		}));
+	};
+
+	const handlePasswordOnChange = () => {
+		resetField('confirmPassword');
 	};
 
 	const handleSignInWithGoogle = () => {
@@ -96,7 +99,11 @@ export function SignUpPage() {
 
 	const handlerSuccessModal = () => {
 		reset();
-		navigate(ROUTES.home);
+		if (!isFillProfile) {
+			navigate(PRIVATE_ROUTES.user);
+		} else {
+			navigate(PRIVATE_ROUTES.users);
+		}
 	};
 
 	const handlerErrorModal = () => {
@@ -112,27 +119,22 @@ export function SignUpPage() {
 					onSubmit={handleSubmit(onSubmit)}
 				>
 					<Block className={s.main}>
-						<FileImgUpload
-							watch={watch}
-							register={registers.profileImage}
-							errors={errors}
-							accept=".jpg, .jpeg, .png"
-							label="Оберіть зображення"
-						>
-							Зображення профілю*:
-						</FileImgUpload>
-						<TextInput register={registers.userName} errors={errors}>
-							Логін*:
-						</TextInput>
 						<EmailInput register={registers.email} errors={errors}>
 							Адреса електронної пошти*:
 						</EmailInput>
-						<PasswordInput register={registers.password} errors={errors}>
+						<PasswordInput
+							register={registers.password}
+							errors={errors}
+							onChange={handlePasswordOnChange}
+						>
 							Пароль*:
+						</PasswordInput>
+						<PasswordInput register={registers.confirmPassword} errors={errors}>
+							Підтвердження паролю*:
 						</PasswordInput>
 						<Button
 							submit
-							disabled={!isDirty || !isValidFixed}
+							disabled={!isValidFixed}
 						>
 							Створити
 						</Button>

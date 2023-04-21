@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { isObjectEmpty } from '~/ameliance-scripts';
 import { GoogleColorIcon } from '~components/SVG/GoogleColorIcon';
-import { ROUTES } from '~constants/ROUTES';
+import { PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
+import { useAuth } from '~hooks/useAuth';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { signIn } from '~store/user/actions/signIn';
@@ -32,6 +33,8 @@ interface FormFields {
 }
 
 export function LogInPage() {
+	const { isFillProfile } = useAuth();
+
 	const navigate = useNavigate();
 
 	const dispatch = useTypedDispatch();
@@ -74,7 +77,11 @@ export function LogInPage() {
 	};
 
 	const handlerSuccessModal = () => {
-		navigate(ROUTES.home);
+		if (!isFillProfile) {
+			navigate(PRIVATE_ROUTES.user);
+		} else {
+			navigate(PRIVATE_ROUTES.users);
+		}
 	};
 
 	const handlerErrorModal = () => {
