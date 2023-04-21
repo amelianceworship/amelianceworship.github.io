@@ -47,7 +47,7 @@ export function useAppInit() {
 
 					dispatch(updateUser({
 						uid: user.uid,
-						visitsCount: userFromDatabase.user.visitsCount + 1,
+						visitsCount: (userFromDatabase.user.visitsCount || 0) + 1,
 					}));
 
 					const userFinalFromDatabase = await api.google.firebase.database.users
