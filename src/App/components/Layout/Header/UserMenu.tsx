@@ -60,7 +60,7 @@ export function UserMenu() {
 						<MenuItem onClick={closeMenu}>
 							<Icon><UserIcon /></Icon>
 							<LinkLabel underline={false}>
-								Профіль
+								Редагування профілю
 							</LinkLabel>
 						</MenuItem>
 					</NavLink>
