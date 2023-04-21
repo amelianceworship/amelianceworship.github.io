@@ -85,7 +85,7 @@ export function UserMenu() {
 			<Avatar
 				src={photoURL}
 				alt={displayName}
-				char={displayName[0] || email[0]}
+				char={displayName?.[0] || email?.[0] || ''}
 				size="small"
 				onClick={handelIconMenuClick}
 				title={`${displayName} ${role}`}
