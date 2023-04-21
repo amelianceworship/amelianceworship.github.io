@@ -1,7 +1,2 @@
-import { addUserChatsForUser } from './addUserChatsForUser';
-import { updateUserChatInfo } from './updateUserChatInfo';
-
-export const userChats = {
-	addUserChatsForUser,
-	updateUserChatInfo,
-};
+export * from './addUserChatsForUser';
+export * from './updateUserChatInfo';

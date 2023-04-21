@@ -2,14 +2,17 @@ import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { isObjectEmpty } from '~/ameliance-scripts';
 import { GoogleColorIcon } from '~components/SVG/GoogleColorIcon';
-import { ROUTES } from '~constants/ROUTES';
+import { PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
+import { useAuth } from '~hooks/useAuth';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { signIn } from '~store/user/actions/signIn';
 import { signInWithGoogle } from '~store/user/actions/signInWithGoogle';
 import { userSlice } from '~store/user/userSlice';
 
+import { LoaderOverlay } from '~/ameliance-ui/components/_LAB/LoaderOverlay';
 import { Block } from '~/ameliance-ui/components/blocks/Block';
 import { Main } from '~/ameliance-ui/components/blocks/Main';
 import { Button } from '~/ameliance-ui/components/Button';
@@ -30,6 +33,8 @@ interface FormFields {
 }
 
 export function LogInPage() {
+	const { isFillProfile } = useAuth();
+
 	const navigate = useNavigate();
 
 	const dispatch = useTypedDispatch();
@@ -47,6 +52,8 @@ export function LogInPage() {
 			password: '',
 		},
 	});
+
+	const isValidFixed = isObjectEmpty(errors); //* fix isValid default has false
 
 	const registers = {
 		email: register('email', {
@@ -70,7 +77,11 @@ export function LogInPage() {
 	};
 
 	const handlerSuccessModal = () => {
-		navigate(ROUTES.home);
+		if (!isFillProfile) {
+			navigate(PRIVATE_ROUTES.user);
+		} else {
+			navigate(PRIVATE_ROUTES.users);
+		}
 	};
 
 	const handlerErrorModal = () => {
@@ -80,33 +91,39 @@ export function LogInPage() {
 	return (
 		<Main>
 			<Grid container className={s.container}>
-				{/* {isLoading && <LoaderOverlay />} */}
 				<Typography component="h4">Вхід</Typography>
 				<Form
 					className={s.form}
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					<EmailInput register={registers.email} errors={errors}>
-						Адреса електронної пошти*:
-					</EmailInput>
-					<PasswordInput register={registers.password} errors={errors}>
-						Пароль*:
-					</PasswordInput>
-					<Block className={s.buttons}>
-						<Button type="primary" submit>
+
+					<Block className={s.main}>
+						<EmailInput register={registers.email} errors={errors}>
+							Адреса електронної пошти*:
+						</EmailInput>
+						<PasswordInput register={registers.password} errors={errors}>
+							Пароль*:
+						</PasswordInput>
+						<Button submit disabled={!isValidFixed}>
 							Увійти
 						</Button>
+					</Block>
+					<Typography component="p2" className={s.center}>
+						або
+					</Typography>
+					<Block className={s.additional}>
 						<Button type="secondary" onClick={handleSignInWithGoogle}>
 							<GoogleColorIcon />
 							Увійти через Google
 						</Button>
-						<Typography component="p1">
+						<Typography component="p2">
 							Немає акаунту?
 							{' '}
-							<Link to={ROUTES.signup}><LinkLabel>Створити</LinkLabel></Link>
+							<Link to={ROUTES.signup}><LinkLabel display="p2">Створити</LinkLabel></Link>
 						</Typography>
 					</Block>
 				</Form>
+				{isLoading && <LoaderOverlay />}
 			</Grid>
 			{(uid && !isLoading) ? <LogInSuccessModal onClose={handlerSuccessModal} /> : null}
 			{(error && !isLoading) ? <LogInErrorModal onClose={handlerErrorModal} /> : null}

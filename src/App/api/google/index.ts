@@ -1,5 +1,5 @@
 import { appsscript } from './appsscript';
-import { firebase } from './firebase';
+import * as firebase from './firebase';
 import { sheets } from './sheets';
 
 export const google = {

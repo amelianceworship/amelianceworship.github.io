@@ -2,7 +2,7 @@ import {
 	matchPath, useLocation, useNavigate,
 } from 'react-router-dom';
 
-import { ROUTES } from '~app/constants/ROUTES';
+import { PRIVATE_ROUTES, ROUTES } from '~app/constants/ROUTES';
 import { Logo } from '~components/Logo';
 import { useAuth } from '~hooks/useAuth';
 
@@ -26,30 +26,25 @@ export function Header() {
 		navigate(ROUTES.login);
 	};
 
-	const isLogIn = matchPath('/login', pathname);
-	const isSingUp = matchPath('/signup', pathname);
-	const isSongsList = matchPath('/songslist', pathname) || matchPath('/songslist/:page', pathname);
+	const isLogInPage = matchPath(ROUTES.login, pathname);
+	const isSingUpPage = matchPath(ROUTES.signup, pathname);
+	const isUserPage = matchPath(PRIVATE_ROUTES.user, pathname);
 
 	return (
 		<Block component="header" className={s.Header}>
 			<Grid container component="section" className={s.container}>
 				<Logo />
 				<Block className={s.controls}>
-					{!isSongsList
-				&& (
-					<>
-						{!(isLogIn || isSingUp) && <Navigation />}
-						{isAuth
-							? !(isLogIn || isSingUp) && <UserMenu />
-							: !(isLogIn || isSingUp)
+					{!(isLogInPage || isSingUpPage || isUserPage) && <Navigation />}
+					<HeaderMenu />
+					{isAuth
+						? !(isLogInPage || isSingUpPage || isUserPage) && <UserMenu />
+						: !(isLogInPage || isSingUpPage)
 							&& (
 								<Button size="small" onClick={handleLogIn}>
 									Увійти
 								</Button>
 							)}
-					</>
-				)}
-					<HeaderMenu />
 				</Block>
 			</Grid>
 		</Block>

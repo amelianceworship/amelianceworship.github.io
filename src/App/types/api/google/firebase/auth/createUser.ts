@@ -1,9 +1,12 @@
 import type { User } from './commonAuth';
 
-export interface CreateUser {
-	displayName: string;
+export interface CreateUserWithEmail {
 	email: string;
 	password: string;
+}
+
+export interface CreateUser extends CreateUserWithEmail {
+	displayName: string;
 	photo: File;
 }
 

@@ -1,5 +1,6 @@
-import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 
+import { getCurrentDateInMs } from '~/ameliance-scripts';
 import { returnError } from '~helpers/returnError';
 import type { SuccessResponse } from '~types/api/google/firebase/commons/SuccessResponse';
 import type { GroupInfo } from '~types/api/google/firebase/database/groups/GroupInfo';
@@ -20,7 +21,7 @@ export async function updateGroupInfo({
 		if (chatId) info.chatId = chatId;
 		if (displayName) info.displayName = displayName;
 		if (photoURL) info.photoURL = photoURL;
-		info.date = serverTimestamp().toString(); // TODO: Fix to milliseconds
+		info.date = getCurrentDateInMs().toString();
 		if (lastText) info.lastText = lastText;
 		if (color) info.color = color;
 		if (ownerId) info.ownerId = ownerId;

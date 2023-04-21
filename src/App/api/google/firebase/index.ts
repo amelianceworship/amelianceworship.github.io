@@ -1,9 +1,9 @@
-import { auth } from './auth';
-import { database } from './database';
-import { helpers } from './helpers';
-import { storage } from './storage';
+import * as auth from './auth';
+import * as database from './database';
+import * as helpers from './helpers';
+import * as storage from './storage';
 
-export const firebase = {
+export {
 	auth,
 	database,
 	helpers,

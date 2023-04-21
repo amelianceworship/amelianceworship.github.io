@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import asm from 'asm-ts-scripts';
 
 import { api } from '~api/index';
 import { returnError } from '~helpers/returnError';
@@ -7,7 +6,7 @@ import type { CreateUser } from '~types/api/google/firebase/auth/createUser';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 import type { User } from '~types/api/google/firebase/commons/User';
 
-type CreateAsyncThunkReturned = Pick<User, 'uid' | 'displayName' | 'photoURL' | 'email' >;
+type CreateAsyncThunkReturned = User;
 type CreateAsyncThunkArguments = CreateUser;
 interface CreateAsyncThunkConfig { rejectValue: ErrorString }
 
@@ -17,7 +16,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 	'user/createUser',
 	async ({
 		displayName, email, password, photo,
-	}: CreateUser, thunkAPI) => {
+	}, thunkAPI) => {
 		try {
 			//* ----- create user in auth -----
 			const response = await api.google.firebase.auth.createUser({ email, password });
@@ -25,7 +24,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 
 			// *----- upload user image -----
 			const responseURL = photo ? await api.google.firebase.storage.uploadFile({
-				refName: `users/${response.user.uid}/profile/profileImage-${response.user.uid}-${asm.getCurrentDateInMs()}`,
+				refName: `users/${response.user.uid}/profile/profileImage-${response.user.uid}`,
 				file: photo,
 			}) : null;
 			const downloadURL = (responseURL && 'downloadURL' in responseURL) ? responseURL.downloadURL || '' : '';
@@ -38,12 +37,14 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 			if (!('error' in addUserResponse)) {
 				await api.google.firebase.database.users.updateUser({
 					uid: response.user.uid,
-					displayName: response.user.displayName || 'User',
+					displayName: displayName || 'User',
 					photoURL: downloadURL,
-					email: response.user.email || '',
+					email: email || '',
 					status: 'user',
-					sex: 'unknown',
+					role: '',
+					sex: '',
 					lastActiveChatId: '0',
+					visitsCount: 1,
 				});
 			}
 
@@ -59,13 +60,20 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				.addUserChatsForUser({ uid: response.user.uid });
 
 			// *----- get current auth user data -----
-			const userResponse = api.google.firebase.auth.getCurrentAuthUser();
+			const currentAuthUser = api.google.firebase.auth.getCurrentAuthUser();
 
 			return {
-				uid: userResponse.user.uid?.toString() || '',
-				displayName: userResponse.user.displayName?.toString() || '',
-				photoURL: userResponse.user.photoURL?.toString() || '',
-				email: userResponse.user.email?.toString() || '',
+				uid: currentAuthUser.user.uid,
+				displayName,
+				photoURL: downloadURL,
+				email,
+				status: '',
+				sex: '',
+				role: '',
+				lastActiveChatId: '',
+				lastVisitDate: '',
+				isOnline: false,
+				visitsCount: 1,
 			};
 		} catch (error) {
 			return thunkAPI.rejectWithValue(returnError(error));

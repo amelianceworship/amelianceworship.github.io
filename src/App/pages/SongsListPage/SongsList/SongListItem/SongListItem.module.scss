@@ -1,9 +1,12 @@
+@use "~/ameliance-ui/styles/globals/" as *;
+
 .SongListItem {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	gap: 16px;
 	min-height: 32px;
+	@include no-select;
 }
 
 .playIcon {

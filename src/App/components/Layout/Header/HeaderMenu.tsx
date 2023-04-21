@@ -71,29 +71,29 @@ export function HeaderMenu() {
 				preventItemClickClose
 			>
 				<MenuItem onClick={handleResetMenuItemOnClick}>
-					<Icon><AlertOctagonIcon /></Icon>
-					<Typography component="p1">
+					<Icon size="small"><AlertOctagonIcon /></Icon>
+					<Typography component="p2">
 						Скинути налаштування
 					</Typography>
 				</MenuItem>
 				<MenuItem onClick={handleReloadSongsLIstMenuItemOnClick}>
-					<Icon><RefreshCcwIcon /></Icon>
-					<Typography component="p1">
+					<Icon size="small"><RefreshCcwIcon /></Icon>
+					<Typography component="p2">
 						Оновити список пісень
 					</Typography>
 				</MenuItem>
 				<MenuDivider />
 				<MenuItem onClick={handleThemeMenuItemOnClick}>
-					<Icon>{theme === 'dark' ? <MoonIcon /> : <SunIcon />}</Icon>
-					<Typography component="p1">
+					<Icon size="small">{theme === 'dark' ? <MoonIcon /> : <SunIcon />}</Icon>
+					<Typography component="p2">
 						Тема:
 						{' '}
 						{theme === 'dark' ? 'темна' : 'світла'}
 					</Typography>
 				</MenuItem>
 				<MenuItem onClick={handleFullscreenMenuItemOnClick}>
-					<Icon>{fullscreenMode ? <Minimize2Icon /> : <Maximize2Icon />}</Icon>
-					<Typography component="p1">
+					<Icon size="small">{fullscreenMode ? <Minimize2Icon /> : <Maximize2Icon />}</Icon>
+					<Typography component="p2">
 						На весь екран
 					</Typography>
 				</MenuItem>
