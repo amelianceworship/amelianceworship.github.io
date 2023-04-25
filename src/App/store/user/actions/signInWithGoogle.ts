@@ -68,6 +68,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				role: userResponse.user.role,
 				lastActiveChatId: userResponse.user.lastActiveChatId,
 				lastVisitDate: userResponse.user.lastVisitDate,
+				registrationDate: userResponse.user.registrationDate,
 				isOnline: userResponse.user.isOnline,
 				visitsCount: userResponse.user.visitsCount,
 			};

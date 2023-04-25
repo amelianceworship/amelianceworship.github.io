@@ -16,7 +16,17 @@ export interface UpdateUserProp extends Partial<Omit<User, 'lastVisitDate' | 'is
 export type UpdateUser = Partial<Omit<User, 'uid'>>;
 
 export async function updateUser({
-	uid, displayName, photoURL, email, status, role, sex, lastActiveChatId, isOnline, visitsCount,
+	uid,
+	displayName,
+	photoURL,
+	email,
+	status,
+	role,
+	sex,
+	lastActiveChatId,
+	registrationDate,
+	isOnline,
+	visitsCount,
 }: UpdateUserProp): Promise<SuccessResponse> {
 	const usersRef = doc(db, 'users', uid);
 	try {
@@ -29,6 +39,7 @@ export async function updateUser({
 		if (sex) user.sex = sex;
 		if (lastActiveChatId) user.lastActiveChatId = lastActiveChatId;
 		user.lastVisitDate = getCurrentDateInMs().toString();
+		user.registrationDate = registrationDate && getCurrentDateInMs().toString();
 		if (isOnline) user.isOnline = isOnline;
 		if (visitsCount) user.visitsCount = visitsCount;
 		await updateDoc(usersRef, { user });

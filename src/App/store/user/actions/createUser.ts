@@ -72,6 +72,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				role: '',
 				lastActiveChatId: '',
 				lastVisitDate: '',
+				registrationDate: '',
 				isOnline: false,
 				visitsCount: 1,
 			};

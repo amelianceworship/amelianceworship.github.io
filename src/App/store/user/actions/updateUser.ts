@@ -6,7 +6,7 @@ import { returnError } from '~helpers/returnError';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 import type { User } from '~types/api/google/firebase/commons/User';
 
-interface UpdateUser extends Partial<Omit<User, 'photoURL' | 'uid' | 'lastVisitDate'>> {
+interface UpdateUser extends Partial<Omit<User, 'photoURL' | 'uid' | 'lastVisitDate' | 'registrationDate'>> {
 	uid: string;
 	photo?: File;
 }
@@ -50,6 +50,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				sex: sex || userBeforeDatabase.user.sex || '',
 				role: role || userBeforeDatabase.user.role || '',
 				lastActiveChatId: lastActiveChatId || userBeforeDatabase.user.lastActiveChatId || '',
+				registrationDate: userBeforeDatabase.user.registrationDate || '',
 				visitsCount: visitsCount || userBeforeDatabase.user.visitsCount || 0,
 			};
 
@@ -85,6 +86,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				role: userFinalDatabase.user.role,
 				lastActiveChatId: userFinalDatabase.user.lastActiveChatId,
 				lastVisitDate: userFinalDatabase.user.lastVisitDate,
+				registrationDate: userFinalDatabase.user.registrationDate,
 				isOnline: userFinalDatabase.user.isOnline,
 				visitsCount: userFinalDatabase.user.visitsCount,
 			};

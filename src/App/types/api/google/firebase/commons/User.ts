@@ -8,6 +8,7 @@ export interface User {
 	role: string;
 	lastActiveChatId: string;
 	lastVisitDate: string;
+	registrationDate: string;
 	isOnline: boolean;
 	visitsCount: number;
 }

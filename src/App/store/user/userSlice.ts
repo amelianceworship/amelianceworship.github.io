@@ -21,6 +21,7 @@ interface UserState {
 	role: string;
 	lastActiveChatId: string;
 	lastVisitDate: string;
+	registrationDate: string;
 	isOnline: boolean;
 	visitsCount: number;
 }
@@ -37,6 +38,7 @@ const initialState: UserState = {
 	role: '',
 	lastActiveChatId: '',
 	lastVisitDate: '',
+	registrationDate: '',
 	isOnline: false,
 	visitsCount: 0,
 };
@@ -61,6 +63,7 @@ export const userSlice = createSlice({
 			state.role = '';
 			state.lastActiveChatId = '';
 			state.lastVisitDate = '';
+			state.registrationDate = '';
 			state.isOnline = false;
 			state.visitsCount = 0;
 			state.error = '';
@@ -83,6 +86,7 @@ export const userSlice = createSlice({
 				state.role = '';
 				state.lastActiveChatId = '';
 				state.lastVisitDate = '';
+				state.registrationDate = '';
 				state.isOnline = false;
 				state.visitsCount = 0;
 
@@ -101,6 +105,7 @@ export const userSlice = createSlice({
 					state.role = action.payload.role;
 					state.lastActiveChatId = action.payload.lastActiveChatId;
 					state.lastVisitDate = action.payload.lastVisitDate;
+					state.registrationDate = action.payload.registrationDate;
 					state.isOnline = action.payload.isOnline;
 					state.visitsCount = action.payload.visitsCount;
 
@@ -123,6 +128,7 @@ export const userSlice = createSlice({
 				state.role = '';
 				state.lastActiveChatId = '';
 				state.lastVisitDate = '';
+				state.registrationDate = '';
 				state.isOnline = false;
 				state.visitsCount = 0;
 
@@ -141,6 +147,7 @@ export const userSlice = createSlice({
 					state.role = action.payload.role;
 					state.lastActiveChatId = action.payload.lastActiveChatId;
 					state.lastVisitDate = action.payload.lastVisitDate;
+					state.registrationDate = action.payload.registrationDate;
 					state.isOnline = action.payload.isOnline;
 					state.visitsCount = action.payload.visitsCount;
 
@@ -163,6 +170,7 @@ export const userSlice = createSlice({
 				state.role = '';
 				state.lastActiveChatId = '';
 				state.lastVisitDate = '';
+				state.registrationDate = '';
 				state.isOnline = false;
 				state.visitsCount = 0;
 
@@ -181,6 +189,7 @@ export const userSlice = createSlice({
 					state.role = action.payload.role;
 					state.lastActiveChatId = action.payload.lastActiveChatId;
 					state.lastVisitDate = action.payload.lastVisitDate;
+					state.registrationDate = action.payload.registrationDate;
 					state.isOnline = action.payload.isOnline;
 					state.visitsCount = action.payload.visitsCount;
 
@@ -203,6 +212,7 @@ export const userSlice = createSlice({
 				state.role = '';
 				state.lastActiveChatId = '';
 				state.lastVisitDate = '';
+				state.registrationDate = '';
 				state.isOnline = false;
 				state.visitsCount = 0;
 
@@ -221,6 +231,7 @@ export const userSlice = createSlice({
 					state.role = action.payload.role;
 					state.lastActiveChatId = action.payload.lastActiveChatId;
 					state.lastVisitDate = action.payload.lastVisitDate;
+					state.registrationDate = action.payload.registrationDate;
 					state.isOnline = action.payload.isOnline;
 					state.visitsCount = action.payload.visitsCount;
 
@@ -249,6 +260,7 @@ export const userSlice = createSlice({
 					state.role = action.payload.role;
 					state.lastActiveChatId = action.payload.lastActiveChatId;
 					state.lastVisitDate = action.payload.lastVisitDate;
+					state.registrationDate = action.payload.registrationDate;
 					state.isOnline = action.payload.isOnline;
 					state.visitsCount = action.payload.visitsCount;
 
