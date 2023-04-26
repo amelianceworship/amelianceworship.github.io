@@ -8,3 +8,16 @@
 	height: 100vh;
 	color: var(--color--f1-1);
 }
+
+.logo {
+	animation: logo-animation 1s ease-out alternate infinite;
+}
+
+@keyframes logo-animation {
+	0% {
+		transform: scale(100%);
+	}
+	100% {
+		transform: scale(110%);
+	}
+}
