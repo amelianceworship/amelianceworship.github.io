@@ -20,7 +20,7 @@ export async function updateUser({
 	displayName,
 	photoURL,
 	email,
-	status,
+	userType,
 	role,
 	sex,
 	lastActiveChatId,
@@ -34,7 +34,7 @@ export async function updateUser({
 		if (displayName) user.displayName = displayName.trim();
 		if (photoURL) user.photoURL = photoURL;
 		if (email) user.email = email;
-		if (status) user.status = status;
+		if (userType) user.userType = userType;
 		if (role) user.role = role.trim();
 		if (sex) user.sex = sex;
 		if (lastActiveChatId) user.lastActiveChatId = lastActiveChatId;
