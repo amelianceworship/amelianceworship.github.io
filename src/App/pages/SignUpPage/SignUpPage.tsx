@@ -154,8 +154,8 @@ export function SignUpPage() {
 				</Form>
 				{isLoading && <LoaderOverlay />}
 			</Grid>
-			{(uid && !isLoading) ? <SignUpSuccessModal onClose={handlerSuccessModal} /> : null}
-			{(error && !isLoading) ? <SignUpErrorModal onClose={handlerErrorModal} /> : null}
+			{(uid && !isLoading) && <SignUpSuccessModal onClose={handlerSuccessModal} />}
+			{(error && !isLoading) && <SignUpErrorModal onClose={handlerErrorModal} error={error} />}
 		</Main>
 	);
 }

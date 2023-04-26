@@ -126,7 +126,7 @@ export function LogInPage() {
 				{isLoading && <LoaderOverlay />}
 			</Grid>
 			{(uid && !isLoading) ? <LogInSuccessModal onClose={handlerSuccessModal} /> : null}
-			{(error && !isLoading) ? <LogInErrorModal onClose={handlerErrorModal} /> : null}
+			{(error && !isLoading) && <LogInErrorModal onClose={handlerErrorModal} error={error} />}
 		</Main>
 	);
 }
