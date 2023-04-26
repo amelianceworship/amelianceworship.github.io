@@ -24,9 +24,10 @@ export function UserMenu() {
 
 	const { isAdmin, isAuth } = useAuth();
 
+	const { user } = useTypedSelector((state) => state.userReducer);
 	const {
 		photoURL, displayName, email, role,
-	} = useTypedSelector((state) => state.userReducer);
+	} = user;
 
 	const dispatch = useTypedDispatch();
 	const { removeUser } = userSlice.actions;

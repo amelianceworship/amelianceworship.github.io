@@ -39,7 +39,8 @@ export function SignUpPage() {
 	const navigate = useNavigate();
 
 	const dispatch = useTypedDispatch();
-	const { error, isLoading, uid } = useTypedSelector((state) => state.userReducer);
+	const { error, isLoading, user } = useTypedSelector((state) => state.userReducer);
+	const { uid } = user;
 	const { actions } = userSlice;
 
 	const {

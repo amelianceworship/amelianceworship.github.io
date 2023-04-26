@@ -14,7 +14,9 @@ import { Typography } from '~/ameliance-ui/components/Typography';
 import s from './UsersPage.module.scss';
 
 export function UsersPage() {
-	const { uid } = useTypedSelector((state) => state.userReducer);
+
+	const { user } = useTypedSelector((state) => state.userReducer);
+	const { uid } = user;
 	const { isLoading, users } = useTypedSelector((state) => state.usersReducer);
 	const dispatch = useTypedDispatch();
 

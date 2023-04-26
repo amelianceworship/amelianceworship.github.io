@@ -42,15 +42,14 @@ export function UserPage() {
 	const dispatch = useTypedDispatch();
 	const { actions } = userSlice;
 
+	const { user, isLoading, error } = useTypedSelector((state) => state.userReducer);
 	const {
 		uid,
 		displayName,
 		photoURL,
 		sex: userSex,
 		role: userRole,
-		isLoading,
-		error,
-	} = useTypedSelector((state) => state.userReducer);
+	} = user;
 
 	const userSexKey = userSex !== '' ? userSex : 'male';
 
