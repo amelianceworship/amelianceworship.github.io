@@ -1,12 +1,16 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { a, join, sortArrayOfObj } from '~/ameliance-scripts';
+import { parseCurrentDateFromMs } from 'asm-ts-scripts';
+
+import { join, sortArrayOfObj } from '~/ameliance-scripts';
+import { UserAvatar } from '~components/UserAvatar';
+import { PRIVATE_ROUTES } from '~constants/ROUTES';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { getAllUsers } from '~store/users/actions/getAllUsers';
 
 import { LoaderOverlay } from '~/ameliance-ui/components/_LAB/LoaderOverlay';
-import { Avatar } from '~/ameliance-ui/components/Avatar';
 import { Block } from '~/ameliance-ui/components/blocks';
 import { Grid } from '~/ameliance-ui/components/Grid';
 import { Typography } from '~/ameliance-ui/components/Typography';
@@ -14,6 +18,7 @@ import { Typography } from '~/ameliance-ui/components/Typography';
 import s from './UsersPage.module.scss';
 
 export function UsersPage() {
+	const navigate = useNavigate();
 
 	const { user } = useTypedSelector((state) => state.userReducer);
 	const { uid } = user;
@@ -24,6 +29,10 @@ export function UsersPage() {
 		dispatch(getAllUsers());
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	const handleUserOnClick = (userId: string) => {
+		navigate(`${PRIVATE_ROUTES.userInfo}/${userId}`);
+	};
 
 	return (
 		<Block component="main" className={s.UsersPage}>
@@ -45,41 +54,45 @@ export function UsersPage() {
 							</Typography>
 						</Block>
 					</Grid>
-					{users.length > 0 && sortArrayOfObj(users, 'visitsCount').reverse().map((user) => (
+					{users.length > 0 && sortArrayOfObj(users, 'visitsCount').reverse().map((userItem) => (
 						<Grid
 							row
-							key={user.uid}
-							className={join(s.row, user.uid === uid ? s.current : null)}
+							key={userItem.uid}
+							className={join(s.row, s.user, userItem.uid === uid ? s.current : null)}
+							onClick={() => handleUserOnClick(userItem.uid)}
 						>
 							<Block grid={{ xx: 1, md: 2 }}>
-								<Avatar
-									src={user.photoURL}
-									alt={user.displayName}
-									char={user.displayName?.[0] || user.email?.[0] || ''}
+								<UserAvatar
+									src={userItem.photoURL || ''}
+									alt={userItem.displayName || ''}
+									char={userItem.displayName?.[0] || userItem.email?.[0] || ''}
 									size="small"
+									userId={userItem.uid}
 								/>
 							</Block>
 							<Block grid={{ xx: 6, xl: 8, md: 7 }} className={s.userName}>
 								<Typography component="p1" className={s.ellipsis}>
-									{user.displayName}
+									{userItem.displayName}
 								</Typography>
-								{user.role && (
+								{userItem.role && (
 									<Typography component="caption" className={s.ellipsis}>
-										{`[${user.role}]`}
+										{`[${userItem.role}]`}
 									</Typography>
 								)}
 							</Block>
 							<Block grid={{ xx: 2, md: 3 }} className={s.userStats}>
 								<Typography component="p1">
-									{user.visitsCount}
+									{userItem.visitsCount}
 								</Typography>
-								{user.lastVisitDate && (
+								{userItem.lastVisitDate && (
 									<Block className={s.time}>
 										<Typography component="caption">
-											{a.parseCurrentDateFromMs(user.lastVisitDate).toLocaleDateString()}
+											{parseCurrentDateFromMs(userItem.lastVisitDate)
+												.toLocaleDateString()}
 										</Typography>
 										<Typography component="caption">
-											{a.parseCurrentDateFromMs(user.lastVisitDate).toLocaleTimeString()}
+											{parseCurrentDateFromMs(userItem.lastVisitDate)
+												.toLocaleTimeString()}
 										</Typography>
 									</Block>
 								)}
