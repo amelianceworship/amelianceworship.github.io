@@ -9,6 +9,7 @@ import { HomePage } from '~pages/HomePage/HomePage';
 import { LogInPage } from '~pages/LogInPage/LogInPage';
 import { SignUpPage } from '~pages/SignUpPage/SignUpPage';
 import { SongsListPage } from '~pages/SongsListPage/SongsListPage';
+import { UserInfoPage } from '~pages/UserInfoPage/UserInfoPage';
 import { UserPage } from '~pages/UserPage/UserPage';
 import { UsersPage } from '~pages/UsersPage/UsersPage';
 
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
 		children: [
 			{ element: <LogInPage />, path: ROUTES.login },
 			{ element: <SignUpPage />, path: ROUTES.signup },
+			{
+				element: <PrivateRoute><UserInfoPage /></PrivateRoute>,
+				path: `${PRIVATE_ROUTES.userInfo}/:userId`,
+			},
 		],
 	},
 ]);
