@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { isObjectEmpty } from '~/ameliance-scripts';
 import { PRIVATE_ROUTES } from '~constants/ROUTES';
+import { SEXES } from '~constants/SEXES';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { updateUser } from '~store/user/actions/updateUser';
