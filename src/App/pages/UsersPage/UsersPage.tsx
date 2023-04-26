@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { parseCurrentDateFromMs } from 'asm-ts-scripts';
 
 import { join, sortArrayOfObj } from '~/ameliance-scripts';
-import { UserAvatar } from '~components/UserAvatar';
 import { PRIVATE_ROUTES } from '~constants/ROUTES';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { getAllUsers } from '~store/users/actions/getAllUsers';
 
 import { LoaderOverlay } from '~/ameliance-ui/components/_LAB/LoaderOverlay';
+import { Avatar } from '~/ameliance-ui/components/Avatar';
 import { Block } from '~/ameliance-ui/components/blocks';
 import { Grid } from '~/ameliance-ui/components/Grid';
 import { Typography } from '~/ameliance-ui/components/Typography';
@@ -62,12 +62,11 @@ export function UsersPage() {
 							onClick={() => handleUserOnClick(userItem.uid)}
 						>
 							<Block grid={{ xx: 1, md: 2 }}>
-								<UserAvatar
+								<Avatar
 									src={userItem.photoURL || ''}
 									alt={userItem.displayName || ''}
 									char={userItem.displayName?.[0] || userItem.email?.[0] || ''}
 									size="small"
-									userId={userItem.uid}
 								/>
 							</Block>
 							<Block grid={{ xx: 6, xl: 8, md: 7 }} className={s.userName}>
