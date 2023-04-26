@@ -31,11 +31,6 @@ interface FormFields {
 	sex: string;
 }
 
-const SEXES = {
-	male: 'Хлопчик',
-	female: 'Дівчинка',
-};
-
 export function UserPage() {
 	const [isSubmit, setIsSubmit] = useState(false);
 
@@ -160,8 +155,7 @@ export function UserPage() {
 			</Grid>
 			{isLoading && <LoaderOverlay />}
 			{(isSubmit && !isLoading) && <UserPageSuccessModal onClose={handlerSuccessModal} />}
-			{(error && !isLoading) ? <UserPageErrorModal onClose={handlerErrorModal} /> : null}
-
+			{(error && !isLoading) && <UserPageErrorModal onClose={handlerErrorModal} error={error} />}
 		</Block>
 	);
 }
