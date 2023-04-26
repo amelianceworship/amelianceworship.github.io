@@ -32,6 +32,7 @@ const rootReducers = combineReducers({
 const persistConfig = {
 	key: APP.name,
 	storage,
+	whitelist: ['appReducer', 'songsListReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
