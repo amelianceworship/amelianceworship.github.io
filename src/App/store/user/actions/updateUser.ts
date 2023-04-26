@@ -43,15 +43,15 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 
 			const dataToUserUpdate: Omit<User, 'lastVisitDate' | 'isOnline'> = {
 				uid,
-				displayName: displayName || userBeforeDatabase.user.displayName || '',
-				photoURL: downloadURL || userBeforeDatabase.user.photoURL || '',
-				email: email || userBeforeDatabase.user.email || '',
-				status: status || userBeforeDatabase.user.status || '',
-				sex: sex || userBeforeDatabase.user.sex || '',
-				role: role || userBeforeDatabase.user.role || '',
-				lastActiveChatId: lastActiveChatId || userBeforeDatabase.user.lastActiveChatId || '',
-				registrationDate: userBeforeDatabase.user.registrationDate || '',
-				visitsCount: visitsCount || userBeforeDatabase.user.visitsCount || 0,
+				displayName: displayName || userBeforeDatabase.user?.displayName || '',
+				photoURL: downloadURL || userBeforeDatabase.user?.photoURL || '',
+				email: email || userBeforeDatabase.user?.email || '',
+				userType: userType || userBeforeDatabase.user?.userType || '',
+				sex: sex || userBeforeDatabase.user?.sex || '',
+				role: role || userBeforeDatabase.user?.role || '',
+				lastActiveChatId: lastActiveChatId || userBeforeDatabase.user?.lastActiveChatId || '',
+				registrationDate: userBeforeDatabase.user?.registrationDate || '',
+				visitsCount: visitsCount || userBeforeDatabase.user?.visitsCount || 1,
 			};
 
 			// *----- update user info in database -----

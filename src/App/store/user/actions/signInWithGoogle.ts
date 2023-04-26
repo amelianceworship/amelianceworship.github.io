@@ -43,6 +43,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 						role: '',
 						sex: '',
 						lastActiveChatId: '0',
+						registrationDate: '',
 						visitsCount: 1,
 					});
 				}
