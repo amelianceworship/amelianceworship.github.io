@@ -12,7 +12,7 @@ import { SongsListPage } from '~pages/SongsListPage/SongsListPage';
 import { UserPage } from '~pages/UserPage/UserPage';
 import { UsersPage } from '~pages/UsersPage/UsersPage';
 
-function ProtectedRoute({ children }: { children: React.ReactElement }) {
+function PrivateRoute({ children }: { children: React.ReactElement }) {
 	const { isAuth } = useAuth();
 	if (!isAuth) return <Navigate to={ROUTES.login} />;
 	return children;
@@ -30,23 +30,30 @@ const router = createBrowserRouter([
 		element: <Layout />,
 		errorElement: <ErrorPage />,
 		children: [
-			{ element: <HomePage />, 			index: true },
-			{ element: <LogInPage />, 			path: ROUTES.login },
-			{ element: <SignUpPage />, 		path: ROUTES.signup },
-			{ element: <SongsListPage />, 	path: `${ROUTES.songslist}` },
-			{ element: <SongsListPage />, 	path: `${ROUTES.songslist}/:page` },
+			{ element: <HomePage />, index: true },
+			{ element: <SongsListPage />, path: `${ROUTES.songslist}` },
+			{ element: <SongsListPage />, path: `${ROUTES.songslist}/:page` },
 			{
-				element: <ProtectedRoute><UserPage /></ProtectedRoute>,
+				element: <PrivateRoute><UserPage /></PrivateRoute>,
 				path: PRIVATE_ROUTES.user,
 			},
 			{
-				element: <ProtectedRoute><UsersPage /></ProtectedRoute>,
+				element: <PrivateRoute><UsersPage /></PrivateRoute>,
 				path: PRIVATE_ROUTES.users,
 			},
 			{
 				element: <AdminRoute><AdminPage /></AdminRoute>,
 				path: ADMIN_ROUTES.admin,
 			},
+		],
+	},
+	{
+		path: '/',
+		element: <Layout navigation={false} userMenu={false} />,
+		errorElement: <ErrorPage />,
+		children: [
+			{ element: <LogInPage />, path: ROUTES.login },
+			{ element: <SignUpPage />, path: ROUTES.signup },
 		],
 	},
 ]);

@@ -6,16 +6,36 @@ import { Footer } from './Footer/Footer';
 import { Header } from './Header/Header';
 import { useAppInit } from './hooks/useAppInit';
 
-export function Layout() {
+interface Layout {
+	header?: boolean;
+	navigation?: boolean;
+	headerMenu?: boolean;
+	userMenu?: boolean;
+	footer?: boolean;
+}
+
+export function Layout({
+	header = true,
+	navigation = true,
+	headerMenu = true,
+	userMenu = true,
+	footer = true,
+}: Layout) {
 	const { isInit } = useAppInit();
 
 	if (!isInit) return <StartScreen />;
 
 	return (
 		<>
-			<Header />
+			{header && (
+				<Header
+					navigation={navigation}
+					headerMenu={headerMenu}
+					userMenu={userMenu}
+				/>
+			)}
 			<Outlet />
-			<Footer />
+			{footer && <Footer />}
 			{/* <Snow /> */}
 		</>
 	);
