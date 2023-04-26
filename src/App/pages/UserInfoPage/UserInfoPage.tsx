@@ -116,7 +116,7 @@ export function UserInfoPage() {
 
 							<Grid row className={s.row}>
 								<Block grid={{ xx: 6 }} className={join(s.headingColumn, s.column)}>
-									<Typography component="h5">Статус</Typography>
+									<Typography component="h5">Тип</Typography>
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
 									{userInfo.userType && <Typography component="p2">{USER_TYPES[userInfo.userType]}</Typography>}
