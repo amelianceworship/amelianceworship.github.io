@@ -10,14 +10,16 @@
 }
 
 .logo {
-	animation: logo-animation 1s ease-out alternate infinite;
+	animation: logo-animation 1s ease-in alternate infinite;
 }
 
 @keyframes logo-animation {
 	0% {
-		transform: scale(100%);
+		transform: scale(85%);
+		opacity: 90%;
 	}
 	100% {
-		transform: scale(110%);
+		transform: scale(100%);
+		opacity: 100%;
 	}
 }
