@@ -19,5 +19,5 @@
 	"include": ["src/**/*"],
 	"references": [{ "path": "./tsconfig.node.json" }],
 	"extends": "./tsconfig.paths.json",
-	"exclude": ["*/**/_backup*", "*/**/_legacy*"]
+	"exclude": ["*/**/_backup*", "*/**/_legacy*", "*/**/_temp*"]
 }
