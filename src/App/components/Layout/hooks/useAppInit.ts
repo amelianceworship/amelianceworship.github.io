@@ -47,12 +47,12 @@ export function useAppInit() {
 	}, [authUserId]);
 
 	useEffect(() => {
-		if (uid || uid === null) {
+		if (uid || authUserId === null) {
 			if (startLocation) navigate(startLocation);
 			setIsInit(true);
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [uid]);
+	}, [uid, authUserId]);
 
 	return { isInit };
 }
