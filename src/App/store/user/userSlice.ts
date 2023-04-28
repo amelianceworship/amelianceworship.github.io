@@ -16,6 +16,7 @@ interface UserState {
 	isLoading: boolean;
 	error: ErrorString;
 	user: User;
+	fetchedUserData: User | null;
 	authUserId: undefined | string | null;
 }
 
@@ -23,6 +24,7 @@ const initialState: UserState = {
 	isLoading: false,
 	error: '',
 	user: {} as User,
+	fetchedUserData: null,
 	authUserId: undefined,
 };
 
@@ -35,6 +37,10 @@ export const userSlice = createSlice({
 			state.user.displayName = action.payload.displayName;
 			state.user.photoURL = action.payload.photoURL;
 			state.user.email = action.payload.email;
+		},
+		setUserDataFromFetched(state) {
+			state.user = state.fetchedUserData || {} as User;
+			state.fetchedUserData = null;
 		},
 		removeUser(state) {
 			state.user = {} as User;
@@ -49,14 +55,14 @@ export const userSlice = createSlice({
 		builder
 
 			.addCase(createUserWithEmail.pending, (state) => {
-				state.user = {} as User;
+				state.fetchedUserData = {} as User;
 				state.error = '';
 				state.isLoading = true;
 			})
 			.addCase(
 				createUserWithEmail.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.user = { ...action.payload };
+					state.fetchedUserData = action.payload;
 					state.error = '';
 					state.isLoading = false;
 				},
@@ -67,14 +73,14 @@ export const userSlice = createSlice({
 			})
 
 			.addCase(signIn.pending, (state) => {
-				state.user = {} as User;
+				state.fetchedUserData = {} as User;
 				state.error = '';
 				state.isLoading = true;
 			})
 			.addCase(
 				signIn.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.user = { ...action.payload };
+					state.fetchedUserData = action.payload;
 					state.error = '';
 					state.isLoading = false;
 				},
@@ -85,14 +91,14 @@ export const userSlice = createSlice({
 			})
 
 			.addCase(signInWithGoogle.pending, (state) => {
-				state.user = {} as User;
+				state.fetchedUserData = {} as User;
 				state.error = '';
 				state.isLoading = true;
 			})
 			.addCase(
 				signInWithGoogle.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.user = { ...action.payload };
+					state.fetchedUserData = action.payload;
 					state.error = '';
 					state.isLoading = false;
 				},
@@ -109,7 +115,7 @@ export const userSlice = createSlice({
 			.addCase(
 				updateUser.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.user = { ...action.payload };
+					state.user = action.payload;
 					state.error = '';
 					state.isLoading = false;
 				},
@@ -125,7 +131,7 @@ export const userSlice = createSlice({
 				state.isLoading = true;
 			})
 			.addCase(initUserOnPageLoad.fulfilled, (state, action: PayloadAction<User>) => {
-				state.user = { ...action.payload };
+				state.user = action.payload;
 				state.error = '';
 				state.isLoading = false;
 			})
@@ -159,7 +165,7 @@ export const userSlice = createSlice({
 			.addCase(
 				getAuthUserById.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.user = { ...action.payload };
+					state.user = action.payload;
 					state.error = '';
 					state.isLoading = false;
 				},
