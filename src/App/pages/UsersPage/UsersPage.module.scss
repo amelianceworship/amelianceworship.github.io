@@ -32,10 +32,14 @@
 .user {
 	display: flex;
 	align-items: center;
-	padding: 4px 6px 4px 8px;
+	padding: 6px 6px 6px 8px;
 	border-radius: 1000px;
-	@include hover {
-		background-color: var(--color--b1-1);
+	transition: background-color 0.2s ease;
+	&:not(.current) {
+		@include hover {
+			background-color: var(--color--b1-1);
+			z-index: 1;
+		}
 	}
 }
 
