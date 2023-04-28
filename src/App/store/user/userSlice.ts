@@ -4,7 +4,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 import type { User } from '~types/api/google/firebase/commons/User';
 
-import { createUser } from './actions/createUser';
 import { createUserWithEmail } from './actions/createUserWithEmail';
 import { getAuthUserById } from './actions/getAuthUserById';
 import { getAuthUserId } from './actions/getAuthUserId';
@@ -17,6 +16,7 @@ interface UserState {
 	isLoading: boolean;
 	error: ErrorString;
 	user: User;
+	fetchedUserData: User | null;
 	authUserId: undefined | string | null;
 }
 
@@ -24,6 +24,7 @@ const initialState: UserState = {
 	isLoading: false,
 	error: '',
 	user: {} as User,
+	fetchedUserData: null,
 	authUserId: undefined,
 };
 
@@ -37,6 +38,10 @@ export const userSlice = createSlice({
 			state.user.photoURL = action.payload.photoURL;
 			state.user.email = action.payload.email;
 		},
+		setUserDataFromFetched(state) {
+			state.user = state.fetchedUserData || {} as User;
+			state.fetchedUserData = null;
+		},
 		removeUser(state) {
 			state.user = {} as User;
 			state.error = '';
@@ -49,33 +54,15 @@ export const userSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 
-			.addCase(createUser.pending, (state) => {
-				state.user = {} as User;
-				state.error = '';
-				state.isLoading = true;
-			})
-			.addCase(
-				createUser.fulfilled,
-				(state, action: PayloadAction<User>) => {
-					state.user = { ...action.payload };
-					state.error = '';
-					state.isLoading = false;
-				},
-			)
-			.addCase(createUser.rejected, (state, action: PayloadAction<unknown>) => {
-				if (typeof action.payload === 'string') state.error = action.payload;
-				state.isLoading = false;
-			})
-
 			.addCase(createUserWithEmail.pending, (state) => {
-				state.user = {} as User;
+				state.fetchedUserData = {} as User;
 				state.error = '';
 				state.isLoading = true;
 			})
 			.addCase(
 				createUserWithEmail.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.user = { ...action.payload };
+					state.fetchedUserData = action.payload;
 					state.error = '';
 					state.isLoading = false;
 				},
@@ -86,14 +73,14 @@ export const userSlice = createSlice({
 			})
 
 			.addCase(signIn.pending, (state) => {
-				state.user = {} as User;
+				state.fetchedUserData = {} as User;
 				state.error = '';
 				state.isLoading = true;
 			})
 			.addCase(
 				signIn.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.user = { ...action.payload };
+					state.fetchedUserData = action.payload;
 					state.error = '';
 					state.isLoading = false;
 				},
@@ -104,14 +91,14 @@ export const userSlice = createSlice({
 			})
 
 			.addCase(signInWithGoogle.pending, (state) => {
-				state.user = {} as User;
+				state.fetchedUserData = {} as User;
 				state.error = '';
 				state.isLoading = true;
 			})
 			.addCase(
 				signInWithGoogle.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.user = { ...action.payload };
+					state.fetchedUserData = action.payload;
 					state.error = '';
 					state.isLoading = false;
 				},
@@ -128,7 +115,7 @@ export const userSlice = createSlice({
 			.addCase(
 				updateUser.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.user = { ...action.payload };
+					state.user = action.payload;
 					state.error = '';
 					state.isLoading = false;
 				},
@@ -144,7 +131,7 @@ export const userSlice = createSlice({
 				state.isLoading = true;
 			})
 			.addCase(initUserOnPageLoad.fulfilled, (state, action: PayloadAction<User>) => {
-				state.user = { ...action.payload };
+				state.user = action.payload;
 				state.error = '';
 				state.isLoading = false;
 			})
@@ -178,7 +165,7 @@ export const userSlice = createSlice({
 			.addCase(
 				getAuthUserById.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.user = { ...action.payload };
+					state.user = action.payload;
 					state.error = '';
 					state.isLoading = false;
 				},

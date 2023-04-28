@@ -38,8 +38,7 @@ export function LogInPage() {
 	const navigate = useNavigate();
 
 	const dispatch = useTypedDispatch();
-	const { error, isLoading, user } = useTypedSelector((state) => state.userReducer);
-	const { uid } = user;
+	const { error, isLoading, fetchedUserData } = useTypedSelector((state) => state.userReducer);
 	const { actions } = userSlice;
 
 	const {
@@ -78,6 +77,7 @@ export function LogInPage() {
 	};
 
 	const handlerSuccessModal = () => {
+		dispatch(actions.setUserDataFromFetched());
 		if (!isFillProfile) {
 			navigate(PRIVATE_ROUTES.user);
 		} else {
@@ -126,7 +126,8 @@ export function LogInPage() {
 				</Form>
 				{isLoading && <LoaderOverlay />}
 			</Grid>
-			{(uid && !isLoading) ? <LogInSuccessModal onClose={handlerSuccessModal} /> : null}
+			{(fetchedUserData && !isLoading)
+				? <LogInSuccessModal onClose={handlerSuccessModal} /> : null}
 			{(error && !isLoading) && <LogInErrorModal onClose={handlerErrorModal} error={error} />}
 		</Main>
 	);

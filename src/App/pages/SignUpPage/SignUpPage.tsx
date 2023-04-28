@@ -39,8 +39,9 @@ export function SignUpPage() {
 	const navigate = useNavigate();
 
 	const dispatch = useTypedDispatch();
-	const { error, isLoading, user } = useTypedSelector((state) => state.userReducer);
-	const { uid } = user;
+	const {
+		error, isLoading, fetchedUserData,
+	} = useTypedSelector((state) => state.userReducer);
 	const { actions } = userSlice;
 
 	const {
@@ -99,6 +100,7 @@ export function SignUpPage() {
 	};
 
 	const handlerSuccessModal = () => {
+		dispatch(actions.setUserDataFromFetched());
 		reset();
 		if (!isFillProfile) {
 			navigate(PRIVATE_ROUTES.user);
@@ -155,7 +157,7 @@ export function SignUpPage() {
 				</Form>
 				{isLoading && <LoaderOverlay />}
 			</Grid>
-			{(uid && !isLoading) && <SignUpSuccessModal onClose={handlerSuccessModal} />}
+			{(fetchedUserData && !isLoading) && <SignUpSuccessModal onClose={handlerSuccessModal} />}
 			{(error && !isLoading) && <SignUpErrorModal onClose={handlerErrorModal} error={error} />}
 		</Main>
 	);
