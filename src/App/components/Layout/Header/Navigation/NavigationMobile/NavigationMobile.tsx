@@ -40,13 +40,15 @@ export function NavigationMobile() {
 				>
 					{navigationList.map((item) => (!item.private || isAuth)
 						&& (
-							<MenuItem key={item.label} onClick={closeMenu}>
-								<NavLink className={linkClass} end={item.end} to={item.path}>
+							// TODO: refactor with navigation
+							<NavLink key={item.label} className={linkClass} end={item.end} to={item.path}>
+								{' '}
+								<MenuItem onClick={closeMenu}>
 									<LinkLabel className={s.link} underline={false}>
 										{item.label}
 									</LinkLabel>
-								</NavLink>
-							</MenuItem>
+								</MenuItem>
+							</NavLink>
 						))}
 				</Menu>
 				<Button type="text" onClick={handelIconMenuClick}>

@@ -4,7 +4,9 @@ import asm from 'asm-ts-scripts';
 
 import { mp3List } from '~app/data/mp3List';
 
-const audioFilesList: string[] = mp3List.trim().split('\n').map((song) => song.trim());
+const MP3LIST_NAME = import.meta.env.VITE_MP3LIST_NAME as keyof typeof mp3List;
+
+const audioFilesList: string[] = mp3List[MP3LIST_NAME].trim().split('\n').map((song) => song.trim());
 
 interface MusicPlayerSlice {
 	normalOrderAudioFilesList: string[];

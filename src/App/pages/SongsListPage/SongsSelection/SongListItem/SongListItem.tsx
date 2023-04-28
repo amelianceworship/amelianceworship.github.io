@@ -1,7 +1,7 @@
 import { join } from '~/ameliance-scripts';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
-import type { SongItem } from '~store/songsList/actions/fetchSongsList';
+import type { SongItem } from '~store/songsList/actions/fetchSongsListData';
 import { songsListSlice } from '~store/songsList/songsListSlice';
 
 import { Block } from '~/ameliance-ui/components/blocks/Block';

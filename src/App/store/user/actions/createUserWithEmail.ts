@@ -33,10 +33,11 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 					displayName: '',
 					photoURL: '',
 					email: email || '',
-					status: 'user',
+					userType: 'user',
 					role: '',
 					sex: '',
 					lastActiveChatId: '0',
+					registrationDate: '',
 					visitsCount: 1,
 				});
 			}
@@ -53,11 +54,12 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				displayName: '',
 				photoURL: '',
 				email,
-				status: '',
+				userType: '',
 				sex: '',
 				role: '',
 				lastActiveChatId: '',
 				lastVisitDate: '',
+				registrationDate: '',
 				isOnline: false,
 				visitsCount: 1,
 			};

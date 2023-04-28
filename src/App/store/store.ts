@@ -15,23 +15,24 @@ import { APP } from '~constants/APP';
 
 import { appSlice } from './app/appSlice';
 import { musicPlayerSlice } from './musicPlayer/musicPlayerSlice';
-// import { chatSlice } from './chat/chatSlice';
 import { songsListSlice } from './songsList/songsListSlice';
 import { userSlice } from './user/userSlice';
+import { userInfoSlice } from './userInfo/userInfoSlice';
 import { usersSlice } from './users/usersSlice';
 
 const rootReducers = combineReducers({
 	appReducer: appSlice.reducer,
-	// chatReducer: chatSlice.reducer,
 	songsListReducer: songsListSlice.reducer,
 	userReducer: userSlice.reducer,
 	usersReducer: usersSlice.reducer,
+	userInfoReducer: userInfoSlice.reducer,
 	musicPlayerReducer: musicPlayerSlice.reducer,
 });
 
 const persistConfig = {
 	key: APP.name,
 	storage,
+	whitelist: ['appReducer', 'songsListReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);

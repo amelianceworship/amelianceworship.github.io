@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { isObjectEmpty } from '~/ameliance-scripts';
 import { PRIVATE_ROUTES } from '~constants/ROUTES';
+import { SEXES } from '~constants/SEXES';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { updateUser } from '~store/user/actions/updateUser';
@@ -30,26 +31,20 @@ interface FormFields {
 	sex: string;
 }
 
-const SEXES = {
-	male: 'Хлопчик',
-	female: 'Дівчинка',
-};
-
 export function UserPage() {
 	const [isSubmit, setIsSubmit] = useState(false);
 
 	const dispatch = useTypedDispatch();
 	const { actions } = userSlice;
 
+	const { user, isLoading, error } = useTypedSelector((state) => state.userReducer);
 	const {
 		uid,
 		displayName,
 		photoURL,
 		sex: userSex,
 		role: userRole,
-		isLoading,
-		error,
-	} = useTypedSelector((state) => state.userReducer);
+	} = user;
 
 	const userSexKey = userSex !== '' ? userSex : 'male';
 
@@ -160,8 +155,7 @@ export function UserPage() {
 			</Grid>
 			{isLoading && <LoaderOverlay />}
 			{(isSubmit && !isLoading) && <UserPageSuccessModal onClose={handlerSuccessModal} />}
-			{(error && !isLoading) ? <UserPageErrorModal onClose={handlerErrorModal} /> : null}
-
+			{(error && !isLoading) && <UserPageErrorModal onClose={handlerErrorModal} error={error} />}
 		</Block>
 	);
 }

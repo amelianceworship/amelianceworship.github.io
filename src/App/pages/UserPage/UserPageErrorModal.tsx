@@ -3,9 +3,10 @@ import { Typography } from '~/ameliance-ui/components/Typography';
 
 interface UserPageErrorModal {
 	onClose: () => void;
+	error: string;
 }
 
-export function UserPageErrorModal({ onClose }: UserPageErrorModal) {
+export function UserPageErrorModal({ onClose, error }: UserPageErrorModal) {
 	return (
 		<Modal
 			onClose={onClose}
@@ -19,6 +20,9 @@ export function UserPageErrorModal({ onClose }: UserPageErrorModal) {
 				</Typography>
 				<Typography component="p1" className="center">
 					Перевірте, будь ласка, дані та спробуйте ще раз!
+				</Typography>
+				<Typography component="caption" className="center">
+					{error}
 				</Typography>
 			</>
 		</Modal>

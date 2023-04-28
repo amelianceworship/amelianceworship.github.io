@@ -23,8 +23,8 @@ export async function getUserById(
 		const docSnap = await getDoc(userRef);
 
 		if (docSnap.exists()) {
-			const { user } = docSnap.data();
-			return { user, status: 'success' };
+			const data = docSnap.data();
+			return { user: { uid: data.uid, ...data.user }, status: 'success' };
 		}
 
 		throw new Error('Can\'t find user!');

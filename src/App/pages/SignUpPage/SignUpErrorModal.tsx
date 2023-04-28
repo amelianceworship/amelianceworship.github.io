@@ -3,9 +3,10 @@ import { Typography } from '~/ameliance-ui/components/Typography';
 
 interface SignUpErrorModal {
 	onClose: () => void;
+	error: string;
 }
 
-export function SignUpErrorModal({ onClose }: SignUpErrorModal) {
+export function SignUpErrorModal({ onClose, error }: SignUpErrorModal) {
 	return (
 		<Modal
 			onClose={onClose}
@@ -19,6 +20,9 @@ export function SignUpErrorModal({ onClose }: SignUpErrorModal) {
 				</Typography>
 				<Typography component="p1" className="center">
 					Перевірте, будь ласка, дані та спробуйте ще раз!
+				</Typography>
+				<Typography component="caption" className="center">
+					{error}
 				</Typography>
 			</>
 		</Modal>

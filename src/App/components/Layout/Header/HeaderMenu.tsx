@@ -5,7 +5,7 @@ import { useFullscreen } from '~hooks/useFullscreen';
 import { appSlice } from '~store/app/appSlice';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
-import { fetchSongsList } from '~store/songsList/actions/fetchSongsList';
+import { fetchSongsListData } from '~store/songsList/actions/fetchSongsListData';
 
 import { Button } from '~/ameliance-ui/components/Button';
 import { Icon } from '~/ameliance-ui/components/Icon';
@@ -47,7 +47,7 @@ export function HeaderMenu() {
 
 	const handleReloadSongsLIstMenuItemOnClick = () => {
 		setIsMenuOpen(false);
-		dispatch(fetchSongsList());
+		dispatch(fetchSongsListData());
 	};
 
 	const handleThemeMenuItemOnClick = () => {

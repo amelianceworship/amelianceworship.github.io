@@ -39,10 +39,11 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 						displayName: userAuthResponse.user.displayName || 'User',
 						photoURL: userAuthResponse.user.photoURL || '',
 						email: userAuthResponse.user.email || '',
-						status: 'user',
+						userType: 'user',
 						role: '',
 						sex: '',
 						lastActiveChatId: '0',
+						registrationDate: '',
 						visitsCount: 1,
 					});
 				}
@@ -63,11 +64,12 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				displayName: userResponse.user.displayName,
 				photoURL: userResponse.user.photoURL,
 				email: userResponse.user.email,
-				status: userResponse.user.status,
+				userType: userResponse.user.userType,
 				sex: userResponse.user.sex,
 				role: userResponse.user.role,
 				lastActiveChatId: userResponse.user.lastActiveChatId,
 				lastVisitDate: userResponse.user.lastVisitDate,
+				registrationDate: userResponse.user.registrationDate,
 				isOnline: userResponse.user.isOnline,
 				visitsCount: userResponse.user.visitsCount,
 			};

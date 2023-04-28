@@ -3,11 +3,12 @@ export interface User {
 	displayName: string;
 	photoURL: string;
 	email: string;
-	status: 'user' | 'admin' | 'owner' | '';
+	userType: 'user' | 'admin' | 'owner' | '';
 	sex: 'male' | 'female' | '';
 	role: string;
 	lastActiveChatId: string;
 	lastVisitDate: string;
+	registrationDate: string;
 	isOnline: boolean;
 	visitsCount: number;
 }

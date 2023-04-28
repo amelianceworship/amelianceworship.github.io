@@ -1,4 +1,4 @@
-import type { SongsGroup } from '~store/songsList/actions/fetchSongsList';
+import type { SongsGroup } from '~store/songsList/actions/fetchSongsListData';
 
 import { Block } from '~/ameliance-ui/components/blocks';
 import { List } from '~/ameliance-ui/components/List';

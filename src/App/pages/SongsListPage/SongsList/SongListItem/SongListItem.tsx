@@ -2,7 +2,7 @@ import { join } from '~/ameliance-scripts';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';
-import type { SongItem } from '~store/songsList/actions/fetchSongsList';
+import type { SongItem } from '~store/songsList/actions/fetchSongsListData';
 
 import { Button } from '~/ameliance-ui/components/Button';
 import { PauseIcon } from '~/ameliance-ui/components/icons/PauseIcon';

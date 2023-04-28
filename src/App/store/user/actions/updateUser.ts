@@ -6,7 +6,7 @@ import { returnError } from '~helpers/returnError';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 import type { User } from '~types/api/google/firebase/commons/User';
 
-interface UpdateUser extends Partial<Omit<User, 'photoURL' | 'uid' | 'lastVisitDate'>> {
+interface UpdateUser extends Partial<Omit<User, 'photoURL' | 'uid' | 'lastVisitDate' | 'registrationDate'>> {
 	uid: string;
 	photo?: File;
 }
@@ -24,7 +24,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 		displayName,
 		photo,
 		email,
-		status,
+		userType,
 		sex,
 		role,
 		lastActiveChatId,
@@ -43,14 +43,15 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 
 			const dataToUserUpdate: Omit<User, 'lastVisitDate' | 'isOnline'> = {
 				uid,
-				displayName: displayName || userBeforeDatabase.user.displayName || '',
-				photoURL: downloadURL || userBeforeDatabase.user.photoURL || '',
-				email: email || userBeforeDatabase.user.email || '',
-				status: status || userBeforeDatabase.user.status || '',
-				sex: sex || userBeforeDatabase.user.sex || '',
-				role: role || userBeforeDatabase.user.role || '',
-				lastActiveChatId: lastActiveChatId || userBeforeDatabase.user.lastActiveChatId || '',
-				visitsCount: visitsCount || userBeforeDatabase.user.visitsCount || 0,
+				displayName: displayName || userBeforeDatabase.user?.displayName || '',
+				photoURL: downloadURL || userBeforeDatabase.user?.photoURL || '',
+				email: email || userBeforeDatabase.user?.email || '',
+				userType: userType || userBeforeDatabase.user?.userType || '',
+				sex: sex || userBeforeDatabase.user?.sex || '',
+				role: role || userBeforeDatabase.user?.role || '',
+				lastActiveChatId: lastActiveChatId || userBeforeDatabase.user?.lastActiveChatId || '',
+				registrationDate: userBeforeDatabase.user?.registrationDate || '',
+				visitsCount: visitsCount || userBeforeDatabase.user?.visitsCount || 1,
 			};
 
 			// *----- update user info in database -----
@@ -80,11 +81,12 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				displayName: userFinalDatabase.user.displayName,
 				photoURL: userFinalDatabase.user.photoURL,
 				email: userFinalDatabase.user.email,
-				status: userFinalDatabase.user.status,
+				userType: userFinalDatabase.user.userType,
 				sex: userFinalDatabase.user.sex,
 				role: userFinalDatabase.user.role,
 				lastActiveChatId: userFinalDatabase.user.lastActiveChatId,
 				lastVisitDate: userFinalDatabase.user.lastVisitDate,
+				registrationDate: userFinalDatabase.user.registrationDate,
 				isOnline: userFinalDatabase.user.isOnline,
 				visitsCount: userFinalDatabase.user.visitsCount,
 			};

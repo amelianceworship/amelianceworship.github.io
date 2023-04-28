@@ -1,3 +1,5 @@
+@use "~/ameliance-ui/styles/globals/" as *;
+
 .NavigationMobile {
 	display: flex;
 	align-items: center;
@@ -6,5 +8,4 @@
 
 .active .link {
 	font-weight: bold;
-	cursor: default;
 }

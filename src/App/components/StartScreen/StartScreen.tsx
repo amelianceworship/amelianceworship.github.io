@@ -7,7 +7,7 @@ import s from './StartScreen.module.scss';
 export function StartScreen() {
 	return (
 		<Block className={s.StartScreen}>
-			<AWLogoShort />
+			<AWLogoShort className={s.logo} />
 		</Block>
 	);
 }
