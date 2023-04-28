@@ -22,6 +22,5 @@ export const navigationList: NavigationList = [
 		label: 'Користувачі',
 		path: PRIVATE_ROUTES.users,
 		end: false,
-		private: true,
 	},
 ];
