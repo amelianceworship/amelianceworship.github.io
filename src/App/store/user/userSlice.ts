@@ -73,7 +73,7 @@ export const userSlice = createSlice({
 			})
 
 			.addCase(signIn.pending, (state) => {
-				state.fetchedUserData = {} as User;
+				state.fetchedUserData = null;
 				state.error = '';
 				state.isLoading = true;
 			})
@@ -91,7 +91,7 @@ export const userSlice = createSlice({
 			})
 
 			.addCase(signInWithGoogle.pending, (state) => {
-				state.fetchedUserData = {} as User;
+				state.fetchedUserData = null;
 				state.error = '';
 				state.isLoading = true;
 			})
