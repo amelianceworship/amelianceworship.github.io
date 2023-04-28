@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 
-import type { SongsListData } from './actions/fetchSongsList';
-import { fetchSongsList } from './actions/fetchSongsList';
+import type { SongsListData, SongsListResponseData } from './actions/fetchSongsListData';
+import { fetchSongsListData } from './actions/fetchSongsListData';
 
 interface SongsListSlice {
 	activeTableNumber: number;
@@ -15,6 +15,7 @@ interface SongsListSlice {
 	isLoading: boolean;
 	error: ErrorString;
 	songsList: SongsListData;
+	listTitles: string[];
 	lastFetchingDate: string;
 }
 
@@ -26,7 +27,8 @@ const initSongsListSlice: SongsListSlice = {
 	nameListLimitCount: 10,
 	isLoading: false,
 	error: '',
-	songsList: [] as SongsListData,
+	songsList: [],
+	listTitles: [],
 	lastFetchingDate: '',
 };
 
@@ -87,22 +89,23 @@ export const songsListSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(fetchSongsList.pending, (state) => {
+			.addCase(fetchSongsListData.pending, (state) => {
 				state.isLoading = true;
 				state.error = '';
 			})
 			.addCase(
-				fetchSongsList.fulfilled,
-				(state, action: PayloadAction<SongsListData>) => {
-					state.songsList = action.payload;
+				fetchSongsListData.fulfilled,
+				(state, action: PayloadAction<SongsListResponseData>) => {
+					state.songsList = action.payload.songsList;
 					state.error = '';
 					state.isLoading = false;
-					state.tableGroupLabels = action.payload
+					state.listTitles = action.payload.listTitles;
+					state.tableGroupLabels = action.payload.songsList
 						.map((table) => table[1]
 							.map((group) => group[0]));
 				},
 			)
-			.addCase(fetchSongsList.rejected, (state, action: PayloadAction<unknown>) => {
+			.addCase(fetchSongsListData.rejected, (state, action: PayloadAction<unknown>) => {
 				if (typeof action.payload === 'string') state.error = action.payload;
 				state.isLoading = false;
 			});

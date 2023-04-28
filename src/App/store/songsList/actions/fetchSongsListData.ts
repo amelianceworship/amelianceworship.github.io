@@ -27,14 +27,19 @@ export type SongsGroup = [string, SongItem[]];
 export type TableOfGroups = [string, Array<SongsGroup>];
 export type SongsListData = Array<TableOfGroups>;
 
-export type CreateAsyncThunkReturned = SongsListData;
+export interface SongsListResponseData {
+	songsList: SongsListData;
+	listTitles: string[];
+}
+
+export type CreateAsyncThunkReturned = SongsListResponseData;
 type CreateAsyncThunkArguments = void;
 interface CreateAsyncThunkConfig { rejectValue: ErrorString }
 
-export const fetchSongsList = createAsyncThunk<
+export const fetchSongsListData = createAsyncThunk<
 CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 >(
-	'songsList/fetchSongsList',
+	'songsList/fetchSongsListData',
 	async (_, thunkAPI) => {
 		try {
 			const response = await api.google.appsscript.getAllTitledColumnsDataSingle({
@@ -44,14 +49,17 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 
 			const responseTables = Object.entries(response.data);
 			const tableNames = [];
-			const data = responseTables.map((table) => {
+			const songsList = responseTables.map((table) => {
 				const tableName = table[0];
 				tableNames.push(tableName);
 				const tableData = prepareData(table[1].values);
 				return [tableName, tableData];
 			});
 
-			return data as SongsListData;
+			return {
+				songsList,
+				listTitles: response.info.titles,
+			} as SongsListResponseData;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(returnError(error));
 		}

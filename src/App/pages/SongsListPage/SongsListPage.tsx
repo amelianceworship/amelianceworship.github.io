@@ -5,8 +5,8 @@ import { getToday, isObjectEmpty } from '~/ameliance-scripts';
 import { MusicPlayer } from '~components/MusicPlayer/MusicPlayer';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
-import type { SongsGroup } from '~store/songsList/actions/fetchSongsList';
-import { fetchSongsList } from '~store/songsList/actions/fetchSongsList';
+import type { SongsGroup } from '~store/songsList/actions/fetchSongsListData';
+import { fetchSongsListData } from '~store/songsList/actions/fetchSongsListData';
 import { songsListSlice } from '~store/songsList/songsListSlice';
 
 import { LoaderOverlay } from '~/ameliance-ui/components/_LAB/LoaderOverlay';
@@ -15,7 +15,6 @@ import { Grid } from '~/ameliance-ui/components/Grid';
 import { Dropdown } from '~/ameliance-ui/components/Inputs/Dropdown';
 import { SearchInput } from '~/ameliance-ui/components/Inputs/SearchInput';
 
-import { TABLE_NAMES } from './constants/TABLE_NAMES';
 import { ListNavigation } from './ListNavigation/ListNavigation';
 import { Navbar } from './Navbar/Navbar';
 import { ScrollUpButton } from './ScrollUpButton';
@@ -29,8 +28,7 @@ export function SongsListPage() {
 	const [songsListTable, setSongsListTable] = useState<SongsGroup[]>();
 
 	const {
-		error, isLoading, songsList, tableGroupLabels, lastFetchingDate,
-
+		error, isLoading, songsList, tableGroupLabels, lastFetchingDate, listTitles,
 	} = useTypedSelector((state) => state.songsListReducer);
 
 	const { isPlayerShow } = useTypedSelector((state) => state.musicPlayerReducer);
@@ -43,7 +41,7 @@ export function SongsListPage() {
 	useEffect(() => {
 		const today = getToday();
 		if (isObjectEmpty(songsList) || lastFetchingDate !== today) {
-			dispatch(fetchSongsList());
+			dispatch(fetchSongsListData());
 			dispatch(actions.setLastFetchingDate(today));
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,7 +65,7 @@ export function SongsListPage() {
 	}, [activeTableNumber, songsList, searchValue]);
 
 	const handleTableNameChange = (select: string) => {
-		const tableNumber = TABLE_NAMES.indexOf(select);
+		const tableNumber = listTitles.indexOf(select);
 		setActiveTableNumber(tableNumber);
 	};
 
@@ -83,9 +81,9 @@ export function SongsListPage() {
 				<Block className={s.tools}>
 					{isLoading && <LoaderOverlay />}
 					<Dropdown
-						selected={TABLE_NAMES[activeTableNumber]}
+						selected={listTitles[activeTableNumber]}
 						onDropdownChange={handleTableNameChange}
-						options={TABLE_NAMES}
+						options={listTitles}
 					/>
 					<SearchInput
 						placeholder="Пошук..."
