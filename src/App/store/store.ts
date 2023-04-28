@@ -1,5 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import type { MigrationManifest, PersistedState } from 'redux-persist';
 import {
+	createMigrate,
 	FLUSH,
 	PAUSE,
 	PERSIST,
@@ -20,7 +22,7 @@ import { userSlice } from './user/userSlice';
 import { userInfoSlice } from './userInfo/userInfoSlice';
 import { usersSlice } from './users/usersSlice';
 
-const rootReducers = combineReducers({
+const rootReducer = combineReducers({
 	appReducer: appSlice.reducer,
 	songsListReducer: songsListSlice.reducer,
 	userReducer: userSlice.reducer,
@@ -29,13 +31,32 @@ const rootReducers = combineReducers({
 	musicPlayerReducer: musicPlayerSlice.reducer,
 });
 
+export type RootState = ReturnType<typeof rootReducer>;
+type PersistedRootState = Pick<RootState, 'appReducer' | 'songsListReducer'>;
+
+const migration: MigrationManifest = {
+	0: (state: PersistedState): PersistedState => state,
+	1: (state: PersistedState): PersistedState => {
+		const newState = { ...state } as PersistedRootState;
+		return {
+			...newState,
+			appReducer: {
+				...newState.appReducer,
+				tea: undefined,
+			},
+		} as unknown as PersistedState;
+	},
+};
+
 const persistConfig = {
 	key: APP.name,
 	storage,
 	whitelist: ['appReducer', 'songsListReducer'],
+	version: 0,
+	migrate: createMigrate(migration, { debug: false }),
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducers);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
 	reducer: persistedReducer,
