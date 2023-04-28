@@ -16,10 +16,10 @@ export function SignUpErrorModal({ onClose, error }: SignUpErrorModal) {
 		>
 			<>
 				<Typography component="p1" className="center">
-					Невірно заповнені поля, або такий користувач вже існує.
+					Виникла помилка при реєстрації.
 				</Typography>
 				<Typography component="p1" className="center">
-					Перевірте, будь ласка, дані та спробуйте ще раз!
+					Можливо такий користувач вже існує!
 				</Typography>
 				<Typography component="caption" className="center">
 					{error}
