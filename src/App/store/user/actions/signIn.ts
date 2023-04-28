@@ -31,7 +31,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				role: userBeforeDatabase.user.role || '',
 				lastActiveChatId: userBeforeDatabase.user.lastActiveChatId || '',
 				registrationDate: userBeforeDatabase.user.registrationDate || '',
-				visitsCount: userBeforeDatabase.user.visitsCount || 0,
+				visitsCount: (userBeforeDatabase.user.visitsCount || 0) + 1,
 			};
 
 			// *----- update user info in database -----

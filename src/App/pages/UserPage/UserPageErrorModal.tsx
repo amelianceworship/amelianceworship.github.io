@@ -16,10 +16,10 @@ export function UserPageErrorModal({ onClose, error }: UserPageErrorModal) {
 		>
 			<>
 				<Typography component="p1" className="center">
-					Невірно заповнені поля.
+					Помилка при оновлені даних.
 				</Typography>
 				<Typography component="p1" className="center">
-					Перевірте, будь ласка, дані та спробуйте ще раз!
+					Спробуйте, будь ласка, пізніше!
 				</Typography>
 				<Typography component="caption" className="center">
 					{error}

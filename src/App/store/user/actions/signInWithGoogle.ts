@@ -54,24 +54,44 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 				// *----- get current auth user data -----
 				userResponse = await api.google.firebase.database.users
 					.getUserById({ userId: userAuthResponse.user.uid });
+			} else {
+				const dataToUserUpdate: Omit<User, 'lastVisitDate' | 'isOnline'> = { // TODO: check for non changes
+					uid: userResponse.user.uid,
+					displayName: userResponse.user.displayName || '',
+					photoURL: userResponse.user.photoURL || '',
+					email: userResponse.user.email || '',
+					userType: userResponse.user.userType || '',
+					sex: userResponse.user.sex || '',
+					role: userResponse.user.role || '',
+					lastActiveChatId: userResponse.user.lastActiveChatId || '',
+					registrationDate: userResponse.user.registrationDate || '',
+					visitsCount: (userResponse.user.visitsCount || 0) + 1,
+				};
+
+				// *----- update user info in database -----
+				await api.google.firebase.database.users.updateUser(dataToUserUpdate);
 			}
+
+			// *----- get current auth user data -----
+			const userFinalDatabase = await api.google.firebase.database.users
+				.getUserById({ userId: userAuthResponse.user.uid });
 
 			// *----- get current auth user data -----
 			const currentAuthUser = api.google.firebase.auth.getCurrentAuthUser();
 
 			return {
 				uid: currentAuthUser.user.uid,
-				displayName: userResponse.user.displayName,
-				photoURL: userResponse.user.photoURL,
-				email: userResponse.user.email,
-				userType: userResponse.user.userType,
-				sex: userResponse.user.sex,
-				role: userResponse.user.role,
-				lastActiveChatId: userResponse.user.lastActiveChatId,
-				lastVisitDate: userResponse.user.lastVisitDate,
-				registrationDate: userResponse.user.registrationDate,
-				isOnline: userResponse.user.isOnline,
-				visitsCount: userResponse.user.visitsCount,
+				displayName: userFinalDatabase.user.displayName,
+				photoURL: userFinalDatabase.user.photoURL,
+				email: userFinalDatabase.user.email,
+				userType: userFinalDatabase.user.userType,
+				sex: userFinalDatabase.user.sex,
+				role: userFinalDatabase.user.role,
+				lastActiveChatId: userFinalDatabase.user.lastActiveChatId,
+				lastVisitDate: userFinalDatabase.user.lastVisitDate,
+				registrationDate: userFinalDatabase.user.registrationDate,
+				isOnline: userFinalDatabase.user.isOnline,
+				visitsCount: userFinalDatabase.user.visitsCount,
 			};
 		} catch (error) {
 			return thunkAPI.rejectWithValue(returnError(error));

@@ -16,10 +16,7 @@ export function LogInErrorModal({ onClose, error }: LogInErrorModal) {
 		>
 			<>
 				<Typography component="p1" className="center">
-					Невірно вказана електронна адреса чи пароль.
-				</Typography>
-				<Typography component="p1" className="center">
-					Перевірте, будь ласка, дані та спробуйте ще раз!
+					Помилка при вході!
 				</Typography>
 				<Typography component="caption" className="center">
 					{error}
