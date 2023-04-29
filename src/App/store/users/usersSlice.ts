@@ -10,12 +10,14 @@ interface UsersState {
 	isLoading: boolean;
 	error: ErrorString;
 	users: UserResponse[];
+	usersRealtime: UserResponse[];
 }
 
 const initialState: UsersState = {
 	isLoading: false,
 	error: '',
 	users: [],
+	usersRealtime: [],
 };
 
 export const usersSlice = createSlice({
@@ -27,6 +29,9 @@ export const usersSlice = createSlice({
 		},
 		resetError(state) {
 			state.error = '';
+		},
+		setUsersRealtime(state, action: PayloadAction<UsersState['usersRealtime']>) {
+			state.usersRealtime = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
