@@ -1,6 +1,5 @@
 import type { User } from './User';
 
-export interface UserResponse {
+export interface UserResponse extends Partial<User> {
 	uid: string;
-	users: Omit<User, 'uid'>[];
 }

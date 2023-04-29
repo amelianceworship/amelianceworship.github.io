@@ -16,10 +16,7 @@ CreateAsyncThunkReturned, CreateAsyncThunkArguments, CreateAsyncThunkConfig
 	async (_, thunkAPI) => {
 		try {
 			const response = await api.google.firebase.database.users.getAllUsers();
-			const users = Object.values(response.users).map((user) => ({
-				uid: user.uid,
-				...user.user,
-			}));
+			const users = Object.values(response.users);
 			return users;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(returnError(error));
