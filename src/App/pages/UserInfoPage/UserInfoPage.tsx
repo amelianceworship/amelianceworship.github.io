@@ -1,12 +1,18 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { join, parseCurrentDateFromMs } from '~/ameliance-scripts';
+import type { Unsubscribe } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
+
+import {
+	isObjectEmpty, join, parseCurrentDateFromMs,
+} from '~/ameliance-scripts';
+import { db } from '~api/google/firebase/firebase';
 import { SEXES } from '~constants/SEXES';
 import { USER_TYPES } from '~constants/USER_TYPES';
+import { returnError } from '~helpers/returnError';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
-import { getUserInfo } from '~store/userInfo/actions/getUserInfo';
 import { userInfoSlice } from '~store/userInfo/userInfoSlice';
 
 import { LoaderOverlay } from '~/ameliance-ui/components/_LAB/LoaderOverlay';
@@ -27,44 +33,52 @@ export function UserInfoPage() {
 		navigate(-1);
 	};
 
-	const { isLoading, error, userInfo } = useTypedSelector((state) => state.userInfoReducer);
+	const { userInfoRealtime } = useTypedSelector((state) => state.userInfoReducer);
 	const dispatch = useTypedDispatch();
 	const { actions } = userInfoSlice;
 
 	useEffect(() => {
-		if (userId) dispatch(getUserInfo({ uid: userId }));
+		const userRef = doc(db, 'users', userId || '');
+		let unsubscribe: Unsubscribe;
+		try {
+			unsubscribe = onSnapshot(userRef, (docSnap) => {
+				const data = docSnap.data();
+				if (data && !isObjectEmpty(data)) {
+					dispatch(actions.setUsersRealtime({ uid: data.uid, ...data.user }));
+				} else {
+					throw new Error('Can\'t find user!');
+				}
+			});
+		} catch (error) {
+			throw new Error(returnError(error));
+		}
 
-		return () => {
-			dispatch(actions.removeUserInfo());
-			dispatch(actions.resetError());
-		};
+		return () => unsubscribe();
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userId]);
-
-	if (error) throw Error(error);
+	}, []);
 
 	return (
 		<Block component="main" className={s.UserInfoPage}>
-			{isLoading ? <LoaderOverlay />
+			{!userInfoRealtime ? <LoaderOverlay />
 				: (
 					<Grid container component="section" className={s.container}>
 						<Avatar
-							src={userInfo.photoURL || ''}
-							alt={userInfo.displayName || ''}
-							char={userInfo.displayName?.[0] || userInfo.email?.[0] || ''}
+							src={userInfoRealtime.photoURL || ''}
+							alt={userInfoRealtime.displayName || ''}
+							char={userInfoRealtime.displayName?.[0] || userInfoRealtime.email?.[0] || ''}
 							size="extra"
 						/>
 
 						<Block className={s.info}>
 
-							<Typography component="h5" className={s.userInfo}>{userInfo.displayName}</Typography>
+							<Typography component="h5" className={s.userInfoRealtime}>{userInfoRealtime.displayName}</Typography>
 
 							<Grid row className={s.row}>
 								<Block grid={{ xx: 6 }} className={join(s.headingColumn, s.column)}>
 									<Typography component="h6">Роль</Typography>
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
-									{userInfo.role && <Typography component="p2">{`[${userInfo.role}]`}</Typography>}
+									{userInfoRealtime.role && <Typography component="p2">{`[${userInfoRealtime.role}]`}</Typography>}
 								</Block>
 							</Grid>
 
@@ -74,7 +88,7 @@ export function UserInfoPage() {
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
 									<Typography component="p2">
-										{userInfo.visitsCount}
+										{userInfoRealtime.visitsCount}
 									</Typography>
 								</Block>
 							</Grid>
@@ -85,10 +99,10 @@ export function UserInfoPage() {
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
 									<Typography component="p2">
-										{parseCurrentDateFromMs(String(userInfo.lastVisitDate))
+										{parseCurrentDateFromMs(String(userInfoRealtime.lastVisitDate))
 											.toLocaleDateString()}
 										{' '}
-										{parseCurrentDateFromMs(String(userInfo.lastVisitDate))
+										{parseCurrentDateFromMs(String(userInfoRealtime.lastVisitDate))
 											.toLocaleTimeString()}
 									</Typography>
 								</Block>
@@ -100,10 +114,10 @@ export function UserInfoPage() {
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
 									<Typography component="p2">
-										{parseCurrentDateFromMs(String(userInfo.registrationDate))
+										{parseCurrentDateFromMs(String(userInfoRealtime.registrationDate))
 											.toLocaleDateString()}
 										{' '}
-										{parseCurrentDateFromMs(String(userInfo.registrationDate))
+										{parseCurrentDateFromMs(String(userInfoRealtime.registrationDate))
 											.toLocaleTimeString()}
 									</Typography>
 								</Block>
@@ -114,7 +128,7 @@ export function UserInfoPage() {
 									<Typography component="h6">Стать</Typography>
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
-									{userInfo.sex && <Typography component="p2">{SEXES[userInfo.sex]}</Typography>}
+									{userInfoRealtime.sex && <Typography component="p2">{SEXES[userInfoRealtime.sex]}</Typography>}
 								</Block>
 							</Grid>
 
@@ -123,7 +137,7 @@ export function UserInfoPage() {
 									<Typography component="h6">Тип</Typography>
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
-									{userInfo.userType && <Typography component="p2">{USER_TYPES[userInfo.userType]}</Typography>}
+									{userInfoRealtime.userType && <Typography component="p2">{USER_TYPES[userInfoRealtime.userType]}</Typography>}
 								</Block>
 							</Grid>
 
