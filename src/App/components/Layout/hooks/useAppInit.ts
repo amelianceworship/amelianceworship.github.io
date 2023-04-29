@@ -38,7 +38,8 @@ export function useAppInit() {
 	useLayoutEffect(() => {
 		const locationToNavigate = location.pathname === ROUTES.login
 			|| location.pathname === ROUTES.signup ? PRIVATE_ROUTES.users : location.pathname;
-		setStartLocation(locationToNavigate || ROUTES.home);
+		if (!startLocation) setStartLocation(locationToNavigate || ROUTES.home);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [location]);
 
 	useLayoutEffect(() => {
