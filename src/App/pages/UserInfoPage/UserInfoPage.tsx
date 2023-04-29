@@ -57,27 +57,31 @@ export function UserInfoPage() {
 
 						<Block className={s.info}>
 
+							<Typography component="h5" className={s.userInfo}>{userInfo.displayName}</Typography>
+
 							<Grid row className={s.row}>
 								<Block grid={{ xx: 6 }} className={join(s.headingColumn, s.column)}>
-									<Typography component="h5">Логін</Typography>
+									<Typography component="h6">Роль</Typography>
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
-									<Typography component="p1">{userInfo.displayName}</Typography>
+									{userInfo.role && <Typography component="p2">{`[${userInfo.role}]`}</Typography>}
 								</Block>
 							</Grid>
 
 							<Grid row className={s.row}>
 								<Block grid={{ xx: 6 }} className={join(s.headingColumn, s.column)}>
-									<Typography component="h5">Роль</Typography>
+									<Typography component="h6">Кількість відвідувань</Typography>
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
-									{userInfo.role && <Typography>{`[${userInfo.role}]`}</Typography>}
+									<Typography component="p2">
+										{userInfo.visitsCount}
+									</Typography>
 								</Block>
 							</Grid>
 
 							<Grid row className={s.row}>
 								<Block grid={{ xx: 6 }} className={join(s.headingColumn, s.column)}>
-									<Typography component="h5">Дата останнього входу</Typography>
+									<Typography component="h6">Останній вхід</Typography>
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
 									<Typography component="p2">
@@ -92,7 +96,7 @@ export function UserInfoPage() {
 
 							<Grid row className={s.row}>
 								<Block grid={{ xx: 6 }} className={join(s.headingColumn, s.column)}>
-									<Typography component="h5">Дата реєстрації</Typography>
+									<Typography component="h6">Дата реєстрації</Typography>
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
 									<Typography component="p2">
@@ -107,7 +111,7 @@ export function UserInfoPage() {
 
 							<Grid row className={s.row}>
 								<Block grid={{ xx: 6 }} className={join(s.headingColumn, s.column)}>
-									<Typography component="h5">Стать</Typography>
+									<Typography component="h6">Стать</Typography>
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
 									{userInfo.sex && <Typography component="p2">{SEXES[userInfo.sex]}</Typography>}
@@ -116,7 +120,7 @@ export function UserInfoPage() {
 
 							<Grid row className={s.row}>
 								<Block grid={{ xx: 6 }} className={join(s.headingColumn, s.column)}>
-									<Typography component="h5">Тип</Typography>
+									<Typography component="h6">Тип</Typography>
 								</Block>
 								<Block grid={{ xx: 6 }} className={join(s.infoColumn, s.column)}>
 									{userInfo.userType && <Typography component="p2">{USER_TYPES[userInfo.userType]}</Typography>}
