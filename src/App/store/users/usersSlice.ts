@@ -2,13 +2,9 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
-import type { User } from '~types/api/google/firebase/commons/User';
+import type { UserResponse } from '~types/api/google/firebase/commons/UserResponse';
 
 import { getAllUsers } from './actions/getAllUsers';
-
-interface UserResponse extends Partial<User> {
-	uid: string;
-}
 
 interface UsersState {
 	isLoading: boolean;
