@@ -2,12 +2,15 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { parseCurrentDateFromMs } from 'asm-ts-scripts';
+import { collection, onSnapshot, query } from 'firebase/firestore';
 
 import { join, sortArrayOfObj } from '~/ameliance-scripts';
+import { db } from '~api/google/firebase/firebase';
 import { PRIVATE_ROUTES } from '~constants/ROUTES';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
-import { getAllUsers } from '~store/users/actions/getAllUsers';
+import { usersSlice } from '~store/users/usersSlice';
+import type { UserResponse } from '~types/api/google/firebase/commons/UserResponse';
 
 import { LoaderOverlay } from '~/ameliance-ui/components/_LAB/LoaderOverlay';
 import { Avatar } from '~/ameliance-ui/components/Avatar';
@@ -22,11 +25,24 @@ export function UsersPage() {
 
 	const { user } = useTypedSelector((state) => state.userReducer);
 	const { uid } = user;
-	const { isLoading, users } = useTypedSelector((state) => state.usersReducer);
+	const { usersRealtime } = useTypedSelector((state) => state.usersReducer);
 	const dispatch = useTypedDispatch();
+	const { actions } = usersSlice;
 
 	useEffect(() => {
-		dispatch(getAllUsers());
+		const usersRef = collection(db, 'users');
+		const usersQuery = query(usersRef);
+
+		const unsubscribe = onSnapshot(usersQuery, (querySnapshot) => {
+			const users: UserResponse[] = [];
+			querySnapshot.forEach((doc) => {
+				const data = doc.data();
+				users.push({ uid: data.uid, ...data.user });
+			});
+			if (users.length > 0) dispatch(actions.setUsersRealtime(users));
+		});
+
+		return () => unsubscribe();
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -54,7 +70,7 @@ export function UsersPage() {
 							</Typography>
 						</Block>
 					</Grid>
-					{users.length > 0 && sortArrayOfObj(users, 'visitsCount').reverse().map((userItem) => (
+					{usersRealtime.length > 0 && sortArrayOfObj(usersRealtime, 'visitsCount').reverse().map((userItem) => (
 						<Grid
 							row
 							key={userItem.uid}
@@ -100,7 +116,7 @@ export function UsersPage() {
 					))}
 				</Grid>
 			</Grid>
-			{isLoading && <LoaderOverlay />}
+			{usersRealtime === null && <LoaderOverlay />}
 		</Block>
 	);
 }
