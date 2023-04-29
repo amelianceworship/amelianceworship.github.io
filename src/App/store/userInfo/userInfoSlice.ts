@@ -2,24 +2,22 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
-import type { User } from '~types/api/google/firebase/commons/User';
+import type { UserResponse } from '~types/api/google/firebase/commons/UserResponse';
 
 import { getUserInfo } from './actions/getUserInfo';
-
-interface UserResponse extends Partial<User> {
-	uid: string;
-}
 
 interface UserInfoState {
 	isLoading: boolean;
 	error: ErrorString;
 	userInfo: UserResponse;
+	userInfoRealtime: UserResponse;
 }
 
 const initialState: UserInfoState = {
 	isLoading: false,
 	error: '',
 	userInfo: {} as UserInfoState['userInfo'],
+	userInfoRealtime: {} as UserInfoState['userInfoRealtime'],
 };
 
 export const userInfoSlice = createSlice({
@@ -31,6 +29,9 @@ export const userInfoSlice = createSlice({
 		},
 		resetError(state) {
 			state.error = '';
+		},
+		setUsersRealtime(state, action: PayloadAction<UserInfoState['userInfoRealtime']>) {
+			state.userInfoRealtime = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
