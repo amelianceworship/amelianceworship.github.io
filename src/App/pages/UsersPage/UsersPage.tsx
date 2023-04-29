@@ -2,11 +2,13 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { parseCurrentDateFromMs } from 'asm-ts-scripts';
+import type { Unsubscribe } from 'firebase/firestore';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 
 import { join, sortArrayOfObj } from '~/ameliance-scripts';
 import { db } from '~api/google/firebase/firebase';
 import { PRIVATE_ROUTES } from '~constants/ROUTES';
+import { returnError } from '~helpers/returnError';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { usersSlice } from '~store/users/usersSlice';
@@ -33,14 +35,23 @@ export function UsersPage() {
 		const usersRef = collection(db, 'users');
 		const usersQuery = query(usersRef);
 
-		const unsubscribe = onSnapshot(usersQuery, (querySnapshot) => {
-			const users: UserResponse[] = [];
-			querySnapshot.forEach((doc) => {
-				const data = doc.data();
-				users.push({ uid: data.uid, ...data.user });
+		let unsubscribe: Unsubscribe;
+		try {
+			unsubscribe = onSnapshot(usersQuery, (querySnapshot) => {
+				const users: UserResponse[] = [];
+				querySnapshot.forEach((doc) => {
+					const data = doc.data();
+					users.push({ uid: data.uid, ...data.user });
+				});
+				if (users.length > 0) {
+					dispatch(actions.setUsersRealtime(users));
+				} else {
+					throw new Error('Can\'t find any users!');
+				}
 			});
-			if (users.length > 0) dispatch(actions.setUsersRealtime(users));
-		});
+		} catch (error) {
+			throw new Error(returnError(error));
+		}
 
 		return () => unsubscribe();
 	// eslint-disable-next-line react-hooks/exhaustive-deps
