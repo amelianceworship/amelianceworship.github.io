@@ -7,6 +7,7 @@ import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { getAuthUserId } from '~store/user/actions/getAuthUserId';
 import { initUserOnPageLoad } from '~store/user/actions/initUserOnPageLoad';
+import { userSlice } from '~store/user/userSlice';
 
 import { useInitTheme } from '~/ameliance-ui/hooks/useInitTheme';
 
@@ -16,13 +17,14 @@ export function useAppInit() {
 	useViewportHeight();
 
 	const { theme } = useTypedSelector((state) => state.appReducer);
-	const { user, authUserId } = useTypedSelector((state) => state.userReducer);
+	const { error, user, authUserId } = useTypedSelector((state) => state.userReducer);
 	const { uid } = user;
 
 	// *----- set or init theme -----
 	useInitTheme(theme);
 
 	const dispatch = useTypedDispatch();
+	const { actions } = userSlice;
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -48,12 +50,14 @@ export function useAppInit() {
 	}, [authUserId]);
 
 	useEffect(() => {
-		if (uid || authUserId === null) {
-			if (startLocation) navigate(startLocation);
+		if (uid || authUserId === null || error) {
+			if (error) dispatch(actions.signOut());
 			setIsInit(true);
+			if (startLocation) navigate(startLocation);
 		}
+
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [uid, authUserId]);
+	}, [uid, authUserId, error]);
 
 	return { isInit };
 }

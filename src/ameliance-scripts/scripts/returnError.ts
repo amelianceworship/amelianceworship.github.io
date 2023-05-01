@@ -8,10 +8,10 @@ export function returnError(error: unknown, appName?: string, hasWrapper?: boole
 	}
 	if (appName) {
 		// eslint-disable-next-line no-console
-		console.error(`${appName} >`, `${message}\n`, new Error().stack?.split('\n')[errorCount]);
+		console.error(`${appName} >`, `${message}\n`, new Error().stack?.split('\n').splice(errorCount).join('\n'));
 	} else {
 		// eslint-disable-next-line no-console
-		console.error(`${message}\n`, new Error().stack?.split('\n')[errorCount]);
+		console.error(`${message}\n`, new Error().stack?.split('\n').splice(errorCount).join('\n'));
 	}
 	return message;
 }
