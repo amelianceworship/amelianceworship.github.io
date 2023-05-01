@@ -1,6 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
+import { api } from '~api/index';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 import type { User } from '~types/api/google/firebase/commons/User';
 
@@ -42,10 +43,11 @@ export const userSlice = createSlice({
 			state.user = state.fetchedUserData || {} as User;
 			state.fetchedUserData = null;
 		},
-		removeUser(state) {
+		signOut(state) {
 			state.user = {} as User;
 			state.error = '';
 			state.isLoading = false;
+			api.google.firebase.auth.signOut();
 		},
 		resetError(state) {
 			state.error = '';

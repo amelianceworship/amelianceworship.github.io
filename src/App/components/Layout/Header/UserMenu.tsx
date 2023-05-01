@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { api } from '~api/index';
 import { ADMIN_ROUTES, PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
 import { useAuth } from '~hooks/useAuth';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
@@ -30,7 +29,7 @@ export function UserMenu() {
 	} = user;
 
 	const dispatch = useTypedDispatch();
-	const { removeUser } = userSlice.actions;
+	const { actions } = userSlice;
 
 	const handelIconMenuClick = () => {
 		setIsMenuOpen(true);
@@ -41,8 +40,7 @@ export function UserMenu() {
 	};
 
 	const handleLogOut = () => {
-		dispatch(removeUser());
-		api.google.firebase.auth.signOut();
+		dispatch(actions.signOut());
 		navigate(ROUTES.home);
 		closeMenu();
 	};
