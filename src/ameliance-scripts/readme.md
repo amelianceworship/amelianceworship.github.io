@@ -8,9 +8,9 @@ npm i ameliance-scripts
 
 ## Usage
 ```js
-import asm from 'ameliance-scripts'
+import a from 'ameliance-scripts'
 
-const randomRGBColor = asm.getRandomRGBColor();
+const randomRGBColor = a.getRandomRGBColor();
 ```
 or
 ```js
@@ -22,7 +22,7 @@ const randomRGBColor = getRandomRGBColor();
 ## Functions list
 ```js
 const arr = ['a', 'b', 'c'];
-asm.addId(arr);
+a.addId(arr);
 // [
 //    { a: 'a', id: 0 },
 //    { b: 'b', id: 0 },
@@ -30,7 +30,7 @@ asm.addId(arr);
 // ]
 
 const arr = [{ key: 'a' }, { key: 'b' }, { key:'c' }];
-asm.addId(arr);
+a.addId(arr);
 // [
 //    { key: 'a', id: 0 },
 //    { key: 'b', id: 0 },
@@ -39,7 +39,7 @@ asm.addId(arr);
 
 const arr = [{ key: 'a' }, { key: 'b' }, { key:'c' }];
 const ids = [2923, 0292, 8347]
-asm.addId(arr, ids);
+a.addId(arr, ids);
 // [
 //    { key: 'a', id: 2923 },
 //    { key: 'b', id: 0292 },
@@ -49,65 +49,68 @@ asm.addId(arr, ids);
 ```js
 const someVar = 'class-b'
 const someArr = [null, '', 'icon', '', '', undefined, '']
-<Component {...asm.className(['class-a', undefined, someVar, someArr.length > 0 && someArr]);}/>
+<Component {...a.className(['class-a', undefined, someVar, someArr.length > 0 && someArr]);}/>
 // <Component className='class-a class-b icon'/>
 ```
 ```js
-asm.createHTMLElem();
+a.clearLocalStorageAndReload();
 ```
 ```js
-asm.getCommonValues(['1', '2', '3'], ['3', '4'], ['3', '5'])
+a.createHTMLElem();
+```
+```js
+a.getCommonValues(['1', '2', '3'], ['3', '4'], ['3', '5'])
 // ['3']
 
-asm.getCommonValues([1, 2, 3], [3, 4], [3, 5])
+a.getCommonValues([1, 2, 3], [3, 4], [3, 5])
 // [3]
 
-asm.getCommonValues(['1', '2', '3', 1], ['3', '4', 1], [1, '3', '5'])
+a.getCommonValues(['1', '2', '3', 1], ['3', '4', 1], [1, '3', '5'])
 // ['3, 1]
 ```
 ```js
-asm.getCurrentDateInMs()
+a.getCurrentDateInMs()
 // 1675366990061
 ```
 ```js
-asm.getDifferentValues(['1', '2', '3'], ['3', '4'], ['3', '5'])
+a.getDifferentValues(['1', '2', '3'], ['3', '4'], ['3', '5'])
 // ['1', '2']
 
-asm.getDifferentValues([1, 2, 3], [3, 4], [3, 5])
+a.getDifferentValues([1, 2, 3], [3, 4], [3, 5])
 // [1, 2]
 
-asm.getDifferentValues(['1', '2', '3', 1, 3], ['3', '4', 1], [1, '3', '5'])
+a.getDifferentValues(['1', '2', '3', 1, 3], ['3', '4', 1], [1, '3', '5'])
 // ['1', '2', 3]
 ```
 ```js
-asm.getIndexesOfNonEmptyElements(['1', '', '3'])
+a.getIndexesOfNonEmptyElements(['1', '', '3'])
 // [0, 2]
 ```
 ```js
-asm.getRandomHEXColor();
+a.getRandomHEXColor();
 // '#FFAA00'
 ```
 ```js
-asm.getRandomNumber(0, 7);
+a.getRandomNumber(0, 7);
 // 5
 ```
 ```js
-asm.getRandomRGBColor();
+a.getRandomRGBColor();
 // [255, 10, 8]
 ```
 ```js
-asm.getScrollDirection();
+a.getScrollDirection();
 // 'UP'
 // 'DOWN'
 ```
 ```js
-asm.groupBy(['aa', 'aq', 'ab', 'bx', 'ba']);
+a.groupBy(['aa', 'aq', 'ab', 'bx', 'ba']);
 // [
 //   [a, ['aa', 'aq', 'ab]],
 //   [b, ['bx', ba]]
 // ]
 
-asm.groupBy([
+a.groupBy([
    {key1:'aa', key2: 1 },
    {key1:'aq', key2: 3 },
    {key1:'ab', key2: '2' },
@@ -127,28 +130,38 @@ asm.groupBy([
 //]
 ```
 ```js
-asm.isObject({ a: 'a' });
+a.getToday();
+// 2024-12-09
+```
+```js
+a.isObject({ a: 'a' });
 // true
 ```
 ```js
-asm.isObjectEmpty({ a: 'a' });
+a.isObjectEmpty({ a: 'a' });
 // false
 ```
 ```js
 const someVar = 'class-b'
 const someArr = [null, '', 'icon', '', '', undefined, '']
-asm.join(['class-a', undefined, someVar, someVar, someArr.length > 0 && someArr]);
+a.join(['class-a', undefined, someVar, someVar, someArr.length > 0 && someArr]);
 // 'class-a class-b icon'
 ```
 ```js
-asm.parseCurrentDateFromMs(1675366990061);
+const someVar = 'class-b'
+const someArr = [null, '', 'icon', '', '', undefined, '']
+a.joinWith(',', ['class-a', undefined, someVar, someVar, someArr.length > 0 && someArr]);
+// 'class-a, class-b, icon'
+```
+```js
+a.parseCurrentDateFromMs(1675366990061);
 // Thu Feb 02 2023 21:43:10 GMT+0200
 ```
 ```js
-asm.removeEmptyValues(['', '', 'a', '', 'b', '', '']);
+a.removeEmptyValues(['', '', 'a', '', 'b', '', '']);
 // ['a', 'b']
 
-asm.removeEmptyValues([
+a.removeEmptyValues([
    {key1: '', key2: 'someKey'},
    {key1: '', key2: 'someKey'},
    {key1: 'a', key2: 'someKey'},
@@ -163,20 +176,28 @@ asm.removeEmptyValues([
 // ]
 ```
 ```js
-asm.setIntervalCounts({ () => console.log('Hello'), 1000, 3 })
+a.returnError(error);
+
+const APP_NAME = 'app-name'
+export function returnError() {
+   a.returnError(string, APP_NAME, 1);
+}
+```
+```js
+a.setIntervalCounts({ () => console.log('Hello'), 1000, 3 })
 // Hello // 1st time after delay 1s
 // Hello // 2nd time after delay 2s
 // Hello // 3rd time after delay 3s
 ```
 ```js
-asm.shuffleArray(['a', 'b', 'c']);
+a.shuffleArray(['a', 'b', 'c']);
 // ['b', 'c', 'a']
 ```
 ```js
-asm.sortArrayLocalCompare(['Яблуко', 'ćma', 'BBC', '10', 'fast']);
+a.sortArrayLocalCompare(['Яблуко', 'ćma', 'BBC', '10', 'fast']);
 // ['10', 'Яблуко', 'BBC', 'ćma', 'fast']
 
-asm.sortArrayLocalCompare([
+a.sortArrayLocalCompare([
    {key1: 'Яблуко', key2: 'someKey'},
    {key1: 'ćma', key2: 'someKey'},
    {key1: 'BBC', key2: 'someKey'},
@@ -192,20 +213,23 @@ asm.sortArrayLocalCompare([
 // ]
 ```
 ```js
-asm.sortArrayOfObj();
+a.sortArrayOfObj();
 ```
 ```js
-asm.stringCut('long string', 5);
+a.stringCut('long string', 5);
 // 'long...'
 
-asm.stringCut('long string', 8, '=)');
+a.stringCut('long string', 8, '=)');
 // 'long str=)'
 ```
 ```js
-asm.trimEndEmptyValues(['', '', 'a', '', 'b', '', '']);
+a.toTimeFormat(60); // 00:60
+```
+```js
+a.trimEndEmptyValues(['', '', 'a', '', 'b', '', '']);
 // ['', '', 'a', '', 'b']
 
-asm.trimEndEmptyValues([
+a.trimEndEmptyValues([
    {key1: '', key2: 'someKey'},
    {key1: '', key2: 'someKey'},
    {key1: 'a', key2: 'someKey'},
@@ -223,10 +247,10 @@ asm.trimEndEmptyValues([
 // ]
 ```
 ```js
-asm.trimStartEmptyValues(['', '', 'a', '', 'b', '', '']);
+a.trimStartEmptyValues(['', '', 'a', '', 'b', '', '']);
 // ['a', '', 'b', '', '']
 
-asm.trimStartEmptyValues([
+a.trimStartEmptyValues([
    {key1: 'a', key2: 'someKey'},
    {key1: '', key2: 'someKey'},
    {key1: 'b', key2: 'someKey'},
@@ -241,9 +265,36 @@ asm.trimStartEmptyValues([
 //    {key1: '', key2: 'someKey'}
 // ]
 ```
+```js
+a.writeTextToClipboard('some text string');
+```
+
+### _LAB
+```js
+a.getLocalStorage(APP_NAME, 'user', 'displayName', 'Ameliance SkyMusic');
+```
+```js
+a.setLocalStorage(APP_NAME, 'user', 'displayName', 'Ameliance SkyMusic');
+```
 
 ## History
 ```
+0.2.0 [2023_05_02]:
+   ^: rename and move library to https://www.npmjs.com/package/ameliance-scripts
+
+0.1.104 [2023_05_02]:
+   +: add writeTextToClipboard
+   +: add toTimeFormat
+   +: add returnError
+   +: add joinWith
+   +: add getToday
+   +: add clearLocalStorageAndReload
+   +: add setLocalStorage to _LAB
+   +: add getLocalStorage to _LAB
+   *: update types anc add some improvements sortBy
+   *: update types anc add some improvements removeEmptyValues
+   *: update types anc add some improvements sortArrayLocalCompare
+
 0.1.103 [2023_03_06]:
    +: add addId
 

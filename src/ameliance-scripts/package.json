@@ -1,6 +1,6 @@
 {
 	"name": "ameliance-scripts",
-	"version": "0.1.103",
+	"version": "0.2.0",
 	"description": "scripts",
 	"main": "index.ts",
 	"scripts": {
@@ -8,7 +8,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/AmelianceSkyMusic/ameliance-scripts.git"
+		"url": "git+https://github.com/AmelianceSkyMusic/asm-ts-scripts.git"
 	},
 	"keywords": [
 		"scripts",
