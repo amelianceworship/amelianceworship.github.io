@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -33,13 +34,24 @@ interface FormFields {
 }
 
 export function LogInPage() {
-	const { isFillProfile } = useAuth();
+	const { isAuth, isFillProfile } = useAuth();
 
 	const navigate = useNavigate();
 
 	const dispatch = useTypedDispatch();
 	const { error, isLoading, fetchedUserData } = useTypedSelector((state) => state.userReducer);
 	const { actions } = userSlice;
+
+	useEffect(() => {
+		if (isAuth) {
+			if (!isFillProfile) {
+				navigate(PRIVATE_ROUTES.user);
+			} else {
+				navigate(PRIVATE_ROUTES.users);
+			}
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isAuth]);
 
 	const {
 		register,
@@ -78,11 +90,6 @@ export function LogInPage() {
 
 	const handlerSuccessModal = () => {
 		dispatch(actions.setUserDataFromFetched());
-		if (!isFillProfile) {
-			navigate(PRIVATE_ROUTES.user);
-		} else {
-			navigate(PRIVATE_ROUTES.users);
-		}
 	};
 
 	const handlerErrorModal = () => {
