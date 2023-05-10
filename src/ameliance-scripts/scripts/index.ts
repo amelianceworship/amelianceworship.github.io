@@ -14,6 +14,7 @@ export * from './getToday';
 export * from './groupBy';
 export * from './isObject';
 export * from './isObjectEmpty';
+export * from './isObjectHasValue';
 export * from './join';
 export * from './joinWith';
 export * from './parseCurrentDateFromMs';
