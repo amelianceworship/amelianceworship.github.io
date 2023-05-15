@@ -12,11 +12,11 @@ export function LogInErrorModal({ onClose, error }: LogInErrorModal) {
 			onClose={onClose}
 			type="error"
 			size="medium"
-			title="Невірні дані!"
+			title="Помилка при вході!"
 		>
 			<>
 				<Typography component="p1" className="center">
-					Помилка при вході!
+					Невірні дані!
 				</Typography>
 				<Typography component="caption" className="center">
 					{error}

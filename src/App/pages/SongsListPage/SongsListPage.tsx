@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { getToday, isObjectEmpty } from '~/ameliance-scripts';
 import { MusicPlayer } from '~components/MusicPlayer/MusicPlayer';
@@ -15,11 +14,11 @@ import { Grid } from '~/ameliance-ui/components/Grid';
 import { Dropdown } from '~/ameliance-ui/components/Inputs/Dropdown';
 import { SearchInput } from '~/ameliance-ui/components/Inputs/SearchInput';
 
+import { EditStickyMenu } from './EditStickyMenu';
 import { ListNavigation } from './ListNavigation/ListNavigation';
-import { Navbar } from './Navbar/Navbar';
 import { ScrollUpButton } from './ScrollUpButton';
+import { SelectionBar } from './SelectionBar/SelectionBar';
 import { SongsList } from './SongsList/SongsList';
-import { SongsSelection } from './SongsSelection/SongsSelection';
 
 import s from './SongsListPage.module.scss';
 
@@ -28,15 +27,14 @@ export function SongsListPage() {
 	const [songsListTable, setSongsListTable] = useState<SongsGroup[]>();
 
 	const {
-		error, isLoading, songsList, tableGroupLabels, lastFetchingDate, listTitles,
+		error, isLoading, songsList, tableGroupLabels, lastFetchingDate, listTitles, selectedSongsId,
+		pageMode,
 	} = useTypedSelector((state) => state.songsListReducer);
 
 	const { isPlayerShow } = useTypedSelector((state) => state.musicPlayerReducer);
 
 	const dispatch = useTypedDispatch();
 	const { actions } = songsListSlice;
-
-	const { page } = useParams();
 
 	useEffect(() => {
 		const today = getToday();
@@ -92,14 +90,14 @@ export function SongsListPage() {
 					{tableGroupLabels && tableGroupLabels.length > 0
 					&& <ListNavigation charsList={tableGroupLabels[activeTableNumber]} />}
 				</Block>
-				{ songsListTable && (page === 'selection'
-					? <SongsSelection songsTable={songsListTable} />
-					: <SongsList songsTable={songsListTable} />)}
-				<ScrollUpButton />
+				{songsListTable && <SongsList songsTable={songsListTable} />}
+				{/* {page !== 'edit' && <ScrollUpButton />} */}
 			</Grid>
-			{!isLoading && songsListTable && <Navbar />}
+			{pageMode !== 'selection' && <EditStickyMenu />}
+			{/* {!isLoading && songsListTable && <Navbar />} */}
 			{ songsListTable && isPlayerShow
 				&& <MusicPlayer />}
+			{pageMode === 'selection' && <SelectionBar />}
 		</Block>
 	);
 }

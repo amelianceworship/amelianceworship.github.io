@@ -1,7 +1,8 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import {
+	useEffect, useLayoutEffect, useState,
+} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
 import { useViewportHeight } from '~hooks/useViewportHeight';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
@@ -20,7 +21,7 @@ export function useAppInit() {
 	const { error, user, authUserId } = useTypedSelector((state) => state.userReducer);
 	const { uid } = user;
 
-	// *----- set or init theme -----
+	//* set or init theme
 	useInitTheme(theme);
 
 	const dispatch = useTypedDispatch();
@@ -28,34 +29,28 @@ export function useAppInit() {
 
 	const navigate = useNavigate();
 	const location = useLocation();
-	const [startLocation, setStartLocation] = useState<string | null>(null);
+	const [startLocation] = useState(location.pathname);
 
 	useLayoutEffect(() => {
 		document.body.classList.add('scroll');
+		//* get userId from auth data saved in browser and set it to user store
 		dispatch(getAuthUserId());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	// *----- set path init browser path -----
 	useLayoutEffect(() => {
-		const locationToNavigate = location.pathname === ROUTES.login
-			|| location.pathname === ROUTES.signup ? PRIVATE_ROUTES.users : location.pathname;
-		if (!startLocation) setStartLocation(locationToNavigate || ROUTES.home);
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [location]);
-
-	useLayoutEffect(() => {
-		if (authUserId) dispatch(initUserOnPageLoad({ uid: authUserId }));
+		//* fetch user data if user auth saved in browser
+		if (!isInit && authUserId) dispatch(initUserOnPageLoad({ uid: authUserId }));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [authUserId]);
 
 	useEffect(() => {
-		if (uid || authUserId === null || error) {
+		//*
+		if (!isInit && (uid || authUserId === null || error)) {
 			if (error) dispatch(actions.signOut());
 			setIsInit(true);
-			if (startLocation) navigate(startLocation);
+			navigate(startLocation);
 		}
-
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [uid, authUserId, error]);
 

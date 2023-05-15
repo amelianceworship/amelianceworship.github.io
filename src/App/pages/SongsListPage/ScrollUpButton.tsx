@@ -6,10 +6,10 @@ import { ChevronUpIcon } from '~/ameliance-ui/components/icons/ChevronUpIcon';
 
 export function ScrollUpButton() {
 	const { isPlayerShow } = useTypedSelector((state) => state.musicPlayerReducer);
-	const offset = isPlayerShow ? 228 : 64;
+	const offset = isPlayerShow ? 232 : 64;
 
 	return (
-		<StickyButton popup offset={offset} inverseDirection hideOnScreensCount={1}>
+		<StickyButton animation="popup" offset={offset} inverseDirection hideOnScreensCount={1}>
 			<Button
 				onClick={() => document.body.scrollIntoView()}
 			>

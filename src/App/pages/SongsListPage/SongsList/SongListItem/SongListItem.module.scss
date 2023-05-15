@@ -4,9 +4,50 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 16px;
+	gap: 8px;
 	min-height: 32px;
 	@include no-select;
+}
+
+.textBlock {
+	display: flex;
+	flex-grow: 1;
+	min-height: 32px;
+
+	&.selection {
+		display: flex;
+		gap: 8px;
+		padding-left: 4px;
+		border-radius: 12px;
+
+		@include clickable;
+
+		.active & {
+			background-color: var(--color--e2-2);
+		}
+		.songName {
+			animation: text-show-animation 0.2s ease-out forwards;
+		}
+	}
+
+	.songName {
+		display: flex;
+		flex-grow: 1;
+		align-items: center;
+		min-height: 32px;
+	}
+}
+
+.checkIcon {
+	height: 32px;
+	width: 32px;
+	// opacity: 20%;
+	// transition: opacity 0.2s ease-out;
+	animation: check-icon-show-animation 0.2s ease-out forwards;
+	&.active {
+		animation: check-icon-checked-animation 0.2s ease-out forwards;
+		// opacity: 100%;
+	}
 }
 
 .playIcon {
@@ -16,6 +57,30 @@
 
 .playing {
 	animation: play-animation 0.8s alternate linear infinite;
+}
+
+@keyframes check-icon-show-animation {
+	0% {
+		opacity: 0%;
+	}
+	100% {
+		opacity: 20%;
+	}
+}
+
+@keyframes check-icon-checked-animation {
+	100% {
+		opacity: 100%;
+	}
+}
+
+@keyframes text-show-animation {
+	0% {
+		transform: translateX(-40px);
+	}
+	100% {
+		transform: translateX(0px);
+	}
 }
 
 @keyframes play-animation {

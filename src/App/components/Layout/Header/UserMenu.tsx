@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
+import { isObjectHasValue } from '~/ameliance-scripts/scripts';
 import { ADMIN_ROUTES, PRIVATE_ROUTES, ROUTES } from '~constants/ROUTES';
 import { useAuth } from '~hooks/useAuth';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
@@ -20,6 +21,7 @@ export function UserMenu() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const { isAdmin, isAuth } = useAuth();
 
@@ -41,7 +43,7 @@ export function UserMenu() {
 
 	const handleLogOut = () => {
 		dispatch(actions.signOut());
-		navigate(ROUTES.home);
+		if (!isObjectHasValue(ROUTES, location.pathname)) navigate(ROUTES.home);
 		closeMenu();
 	};
 

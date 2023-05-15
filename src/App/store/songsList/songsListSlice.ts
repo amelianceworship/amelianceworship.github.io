@@ -17,6 +17,7 @@ interface SongsListSlice {
 	songsList: SongsListData;
 	listTitles: string[];
 	lastFetchingDate: string;
+	pageMode: 'list' | 'selection' | 'edit';
 }
 
 const initSongsListSlice: SongsListSlice = {
@@ -30,6 +31,7 @@ const initSongsListSlice: SongsListSlice = {
 	songsList: [],
 	listTitles: [],
 	lastFetchingDate: '',
+	pageMode: 'list',
 };
 
 export const songsListSlice = createSlice({
@@ -85,6 +87,9 @@ export const songsListSlice = createSlice({
 		},
 		setLastFetchingDate(state, action: PayloadAction<SongsListSlice['lastFetchingDate']>) {
 			state.lastFetchingDate = action.payload;
+		},
+		setPageMode(state, action: PayloadAction<SongsListSlice['pageMode']>) {
+			state.pageMode = action.payload;
 		},
 	},
 	extraReducers: (builder) => {

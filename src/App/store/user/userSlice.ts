@@ -1,6 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
+import { isObjectEmpty } from '~/ameliance-scripts/scripts';
 import { api } from '~api/index';
 import type { ErrorString } from '~types/api/google/firebase/commons/ErrorString';
 import type { User } from '~types/api/google/firebase/commons/User';
@@ -57,14 +58,15 @@ export const userSlice = createSlice({
 		builder
 
 			.addCase(createUserWithEmail.pending, (state) => {
-				state.fetchedUserData = {} as User;
+				state.fetchedUserData = null;
 				state.error = '';
 				state.isLoading = true;
 			})
 			.addCase(
 				createUserWithEmail.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.fetchedUserData = action.payload;
+					const userData = !isObjectEmpty(action.payload) ? action.payload : null;
+					state.fetchedUserData = userData;
 					state.error = '';
 					state.isLoading = false;
 				},
@@ -82,7 +84,8 @@ export const userSlice = createSlice({
 			.addCase(
 				signIn.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.fetchedUserData = action.payload;
+					const userData = !isObjectEmpty(action.payload) ? action.payload : null;
+					state.fetchedUserData = userData;
 					state.error = '';
 					state.isLoading = false;
 				},
@@ -100,7 +103,8 @@ export const userSlice = createSlice({
 			.addCase(
 				signInWithGoogle.fulfilled,
 				(state, action: PayloadAction<User>) => {
-					state.fetchedUserData = action.payload;
+					const userData = !isObjectEmpty(action.payload) ? action.payload : null;
+					state.fetchedUserData = userData;
 					state.error = '';
 					state.isLoading = false;
 				},

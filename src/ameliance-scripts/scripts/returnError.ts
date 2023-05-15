@@ -1,5 +1,11 @@
-export function returnError(error: unknown, appName?: string, hasWrapper?: boolean): string {
-	const errorCount = hasWrapper ? 3 : 2;
+// wrapperCount - a parameter that sets the number of wrappers around the function to shift the error array
+export function returnError(
+	error: unknown,
+	appName?: string,
+	wrapperCount = 0,
+	deep = Infinity,
+): string {
+	const errorCount = 2 + wrapperCount;
 
 	let message = 'Sorry, something went wrong ¯\\_(ツ)_/¯!';
 	if (error) {
@@ -8,10 +14,10 @@ export function returnError(error: unknown, appName?: string, hasWrapper?: boole
 	}
 	if (appName) {
 		// eslint-disable-next-line no-console
-		console.error(`${appName} >`, `${message}\n`, new Error().stack?.split('\n').splice(errorCount).join('\n'));
+		console.error(`${appName} >`, `${message}\n`, new Error().stack?.split('\n').splice(errorCount, deep).join('\n'));
 	} else {
 		// eslint-disable-next-line no-console
-		console.error(`${message}\n`, new Error().stack?.split('\n').splice(errorCount).join('\n'));
+		console.error(`${message}\n`, new Error().stack?.split('\n').splice(errorCount, deep).join('\n'));
 	}
 	return message;
 }
