@@ -56,7 +56,7 @@ export function SongListItem({
 
 	const isActive = selectedSongsId.includes(song.position);
 
-	const componentClass = [
+	const activeClass = [
 		isActive && s.active,
 	];
 	const textBlockClass = [
@@ -76,12 +76,12 @@ export function SongListItem({
 
 	return (
 		<ListItem
-			className={join(s.SongListItem, componentClass)}
+			className={join(s.SongListItem, activeClass)}
 			key={song.position}
 		>
 			<Block className={join(s.textBlock, textBlockClass)} onClick={handleListItemOnClick}>
 				{pageMode === 'selection' && (
-					<Icon size="custom" className={s.checkIcon}>
+					<Icon size="custom" className={join(s.checkIcon, activeClass)}>
 						<CheckIcon />
 					</Icon>
 				)}

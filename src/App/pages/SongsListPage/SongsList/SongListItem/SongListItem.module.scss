@@ -25,19 +25,8 @@
 		.active & {
 			background-color: var(--color--e2-2);
 		}
-		.checkIcon {
-			animation: check-icon-show-animation 0.2s ease-out forwards;
-		}
 		.songName {
 			animation: text-show-animation 0.2s ease-out forwards;
-		}
-	}
-
-	.checkIcon {
-		height: 32px;
-		width: 32px;
-		.active & {
-			opacity: 100%;
 		}
 	}
 
@@ -46,6 +35,18 @@
 		flex-grow: 1;
 		align-items: center;
 		min-height: 32px;
+	}
+}
+
+.checkIcon {
+	height: 32px;
+	width: 32px;
+	// opacity: 20%;
+	// transition: opacity 0.2s ease-out;
+	animation: check-icon-show-animation 0.2s ease-out forwards;
+	&.active {
+		animation: check-icon-checked-animation 0.2s ease-out forwards;
+		// opacity: 100%;
 	}
 }
 
@@ -67,12 +68,9 @@
 	}
 }
 
-@keyframes check-icon-show-animation {
-	0% {
-		opacity: 0%;
-	}
+@keyframes check-icon-checked-animation {
 	100% {
-		opacity: 20%;
+		opacity: 100%;
 	}
 }
 
