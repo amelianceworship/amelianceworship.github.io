@@ -33,7 +33,6 @@ const router = createBrowserRouter([
 		children: [
 			{ element: <HomePage />, index: true },
 			{ element: <SongsListPage />, path: `${ROUTES.songslist}` },
-			{ element: <SongsListPage />, path: `${ROUTES.songslist}/:page` },
 			{
 				element: <PrivateRoute><UserPage /></PrivateRoute>,
 				path: PRIVATE_ROUTES.user,

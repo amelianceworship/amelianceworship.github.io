@@ -25,6 +25,7 @@ export function SelectionBar() {
 	const handleResetOnClick = () => {
 		dispatch(actions.resetNamesList());
 		dispatch(actions.resetSelectedSongsId());
+		dispatch(actions.setPageMode('list'));
 	};
 
 	const handleCopyToClipboardOnClick = async () => {

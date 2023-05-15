@@ -19,11 +19,3 @@ export function ListNavigation({ charsList }: ListNavigation) {
 		</Block>
 	);
 }
-
-// { songsList.length > 0 && songsList[activeTableNumber][1] &&	(
-// 	<Block component="nav" className={s.listNavigation}>
-// 		{songsList.length > 0 && songsList[activeTableNumber][1].map((songGroup) => (
-// 			<Link href={`${ROUTES.songslist}#${songGroup[0]}`} className="link" key={songGroup[0]}>{songGroup[0]}</Link>
-// 		))}
-// 	</Block>
-// )}

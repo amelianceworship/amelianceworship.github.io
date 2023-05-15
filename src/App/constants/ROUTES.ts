@@ -5,9 +5,7 @@ export const ROUTES = {
 	login: '/login',
 	other: '/*',
 	signup: '/signup',
-	signupContinue: '/signup/continue',
 	songslist: '/songslist',
-	songslistSelection: '/songslist/selection',
 };
 
 export const PRIVATE_ROUTES = {
