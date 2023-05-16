@@ -1,4 +1,5 @@
 import { join } from '~/ameliance-scripts';
+import useLongPress from '~hooks/useLongPress';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';
@@ -74,15 +75,25 @@ export function SongListItem({
 		dispatch(songsListActions.toggleSetToNamesList(song.value));
 	};
 
+	// LONG TAP
+	const { actions } = songsListSlice;
+
+	const handleLongPress = () => {
+		dispatch(actions.setPageMode('selection'));
+	};
+
+	const longPressHandlers = useLongPress(handleLongPress);
+
 	return (
 		<ListItem
 			className={join(s.SongListItem, activeClass)}
 			key={song.position}
+			{...longPressHandlers}
 		>
 			<Block className={join(s.textBlock, textBlockClass)} onClick={handleListItemOnClick}>
 				{pageMode === 'selection' && (
-					<Icon size="custom" className={join(s.checkIcon, activeClass)}>
-						<CheckIcon />
+					<Icon className={join(s.checkIcon, activeClass)}>
+						<CheckIcon size="small" />
 					</Icon>
 				)}
 				<Typography
@@ -93,19 +104,21 @@ export function SongListItem({
 					{song.value}
 				</Typography>
 			</Block>
-			<Button
-				type={buttonType}
-				size="small"
-				onClick={handlePlayPauseButtonOnClick}
-				className={join(playingClass)}
-				disabled={!audioTracksList.includes(song.value)}
-			>
-				{audioTracksList.includes(song.value)
+			{audioTracksList.includes(song.value) && (
+				<Button
+					type={buttonType}
+					size="small"
+					onClick={handlePlayPauseButtonOnClick}
+					className={join(playingClass)}
+					disabled={!audioTracksList.includes(song.value)}
+				>
+					{audioTracksList.includes(song.value)
 						&& (isPlaying && (currentTrack === song.value)
 							? <PauseIcon size="small" />
 							: <PlayIcon size="small" className={s.playIcon} />)}
 
-			</Button>
+				</Button>
+			)}
 		</ListItem>
 	);
 }
