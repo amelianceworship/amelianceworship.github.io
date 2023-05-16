@@ -26,11 +26,7 @@ secrets.json
 *.sln
 *.sw?
 
-#amelianceskymusic own modules
-*.-asm-*
--asm-*
-__-asm-*
-
+#temp folders
 *._legacy*
 _legacy*
 
