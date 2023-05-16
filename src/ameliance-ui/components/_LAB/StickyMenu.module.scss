@@ -1,9 +1,5 @@
 @use "../../styles/globals/" as *;
 
-.icon {
-	transition: transform 0.2s ease-in-out;
-}
-
 .menu {
 	position: absolute;
 	right: 0;
@@ -57,9 +53,6 @@
 }
 
 .open {
-	.icon {
-		transform: rotate(135deg);
-	}
 	.menu {
 		pointer-events: auto;
 	}
@@ -72,5 +65,37 @@
 	.menuTitle {
 		transition: opacity 0.1s ease-in-out 0.1s;
 		opacity: 100%;
+	}
+}
+
+.iconBlock {
+	@include single-layer;
+}
+
+.mainIcon {
+	opacity: 100%;
+}
+
+.plusIcon {
+	opacity: 0%;
+}
+
+.mainIcon,
+.plusIcon {
+	transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.open {
+	.mainIcon {
+		opacity: 0%;
+	}
+
+	.plusIcon {
+		opacity: 100%;
+	}
+
+	.mainIcon,
+	.plusIcon {
+		transform: rotate(135deg);
 	}
 }
