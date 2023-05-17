@@ -4,8 +4,10 @@ import asm from 'asm-ts-scripts';
 
 import { Block } from '../blocks';
 import { Button } from '../Button';
+import { MoreVerticalIcon } from '../icons/MoreVerticalIcon';
 import { PlusIcon } from '../icons/PlusIcon';
 import { Typography } from '../Typography';
+import { ReactChildren } from './ReactChildren';
 import type { StickyButtonProps } from './StickyButton';
 import { StickyButton } from './StickyButton';
 
@@ -31,6 +33,8 @@ export const StickyMenu = forwardRef<StickyMenuElement, StickyMenuProps>(({
 	offset,
 	menuItems,
 	className,
+	onClick,
+	children,
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	...rest
 }, ref) => {
@@ -57,10 +61,15 @@ export const StickyMenu = forwardRef<StickyMenuElement, StickyMenuProps>(({
 			inverseDirection={inverseDirection}
 			hideOnScreensCount={hideOnScreensCount}
 			offset={offset}
+			onClick={onClick}
 			ref={ref}
 		>
 			<Button onClick={handleButtonClick}>
-				<PlusIcon className={s.icon} />
+				<Block className={s.iconBlock}>
+					{children ? <ReactChildren className={s.mainIcon}>{children}</ReactChildren>
+						: <MoreVerticalIcon className={s.mainIcon} />}
+					<PlusIcon className={s.plusIcon} />
+				</Block>
 			</Button>
 			<Block className={s.menu}>
 				{menuItems.map((item, i) => (

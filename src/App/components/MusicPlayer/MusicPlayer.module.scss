@@ -13,16 +13,13 @@
 	padding: 24px 24px;
 	background-color: var(--color--b1-1);
 	border-radius: 32px 32px 0 0;
-	animation-name: show-player;
-	animation-duration: 0.4s;
-	animation-fill-mode: forwards;
 }
 
-@keyframes show-player {
-	0% {
-		transform: translateY(calc(100% - 56px));
-	}
-	100% {
-		transform: translateY(0);
+.MusicPlayer {
+	transition: transform 0.4s ease-in;
+	transform: translateY(100%);
+	&.show {
+		transition: transform 0.4s ease-out;
+		transform: translateY(0%);
 	}
 }

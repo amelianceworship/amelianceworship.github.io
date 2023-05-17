@@ -4,7 +4,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 8px;
+	gap: 2px;
 	min-height: 32px;
 	@include no-select;
 }
@@ -13,21 +13,13 @@
 	display: flex;
 	flex-grow: 1;
 	min-height: 32px;
+	align-items: center;
 
 	&.selection {
 		display: flex;
 		gap: 8px;
-		padding-left: 4px;
-		border-radius: 12px;
 
 		@include clickable;
-
-		.active & {
-			background-color: var(--color--e2-2);
-		}
-		.songName {
-			animation: text-show-animation 0.2s ease-out forwards;
-		}
 	}
 
 	.songName {
@@ -39,14 +31,12 @@
 }
 
 .checkIcon {
-	height: 32px;
-	width: 32px;
-	// opacity: 20%;
-	// transition: opacity 0.2s ease-out;
+	opacity: 50%;
 	animation: check-icon-show-animation 0.2s ease-out forwards;
 	&.active {
+		background-color: var(--color--e2-2);
+		border-radius: 1000px;
 		animation: check-icon-checked-animation 0.2s ease-out forwards;
-		// opacity: 100%;
 	}
 }
 
@@ -61,22 +51,30 @@
 
 @keyframes check-icon-show-animation {
 	0% {
-		opacity: 0%;
+		transform: scale(0%);
 	}
 	100% {
-		opacity: 20%;
+		transform: scale(100%);
 	}
 }
 
 @keyframes check-icon-checked-animation {
+	50% {
+		transform: scale(120%);
+	}
 	100% {
 		opacity: 100%;
+		transform: scale(100%);
 	}
 }
 
-@keyframes text-show-animation {
+.selection .songName {
+	animation: text-move-right-animation 0.2s ease-out forwards;
+}
+
+@keyframes text-move-right-animation {
 	0% {
-		transform: translateX(-40px);
+		transform: translateX(-28px);
 	}
 	100% {
 		transform: translateX(0px);
