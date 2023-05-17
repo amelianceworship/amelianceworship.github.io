@@ -57,9 +57,8 @@ export function SongListItem({
 
 	const isActive = selectedSongsId.includes(song.position);
 
-	const activeClass = [
-		isActive && s.active,
-	];
+	const activeClass = isActive && s.active;
+
 	const textBlockClass = [
 		pageMode === 'selection' && s.selection,
 	];
