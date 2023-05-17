@@ -8,6 +8,7 @@ import { Block } from '~/ameliance-ui/components/blocks/Block';
 import { Button } from '~/ameliance-ui/components/Button';
 import { Grid } from '~/ameliance-ui/components/Grid';
 import { XIcon } from '~/ameliance-ui/components/icons/XIcon';
+import { useTransition } from '~/ameliance-ui/hooks/useTransition';
 
 import s from './SelectionBar.module.scss';
 
@@ -15,18 +16,21 @@ export function SelectionBar() {
 	const { namesList } = useTypedSelector((state) => state.songsListReducer);
 	const { isPlayerShow } = useTypedSelector((state) => state.musicPlayerReducer);
 
-	const extended = isPlayerShow && s.extended;
+	const extendedClass = isPlayerShow && s.extended;
 
 	const dispatch = useTypedDispatch();
 	const { actions } = songsListSlice;
 
 	const { add } = useToast();
 
-	const handleResetOnClick = () => {
-		dispatch(actions.resetNamesList());
-		dispatch(actions.resetSelectedSongsId());
-		dispatch(actions.setPageMode('list'));
-	};
+	const { transitionClass, handleOnTransitionEnd, runEndTransition } = useTransition({
+		startTransitionClass: s.show,
+		onTransitionEndAction: () => {
+			dispatch(actions.resetNamesList());
+			dispatch(actions.resetSelectedSongsId());
+			dispatch(actions.setPageMode('list'));
+		},
+	});
 
 	const handleCopyToClipboardOnClick = async () => {
 		const numberedSongsListArray = namesList.map((name, i) => `${i + 1}. ${name}`);
@@ -52,9 +56,13 @@ export function SelectionBar() {
 	};
 
 	return (
-		<Grid className={join(s.SelectionBar, extended)} row>
+		<Grid
+			className={join(s.SelectionBar, extendedClass, transitionClass)}
+			onTransitionEnd={handleOnTransitionEnd}
+			row
+		>
 			<Block className={s.button}>
-				<Button size="small" type="secondary" onClick={handleResetOnClick}><XIcon /></Button>
+				<Button size="small" type="secondary" onClick={runEndTransition}><XIcon /></Button>
 			</Block>
 			<Block className={s.button}>
 				<Button size="small" onClick={handleCopyToClipboardOnClick} disabled={namesList.length <= 0}>{`Скопіювати ${namesList.length} / 10`}</Button>

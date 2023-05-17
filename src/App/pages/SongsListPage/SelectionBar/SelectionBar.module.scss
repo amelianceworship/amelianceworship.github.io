@@ -24,3 +24,12 @@
 	flex-direction: column;
 	gap: 8px;
 }
+
+.SelectionBar {
+	transition: transform 0.2s ease-in;
+	transform: translateY(100%);
+	&.show {
+		transition: transform 0.2s ease-out;
+		transform: translateY(0%);
+	}
+}
