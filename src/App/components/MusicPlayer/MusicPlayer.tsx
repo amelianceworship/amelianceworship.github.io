@@ -6,6 +6,7 @@ import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';
 
 import { Block } from '~/ameliance-ui/components/blocks';
+import { useTransition } from '~/ameliance-ui/hooks/useTransition';
 
 import { Controls } from './Controls/Controls';
 import { DisplayTrack } from './DisplayTrack/DisplayTrack';
@@ -19,14 +20,11 @@ export function MusicPlayer() {
 		lastOpenedTrack,
 		currentTrack,
 		isPlaying,
-		isPlayerShow,
 		currentTrackIndex,
 		currentTrackTimeProgress,
 	} = useTypedSelector((state) => state.musicPlayerReducer);
 	const dispatch = useTypedDispatch();
 	const { actions } = musicPlayerSlice;
-
-	const show = isPlayerShow && s.show;
 
 	const [timeProgress, setTimeProgress] = useState(
 		lastOpenedTrack === currentTrack ? currentTrackTimeProgress : 0,
@@ -52,6 +50,15 @@ export function MusicPlayer() {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	const { transitionClass, handleOnTransitionEnd, runEndTransition } = useTransition({
+		startTransitionClass: s.show,
+		onTransitionEndAction: () => {
+			dispatch(actions.hidePlayer());
+			dispatch(actions.setIsPlaying(false));
+			dispatch(actions.setCurrentTrackTimeProgress(timeProgress));
+		},
+	});
+
 	useEffect(() => {
 		if (audioTracksList.length > 0 && currentTrack) {
 			const newTrackIndex = audioTracksList.indexOf(currentTrack);
@@ -66,12 +73,15 @@ export function MusicPlayer() {
 	}, [actions, audioTracksList, currentTrack, dispatch]);
 
 	return (
-		<Block className={join(s.MusicPlayer, show)}>
+		<Block
+			className={join(s.MusicPlayer, transitionClass)}
+			onTransitionEnd={handleOnTransitionEnd}
+		>
 			<DisplayTrack
 				timeProgress={timeProgress}
 				audioRef={audioRef}
 				progressBarRef={progressBarRef}
-
+				onClose={runEndTransition}
 			/>
 			<ProgressBar
 				timeProgress={timeProgress}

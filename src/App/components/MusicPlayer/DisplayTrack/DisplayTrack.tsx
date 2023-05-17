@@ -14,12 +14,14 @@ interface DisplayTrackProps {
 	timeProgress: number;
 	audioRef: React.RefObject<HTMLAudioElement>;
 	progressBarRef: React.RefObject<HTMLInputElement>;
+	onClose: () => void;
 }
 
 export function DisplayTrack({
 	timeProgress,
 	audioRef,
 	progressBarRef,
+	onClose,
 }: DisplayTrackProps) {
 	const { currentTrack } = useTypedSelector((state) => state.musicPlayerReducer);
 	const { actions } = musicPlayerSlice;
@@ -41,9 +43,7 @@ export function DisplayTrack({
 	};
 
 	const handleCloseIconOnClick = () => {
-		dispatch(actions.hidePlayer());
-		dispatch(actions.setIsPlaying(false));
-		dispatch(actions.setCurrentTrackTimeProgress(timeProgress));
+		onClose();
 	};
 
 	return (
