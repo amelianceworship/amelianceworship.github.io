@@ -8,7 +8,7 @@ import { Block } from '~/ameliance-ui/components/blocks/Block';
 import { Button } from '~/ameliance-ui/components/Button';
 import { Grid } from '~/ameliance-ui/components/Grid';
 import { XIcon } from '~/ameliance-ui/components/icons/XIcon';
-import { useTransition } from '~/ameliance-ui/hooks/useTransition';
+import { useSnack } from '~/ameliance-ui/components/snackbar';
 
 import s from './SelectionBar.module.scss';
 
@@ -21,16 +21,7 @@ export function SelectionBar() {
 	const dispatch = useTypedDispatch();
 	const { actions } = songsListSlice;
 
-	const { add } = useToast();
-
-	const { transitionClass, handleOnTransitionEnd, runEndTransition } = useTransition({
-		startTransitionClass: s.show,
-		onTransitionEndAction: () => {
-			dispatch(actions.resetNamesList());
-			dispatch(actions.resetSelectedSongsId());
-			dispatch(actions.setPageMode('list'));
-		},
-	});
+	const snack = useSnack();
 
 	const handleCopyToClipboardOnClick = async () => {
 		const numberedSongsListArray = namesList.map((name, i) => `${i + 1}. ${name}`);
@@ -38,14 +29,14 @@ export function SelectionBar() {
 		try {
 			const result = await writeTextToClipboard(numberedSongsListString);
 			if (result) {
-				add({
+				snack.add({
 					title: 'Скопійовано:',
 					message: numberedSongsListArray,
 					duration: 5000,
 				});
 			}
 		} catch (error) {
-			add({
+			snack.add({
 				type: 'error',
 				message: 'Не вдалося скопіювати. Напишіть мені в Телеграм!',
 				duration: 5000,
