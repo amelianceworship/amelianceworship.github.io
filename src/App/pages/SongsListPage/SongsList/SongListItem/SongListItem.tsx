@@ -1,3 +1,7 @@
+import { forwardRef, useEffect } from 'react';
+
+import { motion, useAnimation } from 'framer-motion';
+
 import { join } from '~/ameliance-scripts';
 import useLongPress from '~hooks/useLongPress';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
@@ -12,18 +16,24 @@ import { Icon } from '~/ameliance-ui/components/Icon';
 import { CheckIcon } from '~/ameliance-ui/components/icons/CheckIcon';
 import { PauseIcon } from '~/ameliance-ui/components/icons/PauseIcon';
 import { PlayIcon } from '~/ameliance-ui/components/icons/PlayIcon';
+import type { ListItemElement, ListItemProps } from '~/ameliance-ui/components/List';
 import { ListItem } from '~/ameliance-ui/components/List';
 import { Typography } from '~/ameliance-ui/components/Typography';
 
 import s from './SongListItem.module.scss';
 
-interface SongListItem {
+type ComponentElementType = ListItemElement;
+
+export interface SongListItemProps extends Omit<ListItemProps, 'ref'> {
 	song: SongItem;
 }
 
-export function SongListItem({
+const MotionTypography = motion(Typography);
+
+export const SongListItem = forwardRef<ComponentElementType, SongListItemProps>(({
 	song,
-}: SongListItem) {
+	...rest
+}, ref: React.Ref<ComponentElementType>) => {
 	const dispatch = useTypedDispatch();
 
 	// PLAYER
@@ -83,10 +93,25 @@ export function SongListItem({
 
 	const longPressHandlers = useLongPress(handleLongPress);
 
+	// ANIMATION
+	const controls = useAnimation();
+	useEffect(() => {
+		if (pageMode === 'selection') {
+			controls.set({ x: -32 });
+			controls.start({ x: 0, transition: { type: 'tween', ease: 'easeOut', duration: 0.8 } });
+		} else {
+			controls.set({ x: 32 });
+			controls.start({ x: 0, transition: { type: 'tween', ease: 'easeOut', duration: 0.8 } });
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [pageMode]);
+
 	return (
 		<ListItem
 			className={join(s.SongListItem, activeClass)}
 			key={song.position}
+			ref={ref}
+			{...rest}
 			{...longPressHandlers}
 		>
 			<Block className={join(s.textBlock, textBlockClass)} onClick={handleListItemOnClick}>
@@ -95,13 +120,14 @@ export function SongListItem({
 						<CheckIcon size="small" />
 					</Icon>
 				)}
-				<Typography
+				<MotionTypography
 					component="p1"
 					id={`song_${song.position}`}
 					className={s.songName}
+					animate={controls}
 				>
 					{song.value}
-				</Typography>
+				</MotionTypography>
 			</Block>
 			{audioTracksList.includes(song.value) && (
 				<Button
@@ -120,4 +146,6 @@ export function SongListItem({
 			)}
 		</ListItem>
 	);
-}
+});
+
+SongListItem.displayName = 'SongListItem';
