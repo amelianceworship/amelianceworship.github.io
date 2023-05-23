@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { parseCurrentDateFromMs } from 'asm-ts-scripts';
 import type { Unsubscribe } from 'firebase/firestore';
 import { collection, onSnapshot, query } from 'firebase/firestore';
+import type { Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { join, sortArrayOfObj } from '~/ameliance-scripts';
 import { db } from '~api/google/firebase/firebase';
@@ -21,6 +23,17 @@ import { Grid } from '~/ameliance-ui/components/Grid';
 import { Typography } from '~/ameliance-ui/components/Typography';
 
 import s from './UsersPage.module.scss';
+
+const MotionGrid = motion(Grid);
+
+const variants: Variants = {
+	enter: {
+		opacity: 0,
+	},
+	visible: {
+		opacity: 1,
+	},
+};
 
 export function UsersPage() {
 	const navigate = useNavigate();
@@ -81,12 +94,16 @@ export function UsersPage() {
 							</Typography>
 						</Block>
 					</Grid>
-					{usersRealtime.length > 0 && sortArrayOfObj(usersRealtime, 'visitsCount').reverse().map((userItem) => (
-						<Grid
+					{usersRealtime.length > 0 && sortArrayOfObj(usersRealtime, 'visitsCount').reverse().map((userItem, i) => (
+						<MotionGrid
 							row
 							key={userItem.uid}
 							className={join(s.row, s.user, userItem.uid === uid ? s.current : null)}
 							onClick={() => handleUserOnClick(userItem.uid)}
+							variants={variants}
+							initial="enter"
+							animate="visible"
+							transition={{ delay: 0.05 * i }}
 						>
 							<Block grid={{ xx: 1, md: 2 }}>
 								<Avatar
@@ -123,7 +140,7 @@ export function UsersPage() {
 									</Block>
 								)}
 							</Block>
-						</Grid>
+						</MotionGrid>
 					))}
 				</Grid>
 			</Grid>

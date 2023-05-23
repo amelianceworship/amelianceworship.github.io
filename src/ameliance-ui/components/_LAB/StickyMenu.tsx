@@ -13,13 +13,13 @@ import { StickyButton } from './StickyButton';
 
 import s from './StickyMenu.module.scss';
 
-type StickyMenuElement = HTMLDivElement;
+export type StickyMenuElement = HTMLDivElement;
 
-export interface StickyMenuProps extends StickyButtonProps {
+export interface StickyMenuProps extends Omit<StickyButtonProps, 'ref'> {
 	animation?: 'popup' | 'slide-in';
 	inverseDirection?: boolean;
 	hideOnScreensCount?: number;
-	offset?: number;
+	offset?: number | null;
 	menuItems: {
 		title: string;
 		action: () => void;
@@ -63,6 +63,7 @@ export const StickyMenu = forwardRef<StickyMenuElement, StickyMenuProps>(({
 			offset={offset}
 			onClick={onClick}
 			ref={ref}
+			{...rest}
 		>
 			<Button onClick={handleButtonClick}>
 				<Block className={s.iconBlock}>

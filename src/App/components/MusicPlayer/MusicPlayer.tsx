@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+	forwardRef, useEffect, useRef, useState,
+} from 'react';
 
-import { join } from '~/ameliance-scripts';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';
 
+import type { BlockElement, BlockProps } from '~/ameliance-ui/components/blocks';
 import { Block } from '~/ameliance-ui/components/blocks';
-import { useTransition } from '~/ameliance-ui/hooks/useTransition';
+import { Portal } from '~/ameliance-ui/components/Portal';
 
 import { Controls } from './Controls/Controls';
 import { DisplayTrack } from './DisplayTrack/DisplayTrack';
@@ -14,7 +16,7 @@ import { ProgressBar } from './ProgressBar/ProgressBar';
 
 import s from './MusicPlayer.module.scss';
 
-export function MusicPlayer() {
+export const MusicPlayer = forwardRef<BlockElement, BlockProps>((_, ref) => {
 	const {
 		audioTracksList,
 		lastOpenedTrack,
@@ -50,15 +52,6 @@ export function MusicPlayer() {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const { transitionClass, handleOnTransitionEnd, runEndTransition } = useTransition({
-		startTransitionClass: s.show,
-		onTransitionEndAction: () => {
-			dispatch(actions.hidePlayer());
-			dispatch(actions.setIsPlaying(false));
-			dispatch(actions.setCurrentTrackTimeProgress(timeProgress));
-		},
-	});
-
 	useEffect(() => {
 		if (audioTracksList.length > 0 && currentTrack) {
 			const newTrackIndex = audioTracksList.indexOf(currentTrack);
@@ -72,28 +65,34 @@ export function MusicPlayer() {
 		}
 	}, [actions, audioTracksList, currentTrack, dispatch]);
 
+	const handleCloseOnClick = () => {
+		dispatch(actions.hidePlayer());
+		dispatch(actions.setIsPlaying(false));
+		dispatch(actions.setCurrentTrackTimeProgress(timeProgress));
+	};
+
 	return (
-		<Block
-			className={join(s.MusicPlayer, transitionClass)}
-			onTransitionEnd={handleOnTransitionEnd}
-		>
-			<DisplayTrack
-				timeProgress={timeProgress}
-				audioRef={audioRef}
-				progressBarRef={progressBarRef}
-				onClose={runEndTransition}
-			/>
-			<ProgressBar
-				timeProgress={timeProgress}
-				audioRef={audioRef}
-				progressBarRef={progressBarRef}
-			/>
-			<Controls
-				timeProgress={timeProgress}
-				setTimeProgress={setTimeProgress}
-				audioRef={audioRef}
-				progressBarRef={progressBarRef}
-			/>
-		</Block>
+		<Portal className="music-player-root-portal">
+			<Block className={s.MusicPlayer} ref={ref}>
+				<DisplayTrack
+					audioRef={audioRef}
+					progressBarRef={progressBarRef}
+					onClose={handleCloseOnClick}
+				/>
+				<ProgressBar
+					timeProgress={timeProgress}
+					audioRef={audioRef}
+					progressBarRef={progressBarRef}
+				/>
+				<Controls
+					timeProgress={timeProgress}
+					setTimeProgress={setTimeProgress}
+					audioRef={audioRef}
+					progressBarRef={progressBarRef}
+				/>
+			</Block>
+		</Portal>
 	);
-}
+});
+
+MusicPlayer.displayName = 'MusicPlayer';

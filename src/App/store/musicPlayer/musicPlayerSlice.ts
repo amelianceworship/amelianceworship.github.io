@@ -18,6 +18,7 @@ interface MusicPlayerSlice {
 	currentTrackIndex: number;
 	currentTrackDuration: number;
 	currentTrackTimeProgress: number;
+	trackSwitchingDirection: 0 | 1 | -1;
 }
 
 const initMusicPlayerSlice: MusicPlayerSlice = {
@@ -30,6 +31,7 @@ const initMusicPlayerSlice: MusicPlayerSlice = {
 	currentTrackIndex: 0,
 	currentTrackDuration: 0,
 	currentTrackTimeProgress: 0,
+	trackSwitchingDirection: 0,
 };
 
 export const musicPlayerSlice = createSlice({
@@ -79,7 +81,6 @@ export const musicPlayerSlice = createSlice({
 		prevTrack(state) {
 			if (state.currentTrackIndex === 0) {
 				const lastTrackIndex = state.audioTracksList.length - 1;
-
 				state.currentTrackIndex = 	lastTrackIndex;
 				state.currentTrack = state.audioTracksList[lastTrackIndex];
 			} else {
@@ -97,6 +98,9 @@ export const musicPlayerSlice = createSlice({
 				state.currentTrackIndex = newTrackIndex;
 				state.currentTrack = state.audioTracksList[newTrackIndex];
 			}
+		},
+		setTrackSwitchingDirection(state, action: PayloadAction<MusicPlayerSlice['trackSwitchingDirection']>) {
+			state.trackSwitchingDirection = action.payload;
 		},
 	},
 });

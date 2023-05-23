@@ -1,18 +1,20 @@
+import { forwardRef } from 'react';
+
 import { join, writeTextToClipboard } from '~/ameliance-scripts';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { songsListSlice } from '~store/songsList/songsListSlice';
 
-import { useToast } from '~/ameliance-ui/components/_LAB/toastbar';
 import { Block } from '~/ameliance-ui/components/blocks/Block';
 import { Button } from '~/ameliance-ui/components/Button';
+import type { GridElement, GridProps } from '~/ameliance-ui/components/Grid';
 import { Grid } from '~/ameliance-ui/components/Grid';
 import { XIcon } from '~/ameliance-ui/components/icons/XIcon';
-import { useTransition } from '~/ameliance-ui/hooks/useTransition';
+import { useSnack } from '~/ameliance-ui/components/snackbar';
 
 import s from './SelectionBar.module.scss';
 
-export function SelectionBar() {
+export const SelectionBar = forwardRef<GridElement, GridProps>((_, ref) => {
 	const { namesList } = useTypedSelector((state) => state.songsListReducer);
 	const { isPlayerShow } = useTypedSelector((state) => state.musicPlayerReducer);
 
@@ -21,16 +23,7 @@ export function SelectionBar() {
 	const dispatch = useTypedDispatch();
 	const { actions } = songsListSlice;
 
-	const { add } = useToast();
-
-	const { transitionClass, handleOnTransitionEnd, runEndTransition } = useTransition({
-		startTransitionClass: s.show,
-		onTransitionEndAction: () => {
-			dispatch(actions.resetNamesList());
-			dispatch(actions.resetSelectedSongsId());
-			dispatch(actions.setPageMode('list'));
-		},
-	});
+	const snack = useSnack();
 
 	const handleCopyToClipboardOnClick = async () => {
 		const numberedSongsListArray = namesList.map((name, i) => `${i + 1}. ${name}`);
@@ -38,14 +31,14 @@ export function SelectionBar() {
 		try {
 			const result = await writeTextToClipboard(numberedSongsListString);
 			if (result) {
-				add({
+				snack.add({
 					title: 'Скопійовано:',
 					message: numberedSongsListArray,
 					duration: 5000,
 				});
 			}
 		} catch (error) {
-			add({
+			snack.add({
 				type: 'error',
 				message: 'Не вдалося скопіювати. Напишіть мені в Телеграм!',
 				duration: 5000,
@@ -55,18 +48,26 @@ export function SelectionBar() {
 		dispatch(actions.resetSelectedSongsId());
 	};
 
+	const handleCloseOnClick = () => {
+		dispatch(actions.resetNamesList());
+		dispatch(actions.resetSelectedSongsId());
+		dispatch(actions.setPageMode('list'));
+	};
+
 	return (
 		<Grid
-			className={join(s.SelectionBar, extendedClass, transitionClass)}
-			onTransitionEnd={handleOnTransitionEnd}
+			className={join(s.SelectionBar, extendedClass)}
+			ref={ref}
 			row
 		>
 			<Block className={s.button}>
-				<Button size="small" type="secondary" onClick={runEndTransition}><XIcon /></Button>
+				<Button size="small" type="secondary" onClick={handleCloseOnClick}><XIcon /></Button>
 			</Block>
 			<Block className={s.button}>
 				<Button size="small" onClick={handleCopyToClipboardOnClick} disabled={namesList.length <= 0}>{`Скопіювати ${namesList.length} / 10`}</Button>
 			</Block>
 		</Grid>
 	);
-}
+});
+
+SelectionBar.displayName = 'SelectionBar';

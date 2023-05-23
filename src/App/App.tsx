@@ -5,16 +5,16 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { AppRouter } from '~components/AppRouter/AppRouter';
 import { persistor, store } from '~store/store';
 
-import { ToastBarProvider } from '~/ameliance-ui/components/_LAB/toastbar';
+import { SnackBarProvider } from '~/ameliance-ui/components/snackbar';
 
 export function App() {
 	return (
 		<Provider store={store}>
-			<ToastBarProvider maxToast={5}>
+			<SnackBarProvider maxSnack={5}>
 				<PersistGate loading={null} persistor={persistor}>
 					<AppRouter />
 				</PersistGate>
-			</ToastBarProvider>
+			</SnackBarProvider>
 		</Provider>
 	);
 }
