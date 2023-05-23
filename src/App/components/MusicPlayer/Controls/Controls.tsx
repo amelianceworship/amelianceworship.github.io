@@ -100,10 +100,12 @@ export function Controls({
 		} else {
 			dispatch(actions.prevTrack());
 		}
+		dispatch(actions.setTrackSwitchingDirection(-1));
 	};
 
 	const handleNextOnClick = () => {
 		dispatch(actions.nextTrack());
+		dispatch(actions.setTrackSwitchingDirection(1));
 	};
 
 	return (

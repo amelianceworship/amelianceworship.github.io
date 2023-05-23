@@ -3,3 +3,9 @@
 	justify-content: space-between;
 	align-items: center;
 }
+
+.titleWrapper {
+	// 	max-width: fit-content;
+	display: flex;
+	overflow: hidden;
+}
