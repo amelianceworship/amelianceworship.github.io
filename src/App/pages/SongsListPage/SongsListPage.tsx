@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import type { Variants } from 'framer-motion';
-import { AnimatePresence, motion } from 'framer-motion';
-
 import { getToday, isObjectEmpty } from '~/ameliance-scripts';
-import { MusicPlayer } from '~components/MusicPlayer/MusicPlayer';
+import { MusicPlayerAnimated } from '~components/MusicPlayer/MusicPlayerAnimated';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import type { SongsGroup } from '~store/songsList/actions/fetchSongsListData';
@@ -20,28 +17,10 @@ import { SearchInput } from '~/ameliance-ui/components/Inputs/SearchInput';
 import { EditStickyMenuWithOffset } from './EditStickyMenu/EditStickyMenuWithOffset';
 import { ListNavigation } from './ListNavigation/ListNavigation';
 import { ScrollUpButtonWithOffset } from './ScrollUpButton/ScrollUpButtonWithOffset';
-import { SelectionBar } from './SelectionBar/SelectionBar';
+import { SelectionBarAnimated } from './SelectionBar/SelectionBarAnimated';
 import { SongsList } from './SongsList/SongsList';
 
 import s from './SongsListPage.module.scss';
-
-const MotionMusicPlayer = motion(MusicPlayer);
-
-const musicPlayerVariants: Variants = {
-	hidden: { y: '100%' },
-	open: {
-		y: 0,
-		transition: {
-			duration: 0.8,
-		},
-	},
-	close: {
-		y: '100%',
-		transition: {
-			duration: 0.8,
-		},
-	},
-};
 
 export function SongsListPage() {
 	const [activeTableNumber, setActiveTableNumber] = useState(0);
@@ -49,10 +28,7 @@ export function SongsListPage() {
 
 	const {
 		error, isLoading, songsList, tableGroupLabels, lastFetchingDate, listTitles,
-		pageMode,
 	} = useTypedSelector((state) => state.songsListReducer);
-
-	const { isPlayerShow } = useTypedSelector((state) => state.musicPlayerReducer);
 
 	const dispatch = useTypedDispatch();
 	const { actions } = songsListSlice;
@@ -115,20 +91,8 @@ export function SongsListPage() {
 			</Grid>
 			<EditStickyMenuWithOffset />
 			<ScrollUpButtonWithOffset />
-			<AnimatePresence initial={false}>
-				{ songsListTable && isPlayerShow
-					&& (
-						<MotionMusicPlayer
-							variants={musicPlayerVariants}
-							initial="hidden"
-							animate="open"
-							exit="close"
-						/>
-					)}
-			</AnimatePresence>
-			<AnimatePresence initial={false}>
-				{pageMode === 'selection' && songsListTable && <SelectionBar />}
-			</AnimatePresence>
+			{songsListTable && <MusicPlayerAnimated />}
+			{songsListTable && <SelectionBarAnimated />}
 		</Block>
 	);
 }

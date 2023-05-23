@@ -1,5 +1,4 @@
-import type { Variants } from 'framer-motion';
-import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
 
 import { join, writeTextToClipboard } from '~/ameliance-scripts';
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
@@ -8,36 +7,14 @@ import { songsListSlice } from '~store/songsList/songsListSlice';
 
 import { Block } from '~/ameliance-ui/components/blocks/Block';
 import { Button } from '~/ameliance-ui/components/Button';
+import type { GridElement, GridProps } from '~/ameliance-ui/components/Grid';
 import { Grid } from '~/ameliance-ui/components/Grid';
 import { XIcon } from '~/ameliance-ui/components/icons/XIcon';
 import { useSnack } from '~/ameliance-ui/components/snackbar';
 
 import s from './SelectionBar.module.scss';
 
-const MotionGrid = motion(Grid);
-
-const variants: Variants = {
-	hidden: { y: '100%' },
-	open: {
-		y: 0,
-		transition: {
-			ease: 'easeOut',
-			duration: 0.8,
-		},
-	},
-	close: {
-		y: '100%',
-		transition: {
-			ease: 'easeIn',
-			duration: 0.8,
-		},
-	},
-	transition: {
-		type: 'tween',
-	},
-};
-
-export function SelectionBar() {
+export const SelectionBar = forwardRef<GridElement, GridProps>((_, ref) => {
 	const { namesList } = useTypedSelector((state) => state.songsListReducer);
 	const { isPlayerShow } = useTypedSelector((state) => state.musicPlayerReducer);
 
@@ -78,12 +55,9 @@ export function SelectionBar() {
 	};
 
 	return (
-		<MotionGrid
+		<Grid
 			className={join(s.SelectionBar, extendedClass)}
-			variants={variants}
-			initial="hidden"
-			animate="open"
-			exit="close"
+			ref={ref}
 			row
 		>
 			<Block className={s.button}>
@@ -92,6 +66,8 @@ export function SelectionBar() {
 			<Block className={s.button}>
 				<Button size="small" onClick={handleCopyToClipboardOnClick} disabled={namesList.length <= 0}>{`Скопіювати ${namesList.length} / 10`}</Button>
 			</Block>
-		</MotionGrid>
+		</Grid>
 	);
-}
+});
+
+SelectionBar.displayName = 'SelectionBar';
