@@ -60,7 +60,6 @@ export function SignUpPage() {
 	const {
 		register,
 		handleSubmit,
-		reset,
 		resetField,
 		watch,
 		formState: { errors },
