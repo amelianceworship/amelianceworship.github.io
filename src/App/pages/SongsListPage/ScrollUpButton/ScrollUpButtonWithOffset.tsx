@@ -9,7 +9,7 @@ const variant: Variants = {
 	enter: { y: -24 },
 	animated: (offset: number) => ({
 		y: offset ? offset * -1 : -24,
-		transition: { duration: 0.8 },
+		transition: { duration: 0.6 },
 	}),
 };
 

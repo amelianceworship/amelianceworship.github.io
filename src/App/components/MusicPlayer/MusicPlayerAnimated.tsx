@@ -10,13 +10,13 @@ const variants: Variants = {
 	open: {
 		y: 0,
 		transition: {
-			duration: 0.8,
+			duration: 0.6,
 		},
 	},
 	close: {
 		y: '100%',
 		transition: {
-			duration: 0.8,
+			duration: 0.6,
 		},
 	},
 };
