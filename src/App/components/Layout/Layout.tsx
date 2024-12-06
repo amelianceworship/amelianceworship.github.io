@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
+import { Snow } from '~components/Show/Snow';
 import { StartScreen } from '~components/StartScreen/StartScreen';
+import { getSeason } from '~helpers/getSeason';
 
 import { Footer } from './Footer/Footer';
 import { Header } from './Header/Header';
@@ -24,6 +26,7 @@ export function Layout({
 	const { isInit } = useAppInit();
 
 	if (!isInit) return <StartScreen />;
+	const season = getSeason();
 
 	return (
 		<>
@@ -36,7 +39,7 @@ export function Layout({
 			)}
 			<Outlet />
 			{footer && <Footer />}
-			{/* <Snow /> */}
+			{season === 'winter' && <Snow />}
 		</>
 	);
 }
