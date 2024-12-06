@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
+import { Snow } from '~components/Show/Snow';
 import { StartScreen } from '~components/StartScreen/StartScreen';
 
 import { Footer } from './Footer/Footer';
@@ -36,7 +37,7 @@ export function Layout({
 			)}
 			<Outlet />
 			{footer && <Footer />}
-			{/* <Snow /> */}
+			<Snow />
 		</>
 	);
 }
