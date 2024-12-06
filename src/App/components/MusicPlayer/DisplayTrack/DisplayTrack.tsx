@@ -1,3 +1,6 @@
+import type { Variants } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { useTypedDispatch } from '~store/hooks/useTypedDispatch';
 import { useTypedSelector } from '~store/hooks/useTypedSelector';
 import { musicPlayerSlice } from '~store/musicPlayer/musicPlayerSlice';
@@ -10,20 +13,29 @@ import { Typography } from '~/ameliance-ui/components/Typography';
 
 import s from './DisplayTrack.module.scss';
 
+const MotionTypography = motion(Typography);
+
+const variants: Variants = {
+	enter: (direction: number) => ({ x: `${100 * direction}%`, transition: { ease: 'easeOut', duration: 0.8 } }),
+	visible: { x: 0, transition: { ease: 'easeOut', duration: 0.8 } },
+	exit: (direction: number) => ({ x: `${-100 * direction}%`, transition: { ease: 'easeOut', duration: 0.8 } }),
+	transition: { type: 'tween' },
+};
 interface DisplayTrackProps {
-	timeProgress: number;
 	audioRef: React.RefObject<HTMLAudioElement>;
 	progressBarRef: React.RefObject<HTMLInputElement>;
 	onClose: () => void;
 }
 
 export function DisplayTrack({
-	timeProgress,
 	audioRef,
 	progressBarRef,
 	onClose,
 }: DisplayTrackProps) {
-	const { currentTrack } = useTypedSelector((state) => state.musicPlayerReducer);
+	const {
+		currentTrack,
+		trackSwitchingDirection,
+	} = useTypedSelector((state) => state.musicPlayerReducer);
 	const { actions } = musicPlayerSlice;
 	const dispatch = useTypedDispatch();
 
@@ -54,7 +66,21 @@ export function DisplayTrack({
 				onLoadedMetadata={onLoadedMetadataHandler}
 				onEnded={onEndedHandler}
 			/>
-			<Typography component="h6">{currentTrack}</Typography>
+			<Block className={s.titleWrapper}>
+				<AnimatePresence initial={false} mode="wait" custom={trackSwitchingDirection}>
+					<MotionTypography
+						component="h6"
+						variants={variants}
+						initial="enter"
+						animate="visible"
+						exit="exit"
+						custom={trackSwitchingDirection}
+						key={currentTrack}
+					>
+						{currentTrack}
+					</MotionTypography>
+				</AnimatePresence>
+			</Block>
 			<Icon onClick={handleCloseIconOnClick}><XIcon size="small" /></Icon>
 		</Block>
 	);

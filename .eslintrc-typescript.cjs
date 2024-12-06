@@ -28,7 +28,7 @@ module.exports = {
 		'no-shadow': 'off',
 		'@typescript-eslint/no-shadow': [2],
 		'no-unused-vars': 'off',
-		'@typescript-eslint/no-unused-vars': 'warn',
+		'@typescript-eslint/no-unused-vars': ["warn", { "varsIgnorePattern": "^_" }],
 		'no-use-before-define': 'off',
 		'@typescript-eslint/no-use-before-define': 'warn',
 		'no-useless-constructor': 'off',
@@ -59,5 +59,6 @@ module.exports = {
 	  'space-infix-ops': 'off',
 	  '@typescript-eslint/space-infix-ops': 'warn',
 	  '@typescript-eslint/type-annotation-spacing': 'warn',
+
 	}
 };
